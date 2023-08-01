@@ -52,6 +52,9 @@ class ParkingsPage extends StatelessWidget {
             case 1:
               Navigator.pushNamed(context, '/mapView');
               break;
+            case 3:
+              Navigator.pushNamed(context, '/aboutUs');
+              break;
             default:
               break;
           }

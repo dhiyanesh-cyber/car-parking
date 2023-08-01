@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'custom_bottom_navigation_bar.dart';
+
 class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class AboutPage extends StatelessWidget {
         iconTheme: IconThemeData(color: Colors.black),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -82,6 +84,24 @@ class AboutPage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+
+      bottomNavigationBar: BottomNavigationBarWidget(
+        selectedIndex: 3,
+        onTabChange: (index) {
+          switch (index) {
+            case 0:
+              Navigator.pushNamed(context, '/');
+              break;
+            case 1:
+              Navigator.pushNamed(context, '/mapView');
+              break;
+            case 2:
+              Navigator.pushNamed(context, '/parkingsPage');
+            default:
+              break;
+          }
+        },
       ),
     );
   }
