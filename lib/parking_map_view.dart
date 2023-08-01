@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:mapsss/parkings_page.dart';
 import 'custom_bottom_navigation_bar.dart';
+
+import 'package:mapsss/sample_details_page.dart';
+import 'package:mapsss/simple_starting_screen.dart';
+import 'navigateWithAnimation.dart';
+import 'package:mapsss/parking_map_view.dart';
+import 'package:mapsss/about.dart';
 
 class ParkingMapView extends StatefulWidget {
   @override
@@ -133,10 +140,22 @@ class _ParkingMapViewState extends State<ParkingMapView> {
         onTabChange: (index) {
           switch (index) {
             case 0:
-              Navigator.pushNamed(context, '/');
+                    navigateWithAnimation(
+                    animationType: AnimationType.fade,
+                    context: context,
+                    pageClass: () => SimpleStartingScreen());
               break;
             case 2:
-              Navigator.pushNamed(context, '/parkingsPage');
+              navigateWithAnimation(
+                    animationType: AnimationType.fade,
+                    context: context,
+                    pageClass: () => ParkingsPage());
+              break;
+            case 3:
+              navigateWithAnimation(
+                    animationType: AnimationType.fade,
+                    context: context,
+                    pageClass: () => AboutPage());
               break;
             default:
               break;

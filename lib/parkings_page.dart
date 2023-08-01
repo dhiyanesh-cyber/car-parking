@@ -1,6 +1,12 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:mapsss/sample_details_page.dart';
+import 'package:mapsss/simple_starting_screen.dart';
 import 'custom_bottom_navigation_bar.dart';
+import 'navigateWithAnimation.dart';
+import 'package:mapsss/parking_map_view.dart';
+import 'package:mapsss/about.dart';
 
 class ParkingsPage extends StatelessWidget {
   final List<String> sampleList = ['Parking 1', 'Parking 2', 'Parking 3', 'Parking 4', 'Parking 5'];
@@ -46,11 +52,23 @@ class ParkingsPage extends StatelessWidget {
         selectedIndex: 2,
         onTabChange: (index) {
           switch (index) {
-            case 0:
-              Navigator.pushNamed(context, '/');
+          case 0:
+                    navigateWithAnimation(
+                    animationType: AnimationType.fade,
+                    context: context,
+                    pageClass: () => SimpleStartingScreen());
               break;
             case 1:
-              Navigator.pushNamed(context, '/mapView');
+              navigateWithAnimation(
+                    animationType: AnimationType.fade,
+                    context: context,
+                    pageClass: () => ParkingMapView());
+              break;
+            case 3:
+              navigateWithAnimation(
+                    animationType: AnimationType.fade,
+                    context: context,
+                    pageClass: () => AboutPage());
               break;
             default:
               break;

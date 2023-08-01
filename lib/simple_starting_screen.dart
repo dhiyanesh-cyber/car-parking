@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:mapsss/about.dart';
+import 'package:mapsss/parking_map_view.dart';
+import 'package:mapsss/parkings_page.dart';
 import 'custom_bottom_navigation_bar.dart';
+import 'navigateWithAnimation.dart';
 
 class SimpleStartingScreen extends StatefulWidget {
   @override
@@ -116,13 +120,23 @@ class _SimpleStartingScreenState extends State<SimpleStartingScreen> {
           });
           switch (index) {
             case 1:
-              Navigator.pushNamed(context, '/mapView');
+                    navigateWithAnimation(
+                    animationType: AnimationType.bounce,
+                    context: context,
+                    pageClass: () => ParkingMapView());
               break;
             case 2:
-              Navigator.pushNamed(context, '/parkingsPage');
+              navigateWithAnimation(
+                    animationType: AnimationType.bounce,
+                    context: context,
+                    pageClass: () => ParkingsPage());
               break;
             case 3:
-              Navigator.pushNamed(context, '/aboutUs');
+              navigateWithAnimation(
+                    animationType: AnimationType.bounce,
+                    context: context,
+                    pageClass: () => AboutPage());
+              break;
             default:
               break;
           }

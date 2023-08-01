@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'package:mapsss/parking_map_view.dart';
+import 'package:mapsss/parkings_page.dart';
+import 'package:mapsss/simple_starting_screen.dart';
+import 'custom_bottom_navigation_bar.dart';
+import 'navigateWithAnimation.dart';
 class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -82,6 +86,33 @@ class AboutPage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+            bottomNavigationBar: BottomNavigationBarWidget(
+        selectedIndex: 3,
+        onTabChange: (index) {
+          switch (index) {
+            case 0:
+                    navigateWithAnimation(
+                    animationType: AnimationType.fade,
+                    context: context,
+                    pageClass: () => SimpleStartingScreen());
+              break;
+            case 1:
+              navigateWithAnimation(
+                    animationType: AnimationType.fade,
+                    context: context,
+                    pageClass: () => ParkingMapView());
+              break;
+            case 2:
+              navigateWithAnimation(
+                    animationType: AnimationType.fade,
+                    context: context,
+                    pageClass: () => ParkingsPage());
+              break;
+            default:
+              break;
+          }
+        },
       ),
     );
   }
