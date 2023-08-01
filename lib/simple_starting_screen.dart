@@ -17,7 +17,7 @@ class _SimpleStartingScreenState extends State<SimpleStartingScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          'Parking Locator',
+          'Park-me',
           textAlign: TextAlign.center,
           style: TextStyle(color: Colors.black),
         ),
