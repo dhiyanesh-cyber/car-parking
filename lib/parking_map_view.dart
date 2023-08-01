@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:line_icons/line_icons.dart';
+import 'custom_bottom_navigation_bar.dart';
 
 class ParkingMapView extends StatefulWidget {
   @override
@@ -73,59 +72,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     );
 
     return Scaffold(
-        bottomNavigationBar: Container(
-        color: Colors.black,
-        child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-    child: GNav(
-    backgroundColor: Colors.black,
-    color: Colors.white,
-    activeColor: Colors.white,
-    gap: 8,
-    tabBackgroundColor: Colors.grey.shade800,
-    padding: EdgeInsets.all(16),
 
-
-    tabs: [
-    GButton(
-    icon: LineIcons.home,
-    text: 'Home',
-    ),
-    GButton(
-    icon: LineIcons.mapMarker,
-    text: 'Map View',
-    ),
-    GButton(
-    icon: LineIcons.car,
-    text: 'Parkings',
-    ),
-    GButton(
-    icon: LineIcons.infoCircle,
-    text: 'About',
-    )
-    ],
-      selectedIndex: 1,
-      onTabChange: (index) {
-        switch (index) {
-          case 0:
-            Navigator.pushNamed(context, '/');
-            break;
-          case 1:
-            Navigator.pushNamed(context, '/mapView');
-            break;
-          case 2:
-            Navigator.pushNamed(context, '/parkingsPage');
-            break;
-          default:
-            break;
-        }
-      },
-
-
-    ),
-
-        ),
-        ),
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
@@ -179,6 +126,22 @@ class _ParkingMapViewState extends State<ParkingMapView> {
       floatingActionButton: FloatingActionButton(
         onPressed: _showMyLocation,
         child: Icon(Icons.my_location),
+      ),
+
+      bottomNavigationBar: BottomNavigationBarWidget(
+        selectedIndex: 1,
+        onTabChange: (index) {
+          switch (index) {
+            case 0:
+              Navigator.pushNamed(context, '/');
+              break;
+            case 2:
+              Navigator.pushNamed(context, '/parkingsPage');
+              break;
+            default:
+              break;
+          }
+        },
       ),
     );
   }

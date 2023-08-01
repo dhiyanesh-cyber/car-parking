@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'about.dart';
 import 'loading_screen.dart';
 import 'simple_starting_screen.dart';
 import 'parking_map_view.dart';
@@ -15,6 +16,7 @@ class ParkingLocatorApp extends StatelessWidget {
       routes: {
         '/mapView': (context) => ParkingMapView(),
         '/parkingsPage': (context) => ParkingsPage(),
+        '/aboutUs' : (context) => AboutPage()
       },
     );
   }
