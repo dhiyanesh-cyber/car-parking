@@ -124,8 +124,10 @@ class _ParkingMapViewState extends State<ParkingMapView> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black87,
         onPressed: _showMyLocation,
         child: Icon(Icons.my_location),
+
       ),
 
       bottomNavigationBar: BottomNavigationBarWidget(
