@@ -22,7 +22,7 @@ void navigateWithAnimation({
 }) {
   PageRouteBuilder<dynamic> _getPageRoute(Widget Function() pageClass) {
     return PageRouteBuilder<dynamic>(
-      transitionDuration: Duration(milliseconds: 370), // Reduce the transitionDuration for a faster effect
+      transitionDuration: Duration(milliseconds: 250), // Reduce the transitionDuration for a faster effect
       pageBuilder: (context, animation, secondaryAnimation) => pageClass(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         switch (animationType) {

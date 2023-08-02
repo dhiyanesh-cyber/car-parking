@@ -121,19 +121,19 @@ class _SimpleStartingScreenState extends State<SimpleStartingScreen> {
           switch (index) {
             case 1:
                     navigateWithAnimation(
-                    animationType: AnimationType.bounce,
+                    animationType: AnimationType.customSlide,
                     context: context,
                     pageClass: () => ParkingMapView());
               break;
             case 2:
               navigateWithAnimation(
-                    animationType: AnimationType.bounce,
+                    animationType: AnimationType.customSlide,
                     context: context,
                     pageClass: () => ParkingsPage());
               break;
             case 3:
               navigateWithAnimation(
-                    animationType: AnimationType.bounce,
+                    animationType: AnimationType.customSlide,
                     context: context,
                     pageClass: () => AboutPage());
               break;
