@@ -30,16 +30,23 @@ class _ParkingLoadingWidgetState extends State<ParkingLoadingWidget>
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Image.asset(
-          'assets/Park me-logos_black.png', // Replace 'my_image.png' with your actual image path
-          width: 100, // Set the desired width for the image
-          height: 100, // Set the desired height for the image
+        Expanded(
+          child: Image.asset(
+            'assets/Park me-logos_black.png', // Replace 'my_image.png' with your actual image path
+            width: 180, // Set the desired width for the image
+            height: 180, // Set the desired height for the image
+          ),
         ),
         SizedBox(height: 16), // Add some spacing between the image and text
         Text(
-          "By Spartechans...",
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+          "From",
+          style: TextStyle(fontSize: 8),
         ),
+        Text(
+          "Spartechans",
+          style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 70),
       ],
     );
   }

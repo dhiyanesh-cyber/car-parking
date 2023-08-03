@@ -35,8 +35,8 @@ class BottomNavigationBarWidget extends StatelessWidget {
               text: 'Parkings',
             ),
             GButton(
-              icon: LineIcons.infoCircle,
-              text: 'About',
+              icon: Icons.settings,
+              text: 'Settings',
             ),
           ],
           selectedIndex: selectedIndex,

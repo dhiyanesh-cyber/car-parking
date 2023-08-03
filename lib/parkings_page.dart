@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:mapsss/sample_details_page.dart';
+import 'package:mapsss/settings_page.dart';
 import 'package:mapsss/simple_starting_screen.dart';
 import 'custom_bottom_navigation_bar.dart';
 import 'navigateWithAnimation.dart';
@@ -54,22 +55,23 @@ class ParkingsPage extends StatelessWidget {
           switch (index) {
           case 0:
                     navigateWithAnimation(
-                    animationType: AnimationType.fade,
+                    animationType: AnimationType.customSlide,
                     context: context,
                     pageClass: () => SimpleStartingScreen());
               break;
             case 1:
               navigateWithAnimation(
-                    animationType: AnimationType.fade,
+                    animationType: AnimationType.customSlide,
                     context: context,
                     pageClass: () => ParkingMapView());
               break;
             case 3:
               navigateWithAnimation(
-                    animationType: AnimationType.fade,
+                    animationType: AnimationType.customSlide,
                     context: context,
-                    pageClass: () => AboutPage());
+                    pageClass: () => SettingsPage());
               break;
+            
             default:
               break;
           }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:mapsss/parkings_page.dart';
+import 'package:mapsss/settings_page.dart';
 import 'custom_bottom_navigation_bar.dart';
 
 import 'package:mapsss/sample_details_page.dart';
@@ -131,32 +132,36 @@ class _ParkingMapViewState extends State<ParkingMapView> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black87,
         onPressed: _showMyLocation,
         child: Icon(Icons.my_location),
+
       ),
 
       bottomNavigationBar: BottomNavigationBarWidget(
+
         selectedIndex: 1,
         onTabChange: (index) {
           switch (index) {
             case 0:
                     navigateWithAnimation(
-                    animationType: AnimationType.fade,
+                    animationType: AnimationType.customSlide,
                     context: context,
                     pageClass: () => SimpleStartingScreen());
               break;
             case 2:
               navigateWithAnimation(
-                    animationType: AnimationType.fade,
+                    animationType: AnimationType.customSlide,
                     context: context,
                     pageClass: () => ParkingsPage());
               break;
             case 3:
               navigateWithAnimation(
-                    animationType: AnimationType.fade,
+                    animationType: AnimationType.customSlide,
                     context: context,
-                    pageClass: () => AboutPage());
+                    pageClass: () => SettingsPage());
               break;
+            
             default:
               break;
           }
