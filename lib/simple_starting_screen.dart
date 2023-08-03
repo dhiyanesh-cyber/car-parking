@@ -19,6 +19,7 @@ class _SimpleStartingScreenState extends State<SimpleStartingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         title: Text(
           'Parking Locator',

@@ -26,54 +26,21 @@ class _ParkingLoadingWidgetState extends State<ParkingLoadingWidget>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        return CustomPaint(
-          painter: ParkingSymbolPainter(_controller.value),
-          size: Size(50, 50),
-        );
-      },
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Image.asset(
+          'assets/Park me-logos_black.png', // Replace 'my_image.png' with your actual image path
+          width: 100, // Set the desired width for the image
+          height: 100, // Set the desired height for the image
+        ),
+        SizedBox(height: 16), // Add some spacing between the image and text
+        Text(
+          "By Spartechans...",
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+        ),
+      ],
     );
-  }
-}
-
-class ParkingSymbolPainter extends CustomPainter {
-  final double animationValue;
-
-  ParkingSymbolPainter(this.animationValue);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final double radius = size.width / 2;
-
-    Paint circlePaint = Paint()
-      ..color = Colors.blue
-      ..style = PaintingStyle.fill;
-
-    Paint linePaint = Paint()
-      ..color = Colors.white
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 4;
-
-    canvas.drawCircle(Offset(radius, radius), radius, circlePaint);
-
-    // Draw the "P" letter of the parking symbol
-    double lineStartX = radius - 8;
-    double lineEndX = radius + 4;
-    double lineY = radius + 2;
-
-    Path path = Path();
-    path.moveTo(lineStartX, lineY);
-    path.lineTo(lineEndX, lineY);
-    path.moveTo(lineStartX, lineY - 6);
-    path.lineTo(lineStartX, lineY + 6);
-
-    canvas.drawPath(path, linePaint);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return true;
   }
 }

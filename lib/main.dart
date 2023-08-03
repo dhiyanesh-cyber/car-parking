@@ -12,8 +12,9 @@ class ParkingLocatorApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SimpleStartingScreen(),
+      home: LoadingScreen(),
       routes: {
+        '/home' : (context) => SimpleStartingScreen(),
         '/mapView': (context) => ParkingMapView(),
         '/parkingsPage': (context) => ParkingsPage(),
         '/aboutUs' : (context) => AboutPage()

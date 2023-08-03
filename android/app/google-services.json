@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "601501040191",
+    "project_id": "parkme-8964c",
+    "storage_bucket": "parkme-8964c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:601501040191:android:5dde115a52b3d93c8ac28a",
+        "android_client_info": {
+          "package_name": "com.example.mapsss"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "601501040191-moh5cdevkf3ath8129q9357jp3stsfkc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7Pw9pE_wgh2jF4QeW3jeO03It8g-PbHk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "601501040191-moh5cdevkf3ath8129q9357jp3stsfkc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
