@@ -47,13 +47,13 @@ class ParkingsPage extends StatelessWidget {
         onTabChange: (index) {
           switch (index) {
             case 0:
-              Navigator.pushNamed(context, '/');
+              Navigator.pushNamed(context, '/home');
               break;
             case 1:
               Navigator.pushNamed(context, '/mapView');
               break;
             case 3:
-              Navigator.pushNamed(context, '/aboutUs');
+              Navigator.pushNamed(context, '/settingsPage');
               break;
             default:
               break;

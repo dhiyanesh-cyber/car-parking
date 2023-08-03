@@ -86,23 +86,7 @@ class AboutPage extends StatelessWidget {
         ),
       ),
 
-      bottomNavigationBar: BottomNavigationBarWidget(
-        selectedIndex: 3,
-        onTabChange: (index) {
-          switch (index) {
-            case 0:
-              Navigator.pushNamed(context, '/');
-              break;
-            case 1:
-              Navigator.pushNamed(context, '/mapView');
-              break;
-            case 2:
-              Navigator.pushNamed(context, '/parkingsPage');
-            default:
-              break;
-          }
-        },
-      ),
+
     );
   }
 }
