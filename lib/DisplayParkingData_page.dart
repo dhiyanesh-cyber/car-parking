@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mapsss/parking_map_view.dart';
-import 'package:mapsss/settings_page.dart';
+import 'package:mapsss/presentation/screens/settings/settings_page.dart';
 import 'package:mapsss/simple_starting_screen.dart';
-import 'custom_bottom_navigation_bar.dart';
+import 'presentation/screens/common/nav_bar/custom_bottom_navigation_bar.dart';
 import 'details_page.dart';
-import 'navigateWithAnimation.dart'; // Import the DetailsPage
+import 'presentation/common/nav_animation/navigateWithAnimation.dart'; // Import the DetailsPage
 
 class DisplayPage extends StatelessWidget {
   @override

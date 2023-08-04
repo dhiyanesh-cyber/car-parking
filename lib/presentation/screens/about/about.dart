@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'custom_bottom_navigation_bar.dart';
+import '../common/nav_bar/custom_bottom_navigation_bar.dart';
 
 class AboutPage extends StatelessWidget {
   @override

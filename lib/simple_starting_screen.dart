@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 
-import 'package:mapsss/about.dart';
+import 'package:mapsss/presentation/screens/about/about.dart';
 import 'package:mapsss/parking_map_view.dart';
 import 'package:mapsss/parkings_page.dart';
-import 'package:mapsss/settings_page.dart';
-import 'custom_bottom_navigation_bar.dart';
-import 'navigateWithAnimation.dart';
+import 'package:mapsss/presentation/screens/settings/settings_page.dart';
+import 'presentation/screens/common/nav_bar/custom_bottom_navigation_bar.dart';
+import 'presentation/common/nav_animation/navigateWithAnimation.dart';
 import 'DisplayParkingData_page.dart';
 import 'main.dart';
 
