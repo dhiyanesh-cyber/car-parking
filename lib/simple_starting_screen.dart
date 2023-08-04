@@ -119,7 +119,7 @@ class _SimpleStartingScreenState extends State<SimpleStartingScreen> {
         selectedIndex: currentIndex,
         onTabChange: (index) {
           setState(() {
-            currentIndex = index;
+            currentIndex;
           });
           switch (index) {
             case 1:
@@ -130,6 +130,7 @@ class _SimpleStartingScreenState extends State<SimpleStartingScreen> {
               break;
             case 3:
 
+          
               navigateWithAnimation(
                     animationType: AnimationType.customSlide,
                     context: context,
