@@ -105,40 +105,100 @@ class _FormPageState extends State<FormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Fill the Form'),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios_rounded),
+        ),
+        title: Text(
+          'Fill the form',
+          style: TextStyle(color: Colors.black),
+        ),
+        elevation: 0,
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
+
+              SizedBox(
+                height: 50,
+              ),
               _image != null
                   ? Image.file(
                 _image!,
                 height: 200,
               )
-                  : ElevatedButton(
+                  : Container(
+                height: 40.0,
+                width: 150,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  gradient: LinearGradient(
+                    colors: [Colors.black87, Colors.grey.shade800],
+                  ),
+                ),
+                    child: ElevatedButton(
                 onPressed: getImage,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        shadowColor: Colors.transparent,
+                      ),
                 child: Text('Pick an Image'),
               ),
+                  ),
               SizedBox(height: 16),
               TextFormField(
+                cursorColor: Colors.black87,
                 controller: _parkingNameController,
                 decoration: InputDecoration(
                   labelText: 'Parking Name',
+                    labelStyle: TextStyle(color: Colors.black87),
+                    focusColor: Colors.black87,
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Colors.black87, width: 2
+                        )
+                    )
                 ),
               ),
               SizedBox(height: 16),
               TextFormField(
+                cursorColor: Colors.black87,
                 controller: _mobileNumberController,
                 decoration: InputDecoration(
                   labelText: 'Mobile Number',
+                    labelStyle: TextStyle(color: Colors.black87),
+                    focusColor: Colors.black87,
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Colors.black87, width: 2
+                        )
+                    )
                 ),
               ),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: _saveFormData,
-                child: Text('Save Form Data'),
+              SizedBox(height: 40),
+              Container(
+                height: 40.0,
+                width: 150,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  gradient: LinearGradient(
+                    colors: [Colors.black87, Colors.grey.shade800],
+                  ),
+                ),
+                child: ElevatedButton(
+                  onPressed: _saveFormData,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                  ),
+                  child: Text('Save Form Data'),
+                ),
               ),
             ],
           ),

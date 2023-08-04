@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:mapsss/DisplayParkingData_page.dart';
 
 import 'package:mapsss/parkings_page.dart';
 import 'package:mapsss/settings_page.dart';
@@ -150,7 +151,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
               navigateWithAnimation(
                     animationType: AnimationType.customSlide,
                     context: context,
-                    pageClass: () => ParkingsPage());
+                    pageClass: () => DisplayPage());
               break;
             case 3:
               navigateWithAnimation(

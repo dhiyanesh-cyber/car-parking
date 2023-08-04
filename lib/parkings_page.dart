@@ -48,35 +48,35 @@ class ParkingsPage extends StatelessWidget {
         },
       ),
 
-      bottomNavigationBar: BottomNavigationBarWidget(
-        selectedIndex: 2,
-        onTabChange: (index) {
-          switch (index) {
-          case 0:
-                    navigateWithAnimation(
-                    animationType: AnimationType.customSlide,
-                    context: context,
-                    pageClass: () => SimpleStartingScreen());
-              break;
-            case 1:
-              navigateWithAnimation(
-                    animationType: AnimationType.customSlide,
-                    context: context,
-                    pageClass: () => ParkingMapView());
-              break;
-            case 3:
-              navigateWithAnimation(
-                    animationType: AnimationType.customSlide,
-                    context: context,
-                    pageClass: () => SettingsPage());
-
-              break;
-            
-            default:
-              break;
-          }
-        },
-      ),
+      // bottomNavigationBar: BottomNavigationBarWidget(
+      //   selectedIndex: 2,
+      //   onTabChange: (index) {
+      //     switch (index) {
+      //     case 0:
+      //               navigateWithAnimation(
+      //               animationType: AnimationType.customSlide,
+      //               context: context,
+      //               pageClass: () => SimpleStartingScreen());
+      //         break;
+      //       case 1:
+      //         navigateWithAnimation(
+      //               animationType: AnimationType.customSlide,
+      //               context: context,
+      //               pageClass: () => ParkingMapView());
+      //         break;
+      //       case 3:
+      //         navigateWithAnimation(
+      //               animationType: AnimationType.customSlide,
+      //               context: context,
+      //               pageClass: () => SettingsPage());
+      //
+      //         break;
+      //
+      //       default:
+      //         break;
+      //     }
+      //   },
+      // ),
     );
   }
 }
