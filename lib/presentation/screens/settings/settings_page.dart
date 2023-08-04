@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:mapsss/navigateWithAnimation.dart';
+import 'package:mapsss/DisplayParkingData_page.dart';
+import 'package:mapsss/presentation/common/nav_animation/navigateWithAnimation.dart';
 import 'package:mapsss/parking_map_view.dart';
 import 'package:mapsss/parkings_page.dart';
 import 'package:mapsss/simple_starting_screen.dart';
 
-import 'custom_bottom_navigation_bar.dart'; // Import the Firebase Auth package
+import '../common/nav_bar/custom_bottom_navigation_bar.dart'; // Import the Firebase Auth package
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -49,7 +50,7 @@ class SettingsPage extends StatelessWidget {
               navigateWithAnimation(
                     animationType: AnimationType.customSlide,
                     context: context,
-                    pageClass: () => ParkingsPage());
+                    pageClass: () => DisplayPage());
               break;
            
             default:
@@ -66,6 +67,45 @@ class SettingsPage extends StatelessWidget {
               SizedBox(
                 height: 30,
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+
+
+                  Container(
+                    height: 70.0,
+                    width: 130,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      gradient: LinearGradient(
+                        colors: [Colors.black87, Colors.grey.shade800],
+                      ),
+                    ),
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        // Log out the user and navigate to the LoginPage.
+                        Navigator.pushNamed(context, '/form');
+                      },
+                      icon: Icon(Icons.file_copy),
+                      label: Text('Form'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        shadowColor: Colors.transparent,
+
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                ],
+              ),
+
+              SizedBox(
+                height: 50,
+              ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -125,68 +165,6 @@ class SettingsPage extends StatelessWidget {
                     ),
                   ),
 
-
-                ],
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    height: 70.0,
-                    width: 130,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      gradient: LinearGradient(
-                        colors: [Colors.black87, Colors.grey.shade800],
-                      ),
-                    ),
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        // Log out the user and navigate to the LoginPage.
-                        Navigator.pushNamed(context, '/displayPage');
-                      },
-                      icon: Icon(Icons.display_settings),
-                      label: Text('Display'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        shadowColor: Colors.transparent,
-
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  Container(
-                    height: 70.0,
-                    width: 130,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      gradient: LinearGradient(
-                        colors: [Colors.black87, Colors.grey.shade800],
-                      ),
-                    ),
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        // Log out the user and navigate to the LoginPage.
-                        Navigator.pushNamed(context, '/form');
-                      },
-                      icon: Icon(Icons.file_copy),
-                      label: Text('Form'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        shadowColor: Colors.transparent,
-
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
-                  ),
 
                 ],
               ),
