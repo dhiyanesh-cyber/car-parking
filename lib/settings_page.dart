@@ -109,6 +109,70 @@ class SettingsPage extends StatelessWidget {
                       ),
                     ),
                   ),
+
+
+                ],
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    height: 70.0,
+                    width: 130,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      gradient: LinearGradient(
+                        colors: [Colors.black87, Colors.grey.shade800],
+                      ),
+                    ),
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        // Log out the user and navigate to the LoginPage.
+                        Navigator.pushNamed(context, '/displayPage');
+                      },
+                      icon: Icon(Icons.display_settings),
+                      label: Text('Display'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        shadowColor: Colors.transparent,
+
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  Container(
+                    height: 70.0,
+                    width: 130,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      gradient: LinearGradient(
+                        colors: [Colors.black87, Colors.grey.shade800],
+                      ),
+                    ),
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        // Log out the user and navigate to the LoginPage.
+                        Navigator.pushNamed(context, '/form');
+                      },
+                      icon: Icon(Icons.file_copy),
+                      label: Text('Form'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        shadowColor: Colors.transparent,
+
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
+
                 ],
               ),
               SizedBox(height: 16), // Add some spacing between buttons

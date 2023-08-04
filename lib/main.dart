@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'DisplayParkingData_page.dart';
+import 'ParkingForm_page.dart';
 import 'settings_page.dart';
 import 'register_page.dart';
 import 'about.dart';
@@ -30,7 +32,9 @@ class ParkingLocatorApp extends StatelessWidget {
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
         '/home': (context) => SimpleStartingScreen(),
-        '/settingsPage': (context) => SettingsPage()
+        '/settingsPage': (context) => SettingsPage(),
+        '/form': (context) => FormPage(),
+        '/displayPage': (context) => DisplayPage(),
       },
     );
   }

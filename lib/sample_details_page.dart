@@ -23,12 +23,18 @@ class SampleDetailsPage extends StatelessWidget {
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),
       ),
-      body: Center(
-        child: Text(
-          'Sample Details for $sample',
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
+      body: SingleChildScrollView(
+        child: Container(
+          alignment: Alignment.topCenter,
+          margin: EdgeInsets.only(left: 30, right: 30),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              
+            ]
+          )
+        )
+    )
     );
   }
 }
