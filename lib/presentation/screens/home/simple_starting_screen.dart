@@ -3,13 +3,13 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 
 import 'package:mapsss/presentation/screens/about/about.dart';
-import 'package:mapsss/parking_map_view.dart';
-import 'package:mapsss/parkings_page.dart';
+import 'package:mapsss/presentation/screens/map_view/parking_map_view.dart';
+import 'package:mapsss/presentation/screens/parking_list/parkings_page.dart';
 import 'package:mapsss/presentation/screens/settings/settings_page.dart';
-import 'presentation/screens/common/nav_bar/custom_bottom_navigation_bar.dart';
-import 'presentation/common/nav_animation/navigateWithAnimation.dart';
-import 'DisplayParkingData_page.dart';
-import 'main.dart';
+import '../common/nav_bar/custom_bottom_navigation_bar.dart';
+import '../../common/nav_animation/navigateWithAnimation.dart';
+import '../display_parking_details/DisplayParkingData_page.dart';
+import '../../../main.dart';
 
 class SimpleStartingScreen extends StatefulWidget {
   @override
@@ -121,7 +121,7 @@ class _SimpleStartingScreenState extends State<SimpleStartingScreen> {
         selectedIndex: currentIndex,
         onTabChange: (index) {
           setState(() {
-            currentIndex = index;
+            currentIndex;
           });
           switch (index) {
             case 1:
@@ -138,6 +138,7 @@ class _SimpleStartingScreenState extends State<SimpleStartingScreen> {
               break;
             case 3:
 
+          
               navigateWithAnimation(
                     animationType: AnimationType.customSlide,
                     context: context,

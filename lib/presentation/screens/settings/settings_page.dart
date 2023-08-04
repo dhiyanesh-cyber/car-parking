@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:mapsss/DisplayParkingData_page.dart';
+import 'package:mapsss/presentation/screens/display_parking_details/DisplayParkingData_page.dart';
 import 'package:mapsss/presentation/common/nav_animation/navigateWithAnimation.dart';
-import 'package:mapsss/parking_map_view.dart';
-import 'package:mapsss/parkings_page.dart';
-import 'package:mapsss/simple_starting_screen.dart';
+import 'package:mapsss/presentation/screens/map_view/parking_map_view.dart';
+import 'package:mapsss/presentation/screens/parking_list/parkings_page.dart';
+import 'package:mapsss/presentation/screens/home/simple_starting_screen.dart';
 
 import '../common/nav_bar/custom_bottom_navigation_bar.dart'; // Import the Firebase Auth package
 
@@ -196,5 +196,4 @@ class SettingsPage extends StatelessWidget {
 
 
 }
-
 

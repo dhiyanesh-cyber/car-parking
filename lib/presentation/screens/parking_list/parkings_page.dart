@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:mapsss/parking_map_view.dart';
-import 'package:mapsss/sample_details_page.dart';
+import 'package:mapsss/presentation/screens/map_view/parking_map_view.dart';
+import 'package:mapsss/presentation/screens/parking_list/sample_details_page.dart';
 
 import 'package:mapsss/presentation/screens/settings/settings_page.dart';
-import 'package:mapsss/simple_starting_screen.dart';
+import 'package:mapsss/presentation/screens/home/simple_starting_screen.dart';
 
-import 'presentation/screens/common/nav_bar/custom_bottom_navigation_bar.dart';
-import 'presentation/common/nav_animation/navigateWithAnimation.dart';
+import '../common/nav_bar/custom_bottom_navigation_bar.dart';
+import '../../common/nav_animation/navigateWithAnimation.dart';
 
 class ParkingsPage extends StatelessWidget {
   final List<String> sampleList = ['Parking 1', 'Parking 2', 'Parking 3', 'Parking 4', 'Parking 5'];
