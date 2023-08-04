@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'DisplayParkingData_page.dart';
-import 'ParkingForm_page.dart';
-import 'details_page.dart';
+import 'presentation/screens/display_parking_details/DisplayParkingData_page.dart';
+import 'presentation/screens/parking_details_form/ParkingForm_page.dart';
+import 'presentation/screens/parking_Details/details_page.dart';
 import 'presentation/screens/settings/settings_page.dart';
 import 'presentation/auth/register_page.dart';
 import 'presentation/screens/about/about.dart';
-import 'loading_screen.dart';
+import 'presentation/screens/loading/loading_screen.dart';
 import 'presentation/auth/login_page.dart';
-import 'simple_starting_screen.dart';
-import 'parking_map_view.dart';
-import 'parkings_page.dart';
+import 'presentation/screens/home/simple_starting_screen.dart';
+import 'presentation/screens/map_view/parking_map_view.dart';
+import 'presentation/screens/parking_list/parkings_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 

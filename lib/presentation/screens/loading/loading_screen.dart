@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'parking_loading_widget.dart';
+import 'loading_widget/parking_loading_widget.dart';
 
 class LoadingScreen extends StatelessWidget {
   @override
