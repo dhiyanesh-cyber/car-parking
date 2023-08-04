@@ -30,13 +30,19 @@ class _FormPageState extends State<FormPage> {
 
 
   Future<String?> _uploadImageToStorage(File imageFile, String imageName) async {
-    final storage = FirebaseStorage.instance;
-    final imageRef = storage.ref().child('images/$imageName');
-    final uploadTask = imageRef.putFile(imageFile);
-    final snapshot = await uploadTask.whenComplete(() {});
-    final downloadUrl = await snapshot.ref.getDownloadURL();
-    return downloadUrl;
+    try {
+      final storage = FirebaseStorage.instance;
+      final imageRef = storage.ref().child('images/$imageName');
+      final uploadTask = imageRef.putFile(imageFile);
+      final snapshot = await uploadTask.whenComplete(() {});
+      final downloadUrl = await snapshot.ref.getDownloadURL();
+      return downloadUrl;
+    } catch (error) {
+      print('Error uploading image to Firebase Storage: $error');
+      return null; // Return null to indicate that image upload failed
+    }
   }
+
 
   void _saveFormData() async {
     if (_image != null) {
@@ -44,7 +50,7 @@ class _FormPageState extends State<FormPage> {
       String? imageUrl = await _uploadImageToStorage(_image!, imageName);
 
       if (imageUrl != null) {
-        FirebaseFirestore.instance.collection('parkingData').add({
+        FirebaseFirestore.instance.collection("parkingData").add({
           'parkingName': _parkingNameController.text,
           'mobileNumber': _mobileNumberController.text,
           'imageUrl': imageUrl,
