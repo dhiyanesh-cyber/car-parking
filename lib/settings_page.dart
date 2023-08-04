@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mapsss/navigateWithAnimation.dart';
+import 'package:mapsss/parking_map_view.dart';
+import 'package:mapsss/parkings_page.dart';
+import 'package:mapsss/simple_starting_screen.dart';
 
 import 'custom_bottom_navigation_bar.dart'; // Import the Firebase Auth package
 
@@ -30,13 +34,24 @@ class SettingsPage extends StatelessWidget {
         onTabChange: (index) {
           switch (index) {
             case 0:
-              Navigator.pushNamed(context, '/home');
+                    navigateWithAnimation(
+                    animationType: AnimationType.customSlide,
+                    context: context,
+                    pageClass: () => SimpleStartingScreen());
               break;
             case 1:
-              Navigator.pushNamed(context, '/mapView');
+              navigateWithAnimation(
+                    animationType: AnimationType.customSlide,
+                    context: context,
+                    pageClass: () => ParkingMapView());
               break;
             case 2:
-              Navigator.pushNamed(context, '/parkingsPage');
+              navigateWithAnimation(
+                    animationType: AnimationType.customSlide,
+                    context: context,
+                    pageClass: () => ParkingsPage());
+              break;
+           
             default:
               break;
           }
