@@ -9,7 +9,7 @@ import 'presentation/screens/loading/loading_screen.dart';
 import 'presentation/auth/login_page.dart';
 import 'presentation/screens/home/simple_starting_screen.dart';
 import 'presentation/screens/map_view/parking_map_view.dart';
-import 'presentation/screens/parking_list/parkings_page.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 
 

@@ -4,7 +4,7 @@ import 'package:line_icons/line_icons.dart';
 
 import 'package:mapsss/presentation/screens/about/about.dart';
 import 'package:mapsss/presentation/screens/map_view/parking_map_view.dart';
-import 'package:mapsss/presentation/screens/parking_list/parkings_page.dart';
+
 import 'package:mapsss/presentation/screens/settings/settings_page.dart';
 import '../common/nav_bar/custom_bottom_navigation_bar.dart';
 import '../../common/nav_animation/navigateWithAnimation.dart';
