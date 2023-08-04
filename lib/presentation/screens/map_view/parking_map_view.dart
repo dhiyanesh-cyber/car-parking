@@ -3,7 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:mapsss/presentation/screens/display_parking_details/DisplayParkingData_page.dart';
 
-import 'package:mapsss/presentation/screens/parking_list/parkings_page.dart';
+
 import 'package:mapsss/presentation/screens/settings/settings_page.dart';
 import 'package:mapsss/presentation/screens/home/simple_starting_screen.dart';
 
