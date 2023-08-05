@@ -18,6 +18,7 @@ import '../../common/nav_animation/navigateWithAnimation.dart';
 class ParkingMapView extends StatefulWidget {
   @override
   _ParkingMapViewState createState() => _ParkingMapViewState();
+  
 }
 
 class _ParkingMapViewState extends State<ParkingMapView> {
@@ -25,6 +26,9 @@ class _ParkingMapViewState extends State<ParkingMapView> {
   Location _location = Location();
   LatLng _currentLocation = LatLng(9.939093, 78.121719);
   Set<Marker> _parkingMarkers = {};
+      List<Map<String, dynamic>> parkingDataList = [];
+
+  
 
   @override
   void initState() {
@@ -35,7 +39,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
   // FETCHING DATA FROM DB
 
   Future<List<Map<String, dynamic>>> _fetchParkingData() async {
-    List<Map<String, dynamic>> parkingDataList = [];
+    
 
     QuerySnapshot snapshot = await FirebaseFirestore.instance.collection("parkingData").get();
     snapshot.docs.forEach((doc) {
@@ -53,6 +57,9 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     return parkingDataList;
   }
 
+   double _calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+    return Geolocator.distanceBetween(lat1, lon1, lat2, lon2);
+  }
 
   void _getLocation() async {
     bool serviceEnabled;
@@ -133,6 +140,64 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     );
   }
 
+void _showParkingListDialog() {
+    showDialog(
+      
+      context: context,
+      builder: (BuildContext context) {
+        List<Map<String, dynamic>> sortedParkingList = [];
+
+        parkingDataList.forEach((parkingData) {
+          double distance = _calculateDistance(_currentLocation.latitude, _currentLocation.longitude,parkingData['latitude'], parkingData['longitude']);
+          sortedParkingList.add({
+            'name': parkingData['parkingName'],
+            'distance': distance,
+            'latitude': parkingData['latitude'],
+            'longitude': parkingData['longitude'],
+          });
+        });
+
+       sortedParkingList.sort((a, b) => a['distance'].compareTo(b['distance']));
+
+        return AlertDialog(
+          backgroundColor: Colors.black.withOpacity(0.10),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          title: Text('Parking Locations Sorted by Distance',style: TextStyle(color: Colors.white)),
+          content: Container(
+            width: double.maxFinite,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: sortedParkingList.length,
+              itemBuilder: (BuildContext context, int index) {
+                String name = sortedParkingList[index]['name'];
+                double distance = sortedParkingList[index]['distance'];
+
+                return GestureDetector(
+                onTap: () {
+                  // Navigate to the respective details page when tapped
+                  _navigateToParkingDetailsPage(name,LatLng(sortedParkingList[index]['latitude'], sortedParkingList[index]['longitude']));
+                },
+                child: ListTile(
+                  title: Text('Parking Name: $name',style: TextStyle(color: Colors.white)),
+                  subtitle: Text('Distance: ${distance.toStringAsFixed(2)} meters',style: TextStyle(color: Colors.white)),
+                ),
+              );
+              },
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 
 
   void _onMapCreated(GoogleMapController controller) {
@@ -196,6 +261,31 @@ class _ParkingMapViewState extends State<ParkingMapView> {
               ),
             ),
           ),
+          Align(
+  alignment: Alignment.bottomCenter,
+  child: Padding(
+    padding: const EdgeInsets.only(bottom: 20),
+    child: ElevatedButton(
+      onPressed: _showParkingListDialog,
+      style: ElevatedButton.styleFrom(
+        primary: Colors.black.withOpacity(0.35),
+        elevation: 0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Text(
+          'Nearby Parking',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    ),
+  ),
+)
+
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
