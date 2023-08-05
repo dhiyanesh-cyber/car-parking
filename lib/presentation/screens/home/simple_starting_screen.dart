@@ -10,6 +10,8 @@ import '../common/nav_bar/custom_bottom_navigation_bar.dart';
 import '../../common/nav_animation/navigateWithAnimation.dart';
 import '../display_parking_details/DisplayParkingData_page.dart';
 import '../../../main.dart';
+import '../map_view/near_park.dart';
+
 
 class SimpleStartingScreen extends StatefulWidget {
   @override
@@ -128,7 +130,7 @@ class _SimpleStartingScreenState extends State<SimpleStartingScreen> {
               navigateWithAnimation(
                   animationType: AnimationType.customSlide,
                   context: context,
-                  pageClass: () => ParkingMapView());
+                  pageClass: () => new MapScreen());
               break;
             case 2:
               navigateWithAnimation(

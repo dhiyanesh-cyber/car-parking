@@ -31,6 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   google_maps_flutter: ^2.0.10
+  geolocator: ^9.0.2
   location: ^5.0.0
   google_nav_bar: ^5.0.6
   line_icons: ^2.0.2
@@ -72,6 +73,9 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - assets/Park me-logos_black.png
+     - assets/parking_marker.png
+     - assets/parking_marker1.png
+     - assets/parking_marker2.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
