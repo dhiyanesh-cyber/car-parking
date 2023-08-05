@@ -162,6 +162,7 @@ void _showParkingListDialog() {
         return AlertDialog(
           backgroundColor: Colors.black.withOpacity(0.10),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          shadowColor: Colors.black.withOpacity(0),
           title: Text('Parking Locations Sorted by Distance',style: TextStyle(color: Colors.white)),
           content: Container(
             width: double.maxFinite,
