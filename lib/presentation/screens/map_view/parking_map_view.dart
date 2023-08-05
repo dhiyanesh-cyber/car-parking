@@ -2,6 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
+import 'package:mapsss/presentation/screens/display_parking_details/DisplayParkingData_page.dart';
+
+
+import 'package:mapsss/presentation/screens/settings/settings_page.dart';
+import 'package:mapsss/presentation/screens/home/simple_starting_screen.dart';
+
+import '/presentation/screens/common/nav_bar/custom_bottom_navigation_bar.dart';
+import '../../common/nav_animation/navigateWithAnimation.dart';
+
+
 class ParkingMapView extends StatefulWidget {
   @override
   _ParkingMapViewState createState() => _ParkingMapViewState();
