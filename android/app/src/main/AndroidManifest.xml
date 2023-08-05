@@ -1,4 +1,10 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.example.mapsss">
+
+
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:label="mapsss"
         android:name="${applicationName}"
@@ -35,4 +41,7 @@
             android:value="AIzaSyBh9WKcq34a4AeZPNYmWPB1YebJiUXd2fU" />
 
     </application>
+
 </manifest>
+
+
