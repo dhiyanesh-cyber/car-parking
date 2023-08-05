@@ -40,6 +40,8 @@ dependencies:
   cloud_firestore: ^4.8.4
   firebase_storage: ^11.2.5
   image_picker: ^1.0.1
+  
+
 
 
 
@@ -76,6 +78,12 @@ flutter:
      - assets/parking_marker.png
      - assets/parking_marker1.png
      - assets/parking_marker2.png
+     - assets/parking.gif
+     - assets/register.png
+     - assets/parking-amico.png
+     - assets/Signup.png
+     - assets/Login.png
+     - assets/car.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

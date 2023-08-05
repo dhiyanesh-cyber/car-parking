@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+
 import 'package:mapsss/presentation/screens/display_parking_details/DisplayParkingData_page.dart';
 
 
@@ -10,6 +11,7 @@ import 'package:mapsss/presentation/screens/home/simple_starting_screen.dart';
 
 import '/presentation/screens/common/nav_bar/custom_bottom_navigation_bar.dart';
 import '../../common/nav_animation/navigateWithAnimation.dart';
+
 
 class ParkingMapView extends StatefulWidget {
   @override
@@ -55,14 +57,23 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     locationData = await _location.getLocation();
     setState(() {
       _currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
-      _parkingMarkers.clear();
-      _parkingMarkers.add(
-        Marker(
-          markerId: MarkerId("user_location"),
-          position: _currentLocation,
-          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
-        ),
-      );
+
+      // Load your custom marker image from assets
+      BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(size: Size(5, 5)), // You can adjust the size as per your image
+        'assets/car.png', // Replace 'your_custom_marker.png' with the actual image name
+      ).then((BitmapDescriptor customMarker) {
+        setState(() {
+          _parkingMarkers.clear();
+          _parkingMarkers.add(
+            Marker(
+              markerId: MarkerId("user_location"),
+              position: _currentLocation,
+              icon: customMarker,
+            ),
+          );
+        });
+      });
     });
   }
 
@@ -78,23 +89,9 @@ class _ParkingMapViewState extends State<ParkingMapView> {
 
   @override
   Widget build(BuildContext context) {
-    final themeData = ThemeData(
-      primarySwatch: Colors.lightBlue,
-    );
-
     return Scaffold(
-
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back_ios_rounded),
-        ),
-        title: Text(
-          'Map View',
-          style: TextStyle(color: Colors.black),
-        ),
+        title: Text('Map View'),
         elevation: 0,
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),
@@ -138,38 +135,8 @@ class _ParkingMapViewState extends State<ParkingMapView> {
         backgroundColor: Colors.black87,
         onPressed: _showMyLocation,
         child: Icon(Icons.my_location),
-
-      ),
-
-      bottomNavigationBar: BottomNavigationBarWidget(
-
-        selectedIndex: 1,
-        onTabChange: (index) {
-          switch (index) {
-            case 0:
-              navigateWithAnimation(animationType: AnimationType.customSlide,
-                    context: context,
-                    pageClass: () => SimpleStartingScreen());
-              break;
-            case 2:
-              navigateWithAnimation(
-                    animationType: AnimationType.customSlide,
-                    context: context,
-                    pageClass: () => DisplayPage());
-              break;
-            case 3:
-              navigateWithAnimation(
-                    animationType: AnimationType.customSlide,
-                    context: context,
-                    pageClass: () => SettingsPage());
-
-              break;
-            
-            default:
-              break;
-          }
-        },
       ),
     );
   }
 }
+

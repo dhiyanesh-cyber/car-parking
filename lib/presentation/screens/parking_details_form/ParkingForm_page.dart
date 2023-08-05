@@ -3,6 +3,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:location/location.dart';
+import 'package:geolocator/geolocator.dart';
 
 class FormPage extends StatefulWidget {
   @override
@@ -11,10 +13,14 @@ class FormPage extends StatefulWidget {
 
 class _FormPageState extends State<FormPage> {
   File? _image;
+  bool _provideLocation = false; // Flag to indicate whether user wants to provide location
+  Location _location = Location();
+  Position? _userLocation; // Location data of the user
 
   TextEditingController _parkingNameController = TextEditingController();
   TextEditingController _mobileNumberController = TextEditingController();
 
+  // Function to pick an image from gallery
   Future getImage() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -28,7 +34,7 @@ class _FormPageState extends State<FormPage> {
     });
   }
 
-
+  // Function to upload image to Firebase Storage
   Future<String?> _uploadImageToStorage(File imageFile, String imageName) async {
     try {
       final storage = FirebaseStorage.instance;
@@ -43,62 +49,130 @@ class _FormPageState extends State<FormPage> {
     }
   }
 
+  void _getLocation() async {
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      // Location permission has not been granted yet
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permission request was denied by the user
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // The user has previously denied the permission permanently
+      // You can open app settings here and ask the user to enable the permission manually
+      return;
+    }
+
+    // Get the user's location
+    Position position = await Geolocator.getCurrentPosition();
+    setState(() {
+      _userLocation = position;
+    });
+  }
 
   void _saveFormData() async {
-    if (_image != null) {
+    if (!_provideLocation) {
+      // Show an alert asking the user to turn on location services
+      _showEnableLocationAlert();
+      return;
+    }
+
+    if (_userLocation != null && _image != null) {
       String imageName = DateTime.now().toString();
       String? imageUrl = await _uploadImageToStorage(_image!, imageName);
 
       if (imageUrl != null) {
+        // Save the form data along with user's location data
         FirebaseFirestore.instance.collection("parkingData").add({
           'parkingName': _parkingNameController.text,
           'mobileNumber': _mobileNumberController.text,
           'imageUrl': imageUrl,
+          'latitude': _userLocation!.latitude,
+          'longitude': _userLocation!.longitude,
         });
 
         _parkingNameController.clear();
         _mobileNumberController.clear();
         setState(() {
           _image = null;
+          _provideLocation = false;
+          _userLocation = null;
         });
 
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Success'),
-              content: Text('Form data saved successfully!'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('OK'),
-                ),
-              ],
-            );
-          },
-        );
+        // Show a success dialog
+        _showSuccessDialog();
       } else {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Error'),
-              content: Text('Failed to save form data.'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('OK'),
-                ),
-              ],
-            );
-          },
-        );
+        // Show an error dialog
+        _showErrorDialog();
       }
     }
+  }
+
+  // Function to show an alert to enable location services
+  void _showEnableLocationAlert() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Turn on Location'),
+          content: Text('Please turn on location services to provide your location.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _location.requestService();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // Function to show a success dialog
+  void _showSuccessDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Success'),
+          content: Text('Form data saved successfully!'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // Function to show an error dialog
+  void _showErrorDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Error'),
+          content: Text('Failed to save form data.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -124,7 +198,6 @@ class _FormPageState extends State<FormPage> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-
               SizedBox(
                 height: 50,
               ),
@@ -142,46 +215,57 @@ class _FormPageState extends State<FormPage> {
                     colors: [Colors.black87, Colors.grey.shade800],
                   ),
                 ),
-                    child: ElevatedButton(
-                onPressed: getImage,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        shadowColor: Colors.transparent,
-                      ),
-                child: Text('Pick an Image'),
-              ),
+                child: ElevatedButton(
+                  onPressed: getImage,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
                   ),
+                  child: Text('Pick an Image'),
+                ),
+              ),
               SizedBox(height: 16),
               TextFormField(
                 cursorColor: Colors.black87,
                 controller: _parkingNameController,
                 decoration: InputDecoration(
-                  labelText: 'Parking Name',
+                    labelText: 'Parking Name',
                     labelStyle: TextStyle(color: Colors.black87),
                     focusColor: Colors.black87,
                     focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.black87, width: 2
-                        )
-                    )
-                ),
+                        borderSide: BorderSide(color: Colors.black87, width: 2))),
               ),
               SizedBox(height: 16),
               TextFormField(
                 cursorColor: Colors.black87,
                 controller: _mobileNumberController,
                 decoration: InputDecoration(
-                  labelText: 'Mobile Number',
+                    labelText: 'Mobile Number',
                     labelStyle: TextStyle(color: Colors.black87),
                     focusColor: Colors.black87,
                     focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.black87, width: 2
-                        )
-                    )
-                ),
+                        borderSide: BorderSide(color: Colors.black87, width: 2))),
               ),
               SizedBox(height: 40),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Provide Location\n(Make sure you are in your parking !)'),
+                  SizedBox(width: 10),
+                  Switch(
+                    value: _provideLocation,
+                    onChanged: (value) {
+                      setState(() {
+                        _provideLocation = value;
+                        if (_provideLocation) {
+                          _getLocation();
+                        }
+                      });
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(height: 16),
               Container(
                 height: 40.0,
                 width: 150,
@@ -206,4 +290,10 @@ class _FormPageState extends State<FormPage> {
       ),
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: FormPage(),
+  ));
 }

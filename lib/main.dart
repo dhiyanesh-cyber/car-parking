@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+
+import 'package:mapsss/presentation/screens/home/welcome_page.dart';
+
+
 import 'presentation/screens/display_parking_details/DisplayParkingData_page.dart';
 import 'presentation/screens/parking_details_form/ParkingForm_page.dart';
 import 'presentation/screens/parking_Details/details_page.dart';
+
 import 'presentation/screens/settings/settings_page.dart';
 import 'presentation/auth/register_page.dart';
 import 'presentation/screens/about/about.dart';
@@ -29,6 +34,7 @@ class ParkingLocatorApp extends StatelessWidget {
       home: SimpleStartingScreen(),
       routes: {
         '/home' : (context) => SimpleStartingScreen(),
+        '/welcomePage' : (context) => WelcomePage(),
         '/mapView': (context) => ParkingMapView(),
         '/aboutUs': (context) => AboutPage(),
         // '/parkingsPage': (context) => ParkingsPage(),

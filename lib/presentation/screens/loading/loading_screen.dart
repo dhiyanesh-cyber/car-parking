@@ -7,7 +7,7 @@ class LoadingScreen extends StatelessWidget {
     // Replace this with your actual loading logic
     Future.delayed(Duration(seconds: 2), () {
       // Navigate to the home screen after the loading process is completed
-      Navigator.pushReplacementNamed(context, '/login');
+      Navigator.pushReplacementNamed(context, '/welcomePage');
     });
 
     return Scaffold(

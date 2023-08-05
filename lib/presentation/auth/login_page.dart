@@ -10,6 +10,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  Color myHexColor = Color(0xFFFDE3E3);
+  Color myHexColorDark = Color(0xFFECC9C9);
+  Color myHexColorDarker = Color(0xFFD0A6A6);
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -18,59 +21,93 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.white,
-      //   title: Text(
-      //     'Login',
-      //     textAlign: TextAlign.center,
-      //     style: TextStyle(color: Colors.black),
-      //   ),
-      //   elevation: 0,),
-      body: Center(
+      backgroundColor: myHexColor,
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/welcomePage');
+          },
+          icon: Icon(Icons.arrow_back_ios_rounded),
+        ),
+        title: Text("Log In", style: TextStyle(color: Colors.black87),),
+        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: myHexColor,
+        elevation: 0,
+      ),
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Log In", style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800,),),
 
               SizedBox(
-                height: 20,
+                height: 24,
               ),
-              TextField(
-                cursorColor: Colors.black87,
-                controller: _emailController,
-                decoration: InputDecoration(labelText: 'Email',
-                labelStyle: TextStyle(color: Colors.black87),
-                focusColor: Colors.black87,
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.black87, width: 2
-                  )
-                )),
+
+
+              Image.asset(
+                'assets/Login.png', // Replace 'welcome.gif' with your actual gif file path
+                height: 300,
+                width: 300,
+                fit: BoxFit.contain,
+
+              ),
+
+              SizedBox(
+                height: 24,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: myHexColorDark,
+                  borderRadius: BorderRadius.circular(15),
+
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(7.0),
+                  child: TextField(
+                    cursorColor: Colors.black87,
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      hintText: 'Email',
+                      labelStyle: TextStyle(color: Colors.black87),
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                    ),
+                  ),
+                ),
               ),
               SizedBox(height: 16),
-              TextField(
-                cursorColor: Colors.black87,
-                controller: _passwordController,
-                decoration: InputDecoration(labelText: 'Password',
-                    labelStyle: TextStyle(color: Colors.black87),
-                    focusColor: Colors.black87,
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.black87, width: 2
-                        )
-                    )),
-                obscureText: true,
+
+              Container(
+                decoration: BoxDecoration(
+                  color: myHexColorDark,
+                  borderRadius: BorderRadius.circular(15),
+
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(7.0),
+                  child: TextField(
+                    cursorColor: Colors.black87,
+                    controller: _passwordController,
+                    decoration: InputDecoration(
+                      hintText: 'Password',
+                      labelStyle: TextStyle(color: Colors.black87),
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                    ),
+                    obscureText: true,
+                  ),
+                ),
               ),
               SizedBox(height: 40),
 
 
               Container(
-                height: 40.0,
-                width: 110,
+                height: 50.0,
+                width: 250,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(15),
                   gradient: LinearGradient(
                     colors: [Colors.black87, Colors.grey.shade800],
                   ),
@@ -96,15 +133,15 @@ class _LoginPageState extends State<LoginPage> {
                     backgroundColor: Colors.transparent,
                     shadowColor: Colors.transparent,
                   ),
-                  child: Text('Login'),
+                  child: Text('Login',style: TextStyle(color: myHexColor),),
                 ),
               ),
-              SizedBox(height: 16),
+
               TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/register');
                 },
-                child: Text('Don\'t have an account? Register', style: TextStyle(color: Colors.black87),),
+                child: Text('Don\'t have an account? Register', style: TextStyle(color: myHexColorDarker),),
               ),
             ],
           ),
