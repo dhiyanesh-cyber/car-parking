@@ -11,6 +11,8 @@ import '../../common/nav_animation/navigateWithAnimation.dart';
 import '../display_parking_details/DisplayParkingData_page.dart';
 import '../../../main.dart';
 
+
+
 class SimpleStartingScreen extends StatefulWidget {
   @override
   _SimpleStartingScreenState createState() => _SimpleStartingScreenState();
