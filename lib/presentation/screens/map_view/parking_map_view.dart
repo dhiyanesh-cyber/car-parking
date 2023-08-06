@@ -95,11 +95,11 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     // Load custom marker image for parking locations
     BitmapDescriptor customMarker = await BitmapDescriptor.fromAssetImage(
       ImageConfiguration(size: Size(5, 5)),
-      'assets/car.png',
+      'assets/parking_marker3.png',
     );
 
     setState(() {
-      _parkingMarkers.clear();
+      _parkingMarkers.clear(); 
       _parkingMarkers.add(
         Marker(
           markerId: MarkerId("user_location"),
@@ -160,9 +160,9 @@ void _showParkingListDialog() {
        sortedParkingList.sort((a, b) => a['distance'].compareTo(b['distance']));
 
         return AlertDialog(
-          backgroundColor: Colors.black.withOpacity(0.10),
+          backgroundColor: Colors.black.withAlpha(150),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          shadowColor: Colors.black.withOpacity(0),
+          shadowColor: Colors.white.withOpacity(0),
           title: Text('Parking Locations Sorted by Distance',style: TextStyle(color: Colors.white)),
           content: Container(
             width: double.maxFinite,
