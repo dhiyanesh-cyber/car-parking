@@ -151,7 +151,7 @@ void _showParkingListDialog() {
           double distance = _calculateDistance(_currentLocation.latitude, _currentLocation.longitude,parkingData['latitude'], parkingData['longitude']);
           sortedParkingList.add({
             'name': parkingData['parkingName'],
-            'distance': distance,
+            'distance': distance*0.001,
             'latitude': parkingData['latitude'],
             'longitude': parkingData['longitude'],
           });
@@ -160,8 +160,8 @@ void _showParkingListDialog() {
        sortedParkingList.sort((a, b) => a['distance'].compareTo(b['distance']));
 
         return AlertDialog(
-          backgroundColor: Colors.black.withOpacity(0.10),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          backgroundColor: Colors.black.withOpacity(0.8),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           shadowColor: Colors.black.withOpacity(0),
           title: Text('Parking Locations Sorted by Distance',style: TextStyle(color: Colors.white)),
           content: Container(
@@ -180,7 +180,7 @@ void _showParkingListDialog() {
                 },
                 child: ListTile(
                   title: Text('Parking Name: $name',style: TextStyle(color: Colors.white)),
-                  subtitle: Text('Distance: ${distance.toStringAsFixed(2)} meters',style: TextStyle(color: Colors.white)),
+                  subtitle: Text('Distance: ${distance.toStringAsFixed(2)} Km',style: TextStyle(color: Colors.white)),
                 ),
               );
               },
@@ -269,12 +269,12 @@ void _showParkingListDialog() {
     child: ElevatedButton(
       onPressed: _showParkingListDialog,
       style: ElevatedButton.styleFrom(
-        primary: Colors.black.withOpacity(0.35),
+        primary: Colors.black.withOpacity(0.8),
         elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(16.0),
         child: Text(
           'Nearby Parking',
           style: TextStyle(
