@@ -10,6 +10,8 @@ import '../common/nav_bar/custom_bottom_navigation_bar.dart';
 import '../../common/nav_animation/navigateWithAnimation.dart';
 import '../display_parking_details/DisplayParkingData_page.dart';
 import '../../../main.dart';
+import 'package:mapsss/presentation/colors/colors.dart';
+
 
 
 
@@ -24,9 +26,10 @@ class _SimpleStartingScreenState extends State<SimpleStartingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: CustomColors.myHexColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
+        backgroundColor: CustomColors.myHexColor,
         title: Text(
           'Park me',
           textAlign: TextAlign.center,
@@ -50,7 +53,7 @@ class _SimpleStartingScreenState extends State<SimpleStartingScreen> {
               Container(
                 height: 45,
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
+                  border: Border.all(color: Colors.black87),
                   borderRadius: BorderRadius.circular(50),
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -66,16 +69,12 @@ class _SimpleStartingScreenState extends State<SimpleStartingScreen> {
                 ),
               ),
               SizedBox(height: 50),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(width: 5),
 
-                  Container(
-                    height: 40.0,
-                    width: 110,
+              Container(
+                    height: 50.0,
+                    width: 300,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(15),
                       gradient: LinearGradient(
                         colors: [Colors.black87, Colors.grey.shade800],
                       ),
@@ -88,14 +87,18 @@ class _SimpleStartingScreenState extends State<SimpleStartingScreen> {
                         backgroundColor: Colors.transparent,
                         shadowColor: Colors.transparent,
                       ),
-                      child: Text('Map View'),
+                      child: Text('Map View',style: TextStyle(color: CustomColors.myHexColor),),
                     ),
                   ),
+
+                  SizedBox(
+                    height: 20,
+                  ),
                   Container(
-                    height: 40.0,
-                    width: 110,
+                    height: 50.0,
+                    width: 300,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(15),
                       gradient: LinearGradient(
                         colors: [Colors.black87, Colors.grey.shade800],
                       ),
@@ -109,16 +112,16 @@ class _SimpleStartingScreenState extends State<SimpleStartingScreen> {
                         backgroundColor: Colors.transparent,
                         shadowColor: Colors.transparent,
                       ),
-                      child: Text('Parkings'),
+                      child: Text('Parkings',style: TextStyle(color: CustomColors.myHexColor),),
                     ),
                   ),
                   SizedBox(width: 5),
                 ],
               ),
-            ],
+
           ),
         ),
-      ),
+
       bottomNavigationBar: BottomNavigationBarWidget(
         selectedIndex: currentIndex,
         onTabChange: (index) {
