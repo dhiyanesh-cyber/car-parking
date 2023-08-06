@@ -54,28 +54,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
             ),
             markers: _parkingMarkers,
           ),
-          Positioned(
-            top: 10,
-            left: 10,
-            right: 10,
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search for parking...',
-                  border: InputBorder.none,
-                  suffixIcon: Icon(Icons.search),
-                ),
-                onChanged: (value) {
-                  // Implement your search functionality here
-                },
-              ),
-            ),
-          ),
+
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(

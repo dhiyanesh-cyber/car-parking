@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ParkingDataService {
-  // Method to fetch parking data from Firestore
+  // Method to fetch pa
   static Future<List<Map<String, dynamic>>> fetchParkingData() async {
-    // Create a list to store parking data
+    // Create a list to store rking data from Firestoreparking data
     List<Map<String, dynamic>> parkingDataList = [];
 
     // Fetch the parking data from the "parkingData" collection in Firestore
