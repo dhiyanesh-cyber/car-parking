@@ -13,6 +13,8 @@ import '../../../main.dart';
 import 'package:mapsss/presentation/colors/colors.dart';
 
 
+
+
 class SimpleStartingScreen extends StatefulWidget {
   @override
   _SimpleStartingScreenState createState() => _SimpleStartingScreenState();
