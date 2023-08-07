@@ -89,6 +89,8 @@ flutter:
      - assets/letter-p.png
      - assets/p.png
      - assets/park.png
+     - assets/
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

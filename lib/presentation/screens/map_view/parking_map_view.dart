@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:mapsss/presentation/screens/display_parking_details/DisplayParkingData_page.dart';
+import 'package:mapsss/presentation/screens/settings/settings_page.dart';
+import 'package:mapsss/presentation/screens/home/simple_starting_screen.dart';
+import '../display_parking_details/display_parking_data_page.dart';
+import '/presentation/screens/common/nav_bar/custom_bottom_navigation_bar.dart';
+import '../../common/nav_animation/navigateWithAnimation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../Func/parking_data_service.dart';
 import '../../Func/parking_dialog.dart';
 import '../display_parking_details/display_parking_data_page.dart';
+
 
 class ParkingMapView extends StatefulWidget {
   @override
@@ -54,28 +61,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
             ),
             markers: _parkingMarkers,
           ),
-          Positioned(
-            top: 10,
-            left: 10,
-            right: 10,
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search for parking...',
-                  border: InputBorder.none,
-                  suffixIcon: Icon(Icons.search),
-                ),
-                onChanged: (value) {
-                  // Implement your search functionality here
-                },
-              ),
-            ),
-          ),
+
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
@@ -101,7 +87,9 @@ class _ParkingMapViewState extends State<ParkingMapView> {
                 ),
               ),
             ),
+
           )
+
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
@@ -112,7 +100,6 @@ class _ParkingMapViewState extends State<ParkingMapView> {
       ),
     );
   }
-
 
 
   // Fetch parking data from Firestore
@@ -148,6 +135,8 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     setState(() {
       _currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
       // Fetch and show the parking markers on the map
+      _mapController?.animateCamera(CameraUpdate.newLatLngZoom(_currentLocation, 15.0));
+
       _showParkingMarkers(parkingDataList);
     });
   }
@@ -228,4 +217,5 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     LatLng currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
     _mapController?.animateCamera(CameraUpdate.newLatLng(currentLocation));
   }
+
 }
