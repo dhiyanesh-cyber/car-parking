@@ -5,20 +5,15 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 import 'package:mapsss/presentation/screens/display_parking_details/DisplayParkingData_page.dart';
-
-
 import 'package:mapsss/presentation/screens/settings/settings_page.dart';
 import 'package:mapsss/presentation/screens/home/simple_starting_screen.dart';
-
 import '../display_parking_details/display_parking_data_page.dart';
 import '/presentation/screens/common/nav_bar/custom_bottom_navigation_bar.dart';
 import '../../common/nav_animation/navigateWithAnimation.dart';
 
-
 class ParkingMapView extends StatefulWidget {
   @override
   _ParkingMapViewState createState() => _ParkingMapViewState();
-  
 }
 
 class _ParkingMapViewState extends State<ParkingMapView> {
@@ -26,9 +21,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
   Location _location = Location();
   LatLng _currentLocation = LatLng(9.939093, 78.121719);
   Set<Marker> _parkingMarkers = {};
-      List<Map<String, dynamic>> parkingDataList = [];
-
-  
+  List<Map<String, dynamic>> parkingDataList = [];
 
   @override
   void initState() {
@@ -36,12 +29,9 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     _getLocation();
   }
 
-  // FETCHING DATA FROM DB
-
   Future<List<Map<String, dynamic>>> _fetchParkingData() async {
-    
-
-    QuerySnapshot snapshot = await FirebaseFirestore.instance.collection("parkingData").get();
+    QuerySnapshot snapshot =
+    await FirebaseFirestore.instance.collection("parkingData").get();
     snapshot.docs.forEach((doc) {
       double latitude = doc.get('latitude');
       double longitude = doc.get('longitude');
@@ -57,7 +47,8 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     return parkingDataList;
   }
 
-   double _calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+  double _calculateDistance(
+      double lat1, double lon1, double lat2, double lon2) {
     return Geolocator.distanceBetween(lat1, lon1, lat2, lon2);
   }
 
@@ -84,8 +75,11 @@ class _ParkingMapViewState extends State<ParkingMapView> {
 
     locationData = await _location.getLocation();
     setState(() {
-      _currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
+      _currentLocation =
+          LatLng(locationData.latitude!, locationData.longitude!);
       _showParkingMarkers();
+      _mapController?.animateCamera(CameraUpdate.newLatLngZoom(_currentLocation, 15.0));
+      // Adjust the zoom level as needed. The higher the value, the closer the zoom.
     });
   }
 
@@ -130,40 +124,44 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     });
   }
 
-
   void _navigateToParkingDetailsPage(String parkingName, LatLng location) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => DisplayParkingDataPage(parkingName: parkingName, location: location),
+        builder: (context) =>
+            DisplayParkingDataPage(parkingName: parkingName, location: location),
       ),
     );
   }
 
-void _showParkingListDialog() {
+  void _showParkingListDialog() {
     showDialog(
-      
       context: context,
       builder: (BuildContext context) {
         List<Map<String, dynamic>> sortedParkingList = [];
 
         parkingDataList.forEach((parkingData) {
-          double distance = _calculateDistance(_currentLocation.latitude, _currentLocation.longitude,parkingData['latitude'], parkingData['longitude']);
+          double distance = _calculateDistance(
+              _currentLocation.latitude,
+              _currentLocation.longitude,
+              parkingData['latitude'],
+              parkingData['longitude']);
           sortedParkingList.add({
             'name': parkingData['parkingName'],
-            'distance': distance*0.001,
+            'distance': distance * 0.001,
             'latitude': parkingData['latitude'],
             'longitude': parkingData['longitude'],
           });
         });
 
-       sortedParkingList.sort((a, b) => a['distance'].compareTo(b['distance']));
+        sortedParkingList.sort((a, b) => a['distance'].compareTo(b['distance']));
 
         return AlertDialog(
           backgroundColor: Colors.black.withOpacity(0.8),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           shadowColor: Colors.black.withOpacity(0),
-          title: Text('Parking Locations Sorted by Distance',style: TextStyle(color: Colors.white)),
+          title: Text('Parking Locations Sorted by Distance',
+              style: TextStyle(color: Colors.white)),
           content: Container(
             width: double.maxFinite,
             child: ListView.builder(
@@ -174,15 +172,23 @@ void _showParkingListDialog() {
                 double distance = sortedParkingList[index]['distance'];
 
                 return GestureDetector(
-                onTap: () {
-                  // Navigate to the respective details page when tapped
-                  _navigateToParkingDetailsPage(name,LatLng(sortedParkingList[index]['latitude'], sortedParkingList[index]['longitude']));
-                },
-                child: ListTile(
-                  title: Text('Parking Name: $name',style: TextStyle(color: Colors.white)),
-                  subtitle: Text('Distance: ${distance.toStringAsFixed(2)} Km',style: TextStyle(color: Colors.white)),
-                ),
-              );
+                  onTap: () {
+                    // Navigate to the respective details page when tapped
+                    _navigateToParkingDetailsPage(
+                      name,
+                      LatLng(
+                          sortedParkingList[index]['latitude'],
+                          sortedParkingList[index]['longitude']),
+                    );
+                  },
+                  child: ListTile(
+                    title: Text('Parking Name: $name',
+                        style: TextStyle(color: Colors.white)),
+                    subtitle: Text(
+                        'Distance: ${distance.toStringAsFixed(2)} Km',
+                        style: TextStyle(color: Colors.white)),
+                  ),
+                );
               },
             ),
           ),
@@ -198,8 +204,6 @@ void _showParkingListDialog() {
       },
     );
   }
-
-
 
   void _onMapCreated(GoogleMapController controller) {
     _mapController = controller;
@@ -263,29 +267,29 @@ void _showParkingListDialog() {
             ),
           ),
           Align(
-  alignment: Alignment.bottomCenter,
-  child: Padding(
-    padding: const EdgeInsets.only(bottom: 20),
-    child: ElevatedButton(
-      onPressed: _showParkingListDialog,
-      style: ElevatedButton.styleFrom(
-        primary: Colors.black.withOpacity(0.8),
-        elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Text(
-          'Nearby Parking',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    ),
-  ),
-)
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: ElevatedButton(
+                onPressed: _showParkingListDialog,
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.black.withOpacity(0.8),
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    'Nearby Parking',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          )
 
         ],
       ),
@@ -298,4 +302,3 @@ void _showParkingListDialog() {
     );
   }
 }
-
