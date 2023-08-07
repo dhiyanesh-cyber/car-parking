@@ -6,8 +6,6 @@ import 'package:mapsss/presentation/screens/map_view/parking_map_view.dart';
 
 import 'package:mapsss/presentation/screens/home/simple_starting_screen.dart';
 
-import '../common/nav_bar/custom_bottom_navigation_bar.dart'; // Import the Firebase Auth package
-
 class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -29,35 +27,6 @@ class SettingsPage extends StatelessWidget {
         elevation: 0,
       ),
 
-
-      bottomNavigationBar: BottomNavigationBarWidget(
-        selectedIndex: 3,
-        onTabChange: (index) {
-          switch (index) {
-            case 0:
-                    navigateWithAnimation(
-                    animationType: AnimationType.customSlide,
-                    context: context,
-                    pageClass: () => SimpleStartingScreen());
-              break;
-            case 1:
-              navigateWithAnimation(
-                    animationType: AnimationType.customSlide,
-                    context: context,
-                    pageClass: () => ParkingMapView());
-              break;
-            case 2:
-              navigateWithAnimation(
-                    animationType: AnimationType.customSlide,
-                    context: context,
-                    pageClass: () => DisplayPage());
-              break;
-           
-            default:
-              break;
-          }
-        },
-      ),
 
       body: SingleChildScrollView(
         child: Padding(
@@ -196,4 +165,3 @@ class SettingsPage extends StatelessWidget {
 
 
 }
-
