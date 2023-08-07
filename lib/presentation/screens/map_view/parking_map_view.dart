@@ -31,6 +31,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     _fetchParkingData(); // Fetch parking data when the view is initialized
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,6 +135,8 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     setState(() {
       _currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
       // Fetch and show the parking markers on the map
+      _mapController?.animateCamera(CameraUpdate.newLatLngZoom(_currentLocation, 15.0));
+
       _showParkingMarkers(parkingDataList);
     });
   }
