@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:mapsss/presentation/screens/home/welcome_page.dart';
+import 'package:mapsss/presentation/screens/map_view/test_map.dart';
 
 
 import 'presentation/screens/display_parking_details/DisplayParkingData_page.dart';
@@ -31,7 +32,7 @@ class ParkingLocatorApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SimpleStartingScreen(),
+      home: MyApp(),
       routes: {
         '/home' : (context) => SimpleStartingScreen(),
         '/welcomePage' : (context) => WelcomePage(),
