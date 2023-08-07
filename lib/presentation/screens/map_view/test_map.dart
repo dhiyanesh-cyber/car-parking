@@ -34,13 +34,25 @@ class _MapsDirectionScreenState extends State<MapsDirectionScreen> {
             points: polylineCoordinates,
           ),
         },
+        markers: {
+          Marker(
+            markerId: MarkerId('start'),
+            position: LatLng(37.7749, -122.4194), // Start location
+            icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+          ),
+          Marker(
+            markerId: MarkerId('end'),
+            position: LatLng(37.3352, -122.0096), // End location
+            icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+          ),
+        },
       ),
     );
   }
 
   void findRoute() async {
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      'AIzaSyBh9WKcq34a4AeZPNYmWPB1YebJiUXd2fU', // Replace with your API key
+      'YOUR_API_KEY_HERE', // Replace with your API key
       PointLatLng(37.7749, -122.4194), // Start location
       PointLatLng(37.3352, -122.0096), // End location
     );

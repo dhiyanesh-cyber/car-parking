@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mapsss/presentation/screens/map_view/parking_map_view.dart';
 import 'package:mapsss/presentation/screens/settings/settings_page.dart';
 import 'package:mapsss/presentation/screens/home/simple_starting_screen.dart';
-import '../common/nav_bar/custom_bottom_navigation_bar.dart';
 import '../parking_Details/details_page.dart';
 import '../../common/nav_animation/navigateWithAnimation.dart'; // Import the DetailsPage
 
@@ -26,35 +25,7 @@ class DisplayPage extends StatelessWidget {
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.black),
       ),
-    bottomNavigationBar: BottomNavigationBarWidget(
-      selectedIndex: 2,
-      onTabChange: (index) {
-        switch (index) {
-        case 0:
-                  navigateWithAnimation(
-                  animationType: AnimationType.customSlide,
-                  context: context,
-                  pageClass: () => SimpleStartingScreen());
-            break;
-          case 1:
-            navigateWithAnimation(
-                  animationType: AnimationType.customSlide,
-                  context: context,
-                  pageClass: () => ParkingMapView());
-            break;
-          case 3:
-            navigateWithAnimation(
-                  animationType: AnimationType.customSlide,
-                  context: context,
-                  pageClass: () => SettingsPage());
 
-            break;
-
-          default:
-            break;
-        }
-      },
-    ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('parkingData').snapshots(),
         builder: (context, snapshot) {
