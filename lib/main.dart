@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mapsss/presentation/screens/common/nav_bar/nav_bar.dart';
 
 import 'package:mapsss/presentation/screens/home/welcome_page.dart';
 
@@ -31,7 +32,7 @@ class ParkingLocatorApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SimpleStartingScreen(),
+      home: BottomNavigationBarPage(),
       routes: {
         '/home' : (context) => SimpleStartingScreen(),
         '/welcomePage' : (context) => WelcomePage(),
