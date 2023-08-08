@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:location/location.dart';
 import 'package:mapsss/presentation/screens/display_parking_details/DisplayParkingData_page.dart';
 import 'package:mapsss/presentation/screens/settings/settings_page.dart';
 import 'package:mapsss/presentation/screens/home/simple_starting_screen.dart';
 import '../display_parking_details/display_parking_data_page.dart';
+import '../parking_Details/parking_details_page.dart';
 import '/presentation/screens/common/nav_bar/custom_bottom_navigation_bar.dart';
 import '../../common/nav_animation/navigateWithAnimation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -76,7 +78,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: EdgeInsets.all(16),
                   child: Text(
                     'Nearby Parking',
                     style: TextStyle(
@@ -132,8 +134,10 @@ class _ParkingMapViewState extends State<ParkingMapView> {
 
     // Get the user's current location
     locationData = await _location.getLocation();
+    LatLng currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
+
     setState(() {
-      _currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
+      _currentLocation = currentLocation;
       // Fetch and show the parking markers on the map
       _mapController?.animateCamera(CameraUpdate.newLatLngZoom(_currentLocation, 15.0));
 
@@ -176,6 +180,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
             onTap: () {
               // Navigate to the parking details page when the marker is tapped
               _navigateToParkingDetailsPage(parkingName, parkingLocation);
+              // _onMarkerTapped(MarkerId(parkingName));
             },
           ),
         );
@@ -217,5 +222,54 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     LatLng currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
     _mapController?.animateCamera(CameraUpdate.newLatLng(currentLocation));
   }
+
+
+  //-------------------------------------------------------------------------- NAVIGATION LINES IMPLEMENTATION-----------------------------------------------------------------------------------------------------------------
+
+  // Called when a parking marker is tapped
+  void _onMarkerTapped(MarkerId markerId) async {
+    if (markerId.value == 'user_location') {
+      // If the user taps on their own location marker, do nothing.
+      return;
+    }
+
+    // Find the selected parking data based on the markerId
+    Map<String, dynamic>? selectedParkingData;
+    for (var parkingData in parkingDataList) {
+      if (parkingData['parkingName'] == markerId.value) {
+        selectedParkingData = parkingData;
+        break;
+      }
+    }
+
+    if (selectedParkingData == null) {
+      return;
+    }
+
+    // Get the LatLng of the selected parking
+    double latitude = selectedParkingData['latitude'];
+    double longitude = selectedParkingData['longitude'];
+    LatLng selectedParkingLocation = LatLng(latitude, longitude);
+
+    // Get the user's current location
+    LocationData locationData = await _location.getLocation();
+    LatLng currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
+
+    // Navigate to the parking details page and pass the required data
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ParkingDetailsPage(
+          parkingName: markerId.value.toString(),
+          parkingLocation: selectedParkingLocation,
+          currentLocation: currentLocation,
+        ),
+      ),
+    );
+  }
+
+
+
+
 
 }
