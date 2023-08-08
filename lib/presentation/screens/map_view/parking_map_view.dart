@@ -118,13 +118,13 @@ class _ParkingMapViewState extends State<ParkingMapView> {
 
     // Get the user's current location
     locationData = await _location.getLocation();
-    setState(() {
+    
       _currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
       // Fetch and show the parking markers on the map
       _mapController?.animateCamera(CameraUpdate.newLatLngZoom(_currentLocation, 15.0));
 
       _showParkingMarkers(parkingDataList);
-    });
+    
   }
 
   // Show the parking markers on the map
@@ -135,7 +135,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
       'assets/park.png',
     );
 
-    setState(() {
+
       _parkingMarkers.clear();
       // Add the marker for the user's current location
       _parkingMarkers.add(
@@ -166,7 +166,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
           ),
         );
       });
-    });
+    
   }
 
   // Show the parking list dialog with sorted parking locations
