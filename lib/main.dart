@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mapsss/presentation/screens/common/nav_bar/nav_bar.dart';
 
 import 'package:mapsss/presentation/screens/home/welcome_page.dart';
+import 'package:mapsss/presentation/screens/map_view/test_map.dart';
 
 
 import 'presentation/screens/display_parking_details/DisplayParkingData_page.dart';
