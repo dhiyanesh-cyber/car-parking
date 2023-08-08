@@ -11,6 +11,7 @@ import '../../Func/parking_data_service.dart';
 import '../../Func/parking_dialog.dart';
 import '../display_parking_details/display_parking_data_page.dart';
 
+
 class ParkingMapView extends StatefulWidget {
   @override
   _ParkingMapViewState createState() => _ParkingMapViewState();
@@ -29,7 +30,6 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     _getLocation();
     _fetchParkingData(); // Fetch parking data when the view is initialized
   }
-
 
 
   @override
@@ -89,6 +89,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
             ),
 
           )
+
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
@@ -99,6 +100,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
       ),
     );
   }
+
 
   // Fetch parking data from Firestore
   Future<void> _fetchParkingData() async {
@@ -215,4 +217,5 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     LatLng currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
     _mapController?.animateCamera(CameraUpdate.newLatLng(currentLocation));
   }
+
 }
