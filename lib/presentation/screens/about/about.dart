@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:mapsss/presentation/colors/colors.dart';
 
 
 class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: CustomColors.myHexColor,
       appBar: AppBar(
+
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -17,7 +20,7 @@ class AboutPage extends StatelessWidget {
           style: TextStyle(color: Colors.black),
         ),
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: CustomColors.myHexColor,
         iconTheme: IconThemeData(color: Colors.black),
       ),
       body: Padding(

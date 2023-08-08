@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mapsss/presentation/colors/colors.dart';
 import 'package:mapsss/presentation/screens/display_parking_details/DisplayParkingData_page.dart';
 import 'package:mapsss/presentation/common/nav_animation/navigateWithAnimation.dart';
 import 'package:mapsss/presentation/screens/map_view/parking_map_view.dart';
@@ -10,6 +11,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: CustomColors.myHexColor,
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
@@ -18,7 +20,7 @@ class SettingsPage extends StatelessWidget {
           icon: Icon(Icons.arrow_back_ios_rounded),
         ),
         iconTheme: IconThemeData(color: Colors.black),
-        backgroundColor: Colors.white,
+        backgroundColor: CustomColors.myHexColor,
         title: Text(
           'Settings',
           textAlign: TextAlign.center,
@@ -43,7 +45,7 @@ class SettingsPage extends StatelessWidget {
 
                   Container(
                     height: 70.0,
-                    width: 130,
+                    width: 300,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       gradient: LinearGradient(
@@ -56,7 +58,7 @@ class SettingsPage extends StatelessWidget {
                         Navigator.pushNamed(context, '/form');
                       },
                       icon: Icon(Icons.file_copy),
-                      label: Text('Form'),
+                      label: Text('Form',style: TextStyle(color: CustomColors.myHexColor),),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.transparent,
                         shadowColor: Colors.transparent,
@@ -94,7 +96,7 @@ class SettingsPage extends StatelessWidget {
                       },
                       icon: Icon(Icons.info),
                       label: Text(
-                        'About',
+                        'About',style: TextStyle(color: CustomColors.myHexColor)
 
                       ),
                       style: ElevatedButton.styleFrom(
@@ -122,7 +124,7 @@ class SettingsPage extends StatelessWidget {
                         _logout(context);
                       },
                       icon: Icon(Icons.logout),
-                      label: Text('Log Out'),
+                      label: Text('Log Out',style: TextStyle(color: CustomColors.myHexColor)),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.transparent,
                         shadowColor: Colors.transparent,
