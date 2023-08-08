@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mapsss/presentation/screens/common/nav_bar/nav_bar.dart';
 
 import 'package:mapsss/presentation/screens/home/welcome_page.dart';
 

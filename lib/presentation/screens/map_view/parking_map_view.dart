@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:location/location.dart';
+import 'package:mapsss/presentation/colors/colors.dart';
 import 'package:mapsss/presentation/screens/display_parking_details/DisplayParkingData_page.dart';
 import 'package:mapsss/presentation/screens/settings/settings_page.dart';
 import 'package:mapsss/presentation/screens/home/simple_starting_screen.dart';
 import '../display_parking_details/display_parking_data_page.dart';
 import '../parking_Details/parking_details_page.dart';
-import '/presentation/screens/common/nav_bar/custom_bottom_navigation_bar.dart';
 import '../../common/nav_animation/navigateWithAnimation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../Func/parking_data_service.dart';
@@ -37,68 +37,70 @@ class _ParkingMapViewState extends State<ParkingMapView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back_ios_rounded),
-        ),
-        iconTheme: IconThemeData(color: Colors.black),
-        backgroundColor: Colors.white,
-        title: Text(
-          'Map View',
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.black),
-        ),
-        elevation: 0,
-      ),
-      body: Stack(
-        children: [
-          GoogleMap(
-            onMapCreated: _onMapCreated,
-            initialCameraPosition: CameraPosition(
-              target: _currentLocation,
-              zoom: 10.0,
-            ),
-            markers: _parkingMarkers,
-          ),
 
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 20),
-              child: ElevatedButton(
-                onPressed: _showParkingListDialog,
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.black.withOpacity(0.8),
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                ),
+      backgroundColor: Colors.black,
+      body: SafeArea(
+        bottom: false,
+        child: Stack(
+
+          children: [
+            GoogleMap(
+              onMapCreated: _onMapCreated,
+              initialCameraPosition: CameraPosition(
+                target: _currentLocation,
+                zoom: 10.0,
+              ),
+              markers: _parkingMarkers,
+              compassEnabled: false,
+            ),
+
+            Container(
+              margin: EdgeInsets.only(bottom: 60),
+              child: Align(
+                alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Text(
-                    'Nearby Parking',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: ElevatedButton(
+                    onPressed: _showParkingListDialog,
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.black.withOpacity(0.85),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+
+
+
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        'Nearby Parking',
+                        style: TextStyle(
+                          color: CustomColors.myHexColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
+
                 ),
+
               ),
             ),
 
-          )
-
-        ],
+          ],
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.black87,
-        onPressed: _showMyLocation,
-        child: Icon(Icons.my_location),
+      floatingActionButton: Container(
+        margin: EdgeInsets.only(bottom: 60),
+        child: FloatingActionButton(
+          backgroundColor: Colors.black87,
+          onPressed: _showMyLocation,
+          child: Icon(Icons.my_location),
+        ),
       ),
     );
   }

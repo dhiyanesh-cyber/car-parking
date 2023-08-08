@@ -6,7 +6,6 @@ import 'package:mapsss/presentation/screens/about/about.dart';
 import 'package:mapsss/presentation/screens/map_view/parking_map_view.dart';
 
 import 'package:mapsss/presentation/screens/settings/settings_page.dart';
-import '../common/nav_bar/custom_bottom_navigation_bar.dart';
 import '../../common/nav_animation/navigateWithAnimation.dart';
 import '../display_parking_details/DisplayParkingData_page.dart';
 import '../../../main.dart';
@@ -122,44 +121,7 @@ class _SimpleStartingScreenState extends State<SimpleStartingScreen> {
           ),
         ),
 
-      bottomNavigationBar: BottomNavigationBarWidget(
-        selectedIndex: currentIndex,
-        onTabChange: (index) {
-          setState(() {
-            currentIndex;
-          });
-          switch (index) {
-            case 1:
-              navigateWithAnimation(
-                  animationType: AnimationType.customSlide,
-                  context: context,
-                  pageClass: () => ParkingMapView());
-              break;
-            case 2:
-              navigateWithAnimation(
-                  animationType: AnimationType.customSlide,
-                  context: context,
-                  pageClass: () => DisplayPage());
-              break;
-            case 3:
 
-          
-              navigateWithAnimation(
-                    animationType: AnimationType.customSlide,
-                    context: context,
-                    pageClass: () => SettingsPage());
-              break;
-
-            default:
-              break;
-          }
-        },
-      ),
     );
   }
 }
-
-
-
-
-

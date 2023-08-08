@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mapsss/presentation/colors/colors.dart';
 
 class ParkingDialog {
   // Method to show the parking list dialog with sorted parking locations
@@ -45,7 +46,7 @@ class ParkingDialog {
           shadowColor: Colors.black.withOpacity(0),
           title: Text(
             'Parking Locations Sorted by Distance',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: CustomColors.myHexColorDarker),
           ),
           content: Container(
             width: double.maxFinite,
@@ -83,7 +84,7 @@ class ParkingDialog {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('Close'),
+              child: Text('Close', style: TextStyle(color: CustomColors.myHexColor),),
               onPressed: () {
                 Navigator.of(context).pop();
               },
