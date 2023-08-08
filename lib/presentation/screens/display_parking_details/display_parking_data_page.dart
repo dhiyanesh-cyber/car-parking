@@ -14,27 +14,34 @@ class DisplayParkingDataPage extends StatefulWidget {
 
 class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
   String vechicalOption = 'Bike';
-  Duration parkingTime = const Duration(hours: 1, minutes: 30);
+  Duration parkingTime = const Duration(hours: 0, minutes: 00);
 
-  double ammount = 10.0;
+  double ammount = 0.0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CustomColors.myHexColor,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: CustomColors.myHexColor,
+        title: Text(
+          'Parking Information',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20),
+        ),
+        elevation: 0,
+      ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Parking Information :",
-                style: TextStyle(
-                    color: Color(0xff22308b),
-                    fontWeight: FontWeight.w900,
-                    fontSize: 24),
-              ),
+              
               Image.asset('assets/info.png'),
               const SizedBox(
                 height: 20,
@@ -42,8 +49,8 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
               Text(
                 widget.parkingName,
                 style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 19,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
               const SizedBox(
@@ -51,7 +58,7 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
               ),
               const Text(
                 "Selected What are you going to park",
-                style: TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
               const SizedBox(
                 height: 35,
@@ -64,14 +71,16 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                     borderRadius: BorderRadius.circular(
                       15,
                     ),
-                    color: const Color(0xFF228b22).withOpacity(.7)),
+                    color: Color(0xFFc86868)),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton(
+                    iconEnabledColor: Colors.black87,
+                    dropdownColor: CustomColors.myHexColorDark,
                     value: vechicalOption,
                     style: const TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 17,
-                        color: Colors.black45),
+                        color: Colors.black87),
                     items: const [
                       DropdownMenuItem(
                         value: 'Bike',
@@ -99,8 +108,10 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        parkingTime -= const Duration(hours: 0, minutes: 30);
-                        ammount -= 10;
+                        if(ammount > 0)
+{                       parkingTime -= const Duration(hours: 1, minutes: 00);
+                        ammount -= 5;
+                        } 
                       });
                     },
                     child: Container(
@@ -111,7 +122,7 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                           borderRadius: BorderRadius.circular(
                             10,
                           ),
-                          color: const Color(0xFF228b22).withOpacity(.5)),
+                          color: Color(0xFFc86868).withOpacity(.8)),
                       child: const Center(child: Icon(Icons.arrow_back_ios)),
                     ),
                   ),
@@ -119,7 +130,7 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                     width: 25,
                   ),
                   Text(
-                    '${parkingTime.inHours}h: ${parkingTime.inMinutes}min',
+                    '${parkingTime.inHours}h: 00min',
                     style: const TextStyle(fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(
@@ -128,8 +139,8 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        parkingTime += const Duration(hours: 0, minutes: 30);
-                        ammount += 10;
+                        parkingTime += const Duration(hours: 1, minutes: 00);
+                        ammount += 5;
                       });
                     },
                     child: Container(
@@ -140,7 +151,7 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                           borderRadius: BorderRadius.circular(
                             10,
                           ),
-                          color: const Color(0xFF228b22).withOpacity(.5)),
+                          color: const Color(0xFFc86868).withOpacity(.8)),
                       child: const Center(child: Icon(Icons.arrow_forward_ios)),
                     ),
                   ),
@@ -166,7 +177,7 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                         borderRadius: BorderRadius.circular(
                           15,
                         ),
-                        color: const Color(0xFF228b22).withOpacity(.5)),
+                        color: Color(0xFFc86868)),
                     child: Center(child: Image.asset('assets/google-pay.png'))),
               )
             ],
