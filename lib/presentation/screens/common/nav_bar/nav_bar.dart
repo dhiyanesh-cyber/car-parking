@@ -6,24 +6,34 @@ import '../../settings/settings_page.dart';
 
 import '../../map_view/test_map.dart';
 
+
+
 class BottomNavigationBarPage extends StatefulWidget {
   const BottomNavigationBarPage({super.key});
 
   @override
   State<BottomNavigationBarPage> createState() =>
       _BottomNavigationBarPageState();
+
+  static void setIndex(int i) {}
 }
 
 class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = <Widget>[
     ParkingMapView(),
-    MyApp(),
+    SearchPage(),
     AboutPage(),
     SettingsPage(),
   ];
 
   void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  void setIndex(int index){
     setState(() {
       _selectedIndex = index;
     });
@@ -61,6 +71,7 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
                   BottomNavigationBarItem(
                     icon: Icon(Icons.search_outlined),
                     label: 'Search',
+                    backgroundColor: Colors.transparent,
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(Icons.person),
