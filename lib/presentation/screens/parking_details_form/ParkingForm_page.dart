@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:location/location.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:mapsss/presentation/colors/colors.dart';
 
 class FormPage extends StatefulWidget {
   @override
@@ -178,7 +179,9 @@ class _FormPageState extends State<FormPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: CustomColors.myHexColor,
       appBar: AppBar(
+        centerTitle: true,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -190,27 +193,25 @@ class _FormPageState extends State<FormPage> {
           style: TextStyle(color: Colors.black),
         ),
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: CustomColors.myHexColor,
         iconTheme: IconThemeData(color: Colors.black),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.only(left:30, right: 30),
           child: Column(
             children: [
-              SizedBox(
-                height: 50,
-              ),
+              Image.asset('assets/form.png'),
               _image != null
                   ? Image.file(
                 _image!,
                 height: 200,
               )
                   : Container(
-                height: 40.0,
-                width: 150,
+                height: 50.0,
+                width: 130,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(20),
                   gradient: LinearGradient(
                     colors: [Colors.black87, Colors.grey.shade800],
                   ),
@@ -221,38 +222,59 @@ class _FormPageState extends State<FormPage> {
                     backgroundColor: Colors.transparent,
                     shadowColor: Colors.transparent,
                   ),
-                  child: Text('Pick an Image'),
+                  child: Text('Pick an Image',style: TextStyle(color: CustomColors.myHexColor),),
                 ),
               ),
-              SizedBox(height: 16),
-              TextFormField(
-                cursorColor: Colors.black87,
-                controller: _parkingNameController,
-                decoration: InputDecoration(
-                    labelText: 'Parking Name',
-                    labelStyle: TextStyle(color: Colors.black87),
-                    focusColor: Colors.black87,
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black87, width: 2))),
+              SizedBox(height: 24),
+              Container(
+                decoration: BoxDecoration(
+                  color: CustomColors.myHexColorDark,
+                  borderRadius: BorderRadius.circular(15),
+
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(7.0),
+                  child: TextFormField(
+                    cursorColor: Colors.black87,
+                    controller: _parkingNameController,
+                    decoration: InputDecoration(
+                      hintText: 'Your Parking Name',
+                      labelStyle: TextStyle(color: Colors.black87),
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                    ),
+                  ),
+                ),
               ),
-              SizedBox(height: 16),
-              TextFormField(
-                cursorColor: Colors.black87,
-                controller: _mobileNumberController,
-                decoration: InputDecoration(
-                    labelText: 'Mobile Number',
-                    labelStyle: TextStyle(color: Colors.black87),
-                    focusColor: Colors.black87,
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black87, width: 2))),
+              SizedBox(height: 24),
+              Container(
+                decoration: BoxDecoration(
+                  color: CustomColors.myHexColorDark,
+                  borderRadius: BorderRadius.circular(15),
+
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    cursorColor: Colors.black87,
+                    controller: _mobileNumberController,
+                    decoration: InputDecoration(
+                      hintText: 'Mobile Number',
+                      labelStyle: TextStyle(color: Colors.black87),
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                    ),
+                  ),
+                ),
               ),
-              SizedBox(height: 40),
+              SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text('Provide Location\n(Make sure you are in your parking !)'),
                   SizedBox(width: 10),
                   Switch(
+                    activeColor: CustomColors.myHexColorDarkest,
                     value: _provideLocation,
                     onChanged: (value) {
                       setState(() {
@@ -265,12 +287,12 @@ class _FormPageState extends State<FormPage> {
                   ),
                 ],
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 20),
               Container(
-                height: 40.0,
-                width: 150,
+                height: 60.0,
+                width: 300,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(20),
                   gradient: LinearGradient(
                     colors: [Colors.black87, Colors.grey.shade800],
                   ),
@@ -281,7 +303,7 @@ class _FormPageState extends State<FormPage> {
                     backgroundColor: Colors.transparent,
                     shadowColor: Colors.transparent,
                   ),
-                  child: Text('Save Form Data'),
+                  child: Text('Save Form Data',style: TextStyle(color: CustomColors.myHexColor),),
                 ),
               ),
             ],

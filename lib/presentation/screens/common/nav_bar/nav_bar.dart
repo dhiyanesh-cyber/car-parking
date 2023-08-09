@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:mapsss/presentation/colors/colors.dart';
 import 'package:mapsss/presentation/screens/about/about.dart';
 import 'package:mapsss/presentation/screens/map_view/parking_map_view.dart';
+import '../../profile/user_profile.dart';
 import '../../settings/settings_page.dart';
 
 import '../../map_view/test_map.dart';
+
 
 class BottomNavigationBarPage extends StatefulWidget {
   const BottomNavigationBarPage({super.key});
@@ -19,7 +21,7 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
   static final List<Widget> _widgetOptions = <Widget>[
     ParkingMapView(),
     MyApp(),
-    AboutPage(),
+    UserProfilePage(),
     SettingsPage(),
   ];
 
@@ -45,7 +47,7 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
               padding: EdgeInsets.only(top: 8,),
               decoration: BoxDecoration(
                 color: Colors.black,
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24)),
 
               ),
               child: BottomNavigationBar(
@@ -61,14 +63,17 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
                   BottomNavigationBarItem(
                     icon: Icon(Icons.search_outlined),
                     label: 'Search',
+                    backgroundColor: Colors.transparent,
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(Icons.person),
                     label: 'Profile',
+                    backgroundColor: Colors.transparent,
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.info_outline),
+                    icon: Icon(Icons.settings),
                     label: 'About',
+                    backgroundColor: Colors.transparent,
                   ),
                 ],
                 currentIndex: _selectedIndex,
@@ -87,59 +92,4 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
 
 
 
-// class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
-//   int _selectedIndex = 0;
-//   static const TextStyle optionStyle =
-//       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-//
-//   static final List<Widget> _widgetOptions = <Widget>[
-//     ParkingMapView(),
-//     ParkingMapView(),
-//     AboutPage(),
-//     SettingsPage(),
-//   ];
-//
-//   void _onItemTapped(int index) {
-//     setState(() {
-//       _selectedIndex = index;
-//     });
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Center(
-//         child: _widgetOptions.elementAt(_selectedIndex),
-//       ),
-//       bottomNavigationBar: BottomNavigationBar(
-//
-//
-//               showSelectedLabels: false,
-//               showUnselectedLabels: false,
-//               items: const <BottomNavigationBarItem>[
-//                 BottomNavigationBarItem(
-//                   icon: Icon(Icons.dashboard_outlined),
-//                   label: 'Home',
-//                 ),
-//                 BottomNavigationBarItem(
-//                   icon: Icon(Icons.search_outlined),
-//                   label: 'Search',
-//                 ),BottomNavigationBarItem(
-//                   icon: Icon(Icons.person),
-//                   label: 'Search',
-//                 ),
-//                 BottomNavigationBarItem(
-//                   icon: Icon(Icons.info_outline),
-//                   label: 'About',
-//                 ),
-//               ],
-//               currentIndex: _selectedIndex,
-//
-//               selectedItemColor:CustomColors.myHexColorDarker,
-//               unselectedItemColor:Colors.black87,
-//               onTap: _onItemTapped,
-//             ),
-//         );
-//
-//   }
-// }
+

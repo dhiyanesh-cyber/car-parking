@@ -16,9 +16,9 @@ class WelcomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Gif Image
+
             Image.asset(
-              'assets/parking-amico.png', // Replace 'welcome.gif' with your actual gif file path
+              'assets/Parking-amico.png', // Replace 'welcome.gif' with your actual gif file path
               height: 300,
               width: 300,
               fit: BoxFit.contain,
