@@ -121,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                     await _authService.signInWithEmailAndPassword(email, password);
                     if (user != null) {
                       // Navigate to home screen
-                      Navigator.pushNamed(context, '/home');
+                      Navigator.pushNamed(context, '/navBar');
                     } else {
                       // Show error message
                       ScaffoldMessenger.of(context).showSnackBar(

@@ -1,19 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:mapsss/presentation/screens/map_view/parking_map_view.dart';
 
+import '../../colors/colors.dart';
+
 void main() {
   runApp(SearchPage());
 }
 
-
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: SearchPage(),
+    );
+  }
+}
 
 class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: CustomColors.myHexColor,
       appBar: AppBar(
-        
-        title: Text('Search Page'),
+        automaticallyImplyLeading: false,
+        backgroundColor: CustomColors.myHexColor,
+        title: Text(
+          'Search',
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.black),
+        ),
+        elevation: 0,
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         

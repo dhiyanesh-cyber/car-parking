@@ -13,13 +13,7 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: CustomColors.myHexColor,
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back_ios_rounded),
-        ),
-        iconTheme: IconThemeData(color: Colors.black),
+        automaticallyImplyLeading: false,
         backgroundColor: CustomColors.myHexColor,
         title: Text(
           'Settings',
@@ -27,6 +21,7 @@ class SettingsPage extends StatelessWidget {
           style: TextStyle(color: Colors.black),
         ),
         elevation: 0,
+        centerTitle: true,
       ),
 
 
@@ -57,7 +52,7 @@ class SettingsPage extends StatelessWidget {
                         // Log out the user and navigate to the LoginPage.
                         Navigator.pushNamed(context, '/form');
                       },
-                      icon: Icon(Icons.file_copy),
+                      icon: Icon(Icons.file_copy, color: CustomColors.myHexColor,),
                       label: Text('Form',style: TextStyle(color: CustomColors.myHexColor),),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.transparent,
@@ -94,7 +89,7 @@ class SettingsPage extends StatelessWidget {
                         // Navigate to the AboutPage.
                         Navigator.pushNamed(context, '/aboutUs');
                       },
-                      icon: Icon(Icons.info),
+                      icon: Icon(Icons.info, color: CustomColors.myHexColor,),
                       label: Text(
                         'About',style: TextStyle(color: CustomColors.myHexColor)
 
@@ -123,7 +118,7 @@ class SettingsPage extends StatelessWidget {
                         // Log out the user and navigate to the LoginPage.
                         _logout(context);
                       },
-                      icon: Icon(Icons.logout),
+                      icon: Icon(Icons.logout, color: CustomColors.myHexColor,),
                       label: Text('Log Out',style: TextStyle(color: CustomColors.myHexColor)),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.transparent,

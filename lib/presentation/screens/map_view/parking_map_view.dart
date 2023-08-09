@@ -38,7 +38,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
   Widget build(BuildContext context) {
     return Scaffold(
 
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: SafeArea(
         bottom: false,
         child: Stack(
@@ -51,7 +51,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
                 zoom: 10.0,
               ),
               markers: _parkingMarkers,
-              compassEnabled: false,
+              zoomControlsEnabled: false,
             ),
 
             Container(
@@ -99,7 +99,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
         child: FloatingActionButton(
           backgroundColor: Colors.black87,
           onPressed: _showMyLocation,
-          child: Icon(Icons.my_location),
+          child: Icon(Icons.my_location, color: CustomColors.myHexColor,),
         ),
       ),
     );
