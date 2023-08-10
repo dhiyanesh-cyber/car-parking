@@ -44,9 +44,15 @@
             android:name="com.google.android.gms.wallet.api.enabled"
             android:value="true" />
 
+        
+
 
 
     </application>
+
+    <queries>
+        <package android:name="com.google.android.apps.nbu.paisa.user" />
+    </queries>
 
 </manifest>
 

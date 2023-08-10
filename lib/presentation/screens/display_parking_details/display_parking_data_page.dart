@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mapsss/presentation/colors/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:android_intent_plus/android_intent.dart';
+import 'package:pay/pay.dart';
 
 class DisplayParkingDataPage extends StatefulWidget {
   final String parkingName;
@@ -18,6 +19,58 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
   String vechicalOption = 'Bike';
   Duration parkingTime = const Duration(hours: 0, minutes: 00);
   double ammount = 0.0;
+       String defaultGooglePay = '''{
+  "provider": "google_pay",
+  "data": {
+    "environment": "TEST",
+    "apiVersion": 2,
+    "apiVersionMinor": 0,
+    "allowedPaymentMethods": [
+      {
+        "type": "CARD",
+        "tokenizationSpecification": {
+          "type": "PAYMENT_GATEWAY",
+          "parameters": {
+            "gateway": "example",
+            "gatewayMerchantId": "gatewayMerchantId"
+          }
+        },
+        "parameters": {
+          "allowedCardNetworks": ["VISA", "MASTERCARD"],
+          "allowedAuthMethods": ["PAN_ONLY", "CRYPTOGRAM_3DS"],
+          "billingAddressRequired": true,
+          "billingAddressParameters": {
+            "format": "FULL",
+            "phoneNumberRequired": true
+          }
+        }
+      }
+    ],
+    "merchantInfo": {
+      "merchantId": "01234567890123456789",
+      "merchantName": "Example Merchant Name"
+    },
+    "transactionInfo": {
+      "countryCode": "IN",
+      "currencyCode": "INR"
+    }
+  }
+}''';
+
+    // Create the payment items.
+    final paymentItems = [
+      PaymentItem(
+        label: "My Product",
+        amount: "10.00",
+        status: PaymentItemStatus.final_price,
+        
+      ),
+    ];
+
+    void onGooglePayResult(dynamic paymentResult) {
+      debugPrint(paymentResult.toString());
+  // Send the resulting Google Pay token to your server / PSP
+}
 
   @override
   Widget build(BuildContext context) {
@@ -179,21 +232,40 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                 child: Column(
                   children: [
                     GestureDetector(
-                      onTap: () {
-                        openGooglePayApp();
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 100,
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                              15,
-                            ),
-                            color: const Color(0xFFc86868)),
-                        child: Center(child: Image.asset('assets/google-pay.png')),
-                      ),
-                    ),
+  onTap: () {
+    // Create the payment configuration.
+
+
+    // Create the Google Pay button.
+ 
+
+
+    // Show the Google Pay button.
+    
+  },
+  
+  child: Container(
+    height: 50,
+    width: 100,
+    padding: const EdgeInsets.symmetric(horizontal: 15),
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(
+          15,
+        ),
+        color: const Color(0xFFc86868)),
+    child:  GooglePayButton(
+  paymentConfiguration: PaymentConfiguration.fromJsonString(
+      defaultGooglePay),
+  paymentItems: paymentItems,
+  type: GooglePayButtonType.pay,
+  margin: const EdgeInsets.only(top: 55.0),
+  onPaymentResult: onGooglePayResult,
+  loadingIndicator: const Center(
+    child: CircularProgressIndicator(),
+  ),
+),
+  ),
+),
                   ],
                 ),
               ),
@@ -241,21 +313,34 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
     }
   }
 
-  void openGooglePayApp() async {
-    final String googlePayUrl = "https://pay.google.com/gp/w/u/0/home/send/request?phone=";
+void openGooglePayApp(String recipientVPA, String recipientName, double amount) async {
+    final String googlePayPackageName = "com.google.android.apps.nbu.paisa.user";
+    String encodedVPA = Uri.encodeComponent(recipientVPA);
+    String encodedName = Uri.encodeComponent(recipientName);
 
-    // You can modify the phone number or other parameters as needed
-    final String phoneNumber = "909251266";
+    final Uri uri = Uri(
+      scheme: "upi",
+      path: "pay",
+      queryParameters: {
+        "pa": encodedVPA,
+        "pn": encodedName, // Recipient's name
+        "mc": "",            // Merchant code (optional)
+        "tr": "txn_${DateTime.now().millisecondsSinceEpoch}", // Unique transaction reference ID
+        "tn": "Sending money", // Transaction note
+        "am": amount.toStringAsFixed(2), // Transaction amount
+        "cu": "INR",         // Currency code
+        "url": "",           // Transaction URL (optional)
+      },
+    );
 
-    final String finalUrl = googlePayUrl + phoneNumber;
-
-    if (await canLaunch(finalUrl)) {
-      await launch(finalUrl);
+    if (await canLaunch(uri.toString())) {
+      await launch(uri.toString(), forceSafariVC: false);
     } else {
-      throw 'Could not launch $finalUrl';
+      // Handle if the app is not installed or cannot be opened.
+      // You can show an error message or take appropriate action.
+      print('Google Pay app not installed or cannot be opened.');
     }
   }
-
 }
 
 
