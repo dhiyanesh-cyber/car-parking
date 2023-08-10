@@ -23,8 +23,7 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
   static final List<Widget> _widgetOptions = <Widget>[
     ParkingMapView(),
     SearchPage(),
-    AboutPage(),
-    MyApp(),
+    
     UserProfilePage(),
     SettingsPage(),
   ];

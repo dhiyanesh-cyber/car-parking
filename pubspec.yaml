@@ -36,6 +36,7 @@ dependencies:
   google_maps_flutter: ^2.0.10
   flutter_polyline_points: ^1.0.0
   google_maps_webservice: ^0.0.19
+  intl: ^0.18.1
   geolocator: ^9.0.2
   location: ^5.0.0
   latlong2: ^0.9.0
@@ -56,6 +57,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  shared_preferences: ^2.2.0
 
 dev_dependencies:
   flutter_test:
@@ -90,12 +92,25 @@ flutter:
      - assets/Signup.png
      - assets/Login.png
      - assets/car.png
+     - assets/koodal Azhagar Temple.jpg
+     - assets/birla-planetarium.jpg
+     - assets/kamraj-sagar-dam.jpg
+     - assets/Madurai Kamaraj University.jpg
+     - assets/Madurai museum.jpg
+     - assets/Meenakshi temple.jpg
+     - assets/puthu mandapam.jpg
+     - assets/st-mary-s-cathedral.jpg
+     - assets/TEPPAKULAM.jpg
+     - assets/Thirumalai nayakar mahal.jpeg
      - assets/letter-p.png
      - assets/p.png
      - assets/park.png
+     - assets/parking_marker2.png
      - assets/Parking-amico.png
      - assets/profile.png
      - assets/form.png
+     - assets/google-pay-icon.png
+     - assets/google-pay.png
 
   #   - images/a_dot_ham.jpeg
 
