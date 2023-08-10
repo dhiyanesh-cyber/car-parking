@@ -12,6 +12,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../Func/parking_data_service.dart';
 import '../../Func/parking_dialog.dart';
 import '../display_parking_details/display_parking_data_page.dart';
+import 'package:mapsss/presentation/screens/map_view/map_utils.dart';
+
 
 
 class ParkingMapView extends StatefulWidget {
@@ -141,7 +143,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     setState(() {
       _currentLocation = currentLocation;
       // Fetch and show the parking markers on the map
-      _mapController?.animateCamera(CameraUpdate.newLatLngZoom(_currentLocation, 15.0));
+      MapUtils.zoomToLocation(_mapController, _currentLocation); // Use the zoomToLocation function
 
       _showParkingMarkers(parkingDataList);
     });
@@ -222,7 +224,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     // Show the user's current location on the map
     LocationData locationData = await _location.getLocation();
     LatLng currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
-    _mapController?.animateCamera(CameraUpdate.newLatLng(currentLocation));
+    MapUtils.zoomToLocation(_mapController, currentLocation); // Use the zoomToLocation function
   }
 
 

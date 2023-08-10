@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mapsss/presentation/colors/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:android_intent_plus/android_intent.dart';
 
 class DisplayParkingDataPage extends StatefulWidget {
   final String parkingName;
@@ -16,14 +17,12 @@ class DisplayParkingDataPage extends StatefulWidget {
 class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
   String vechicalOption = 'Bike';
   Duration parkingTime = const Duration(hours: 0, minutes: 00);
-
   double ammount = 0.0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CustomColors.myHexColor,
-
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
@@ -37,19 +36,18 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
           'Parking Information',
           textAlign: TextAlign.center,
           style: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20),
+              color: Colors.black87,
+              fontWeight: FontWeight.w500,
+              fontSize: 20),
         ),
         elevation: 0,
       ),
-        body: SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              
               Image.asset('assets/info.png'),
               const SizedBox(
                 height: 20,
@@ -116,10 +114,10 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        if(ammount > 0)
-{                       parkingTime -= const Duration(hours: 1, minutes: 00);
-                        ammount -= 5;
-                        } 
+                        if (ammount > 0) {
+                          parkingTime -= const Duration(hours: 1, minutes: 00);
+                          ammount -= 5;
+                        }
                       });
                     },
                     child: Container(
@@ -173,29 +171,56 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                   "Total ammount: ₹" + ammount.toString(),
                   style: TextStyle(fontWeight: FontWeight.w700),
                 ),
-              ), SizedBox(
+              ),
+              SizedBox(
                 height: 50,
               ),
               Center(
                 child: Column(
-
-                      children: [
-
-                        Container(
-                            height: 50,
-                            width: 100,
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                  15,
-                                ),
-                                color: const Color(0xFFc86868)),
-                            child: Center(child: Image.asset('assets/google-pay.png'))),
-                      ],
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        openGooglePayApp();
+                      },
+                      child: Container(
+                        height: 50,
+                        width: 100,
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                              15,
+                            ),
+                            color: const Color(0xFFc86868)),
+                        child: Center(child: Image.asset('assets/google-pay.png')),
+                      ),
+                    ),
+                  ],
                 ),
-
-              )
+              ),
             ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: ElevatedButton(
+          onPressed: () {
+            openGoogleMapsNavigation();
+          },
+          style: ElevatedButton.styleFrom(
+            primary: Colors.black.withOpacity(0.8),
+            elevation: 0,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              'Navigate',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
       ),
@@ -216,4 +241,21 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
     }
   }
 
+  void openGooglePayApp() async {
+    final String googlePayUrl = "https://pay.google.com/gp/w/u/0/home/send/request?phone=";
+
+    // You can modify the phone number or other parameters as needed
+    final String phoneNumber = "909251266";
+
+    final String finalUrl = googlePayUrl + phoneNumber;
+
+    if (await canLaunch(finalUrl)) {
+      await launch(finalUrl);
+    } else {
+      throw 'Could not launch $finalUrl';
+    }
+  }
+
 }
+
+
