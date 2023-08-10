@@ -1,7 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import 'auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -149,7 +148,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     String name = _nameController.text.trim();
                     String phoneNumber = _phoneNumberController.text.trim();
 
-                    if (phoneNumber.length < 10 || phoneNumber.length > 10) {
+                    if (phoneNumber.length != 10) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('Enter a valid 10-digit mobile number')),
                       );
@@ -159,6 +158,23 @@ class _RegisterPageState extends State<RegisterPage> {
                     if (!_isValidEmail(email)) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('Enter a valid email')),
+                      );
+                      return;
+                    }
+
+                    bool isEmailRegistered = await _authService.isEmailRegistered(email);
+                    bool isPhoneNumberRegistered = await _authService.isPhoneNumberRegistered(phoneNumber);
+
+                    if (isEmailRegistered) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Email is already registered')),
+                      );
+                      return;
+                    }
+
+                    if (isPhoneNumberRegistered) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Phone number is already registered')),
                       );
                       return;
                     }
@@ -209,4 +225,62 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 }
 
-// ... (AuthService class and other code)
+class AuthService {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<bool> isEmailRegistered(String email) async {
+    try {
+      final userCredential = await _auth.fetchSignInMethodsForEmail(email);
+      return userCredential.isNotEmpty;
+    } catch (error) {
+      print('Error checking email registration: $error');
+      return false; // Return false in case of an error
+    }
+  }
+
+  Future<bool> isPhoneNumberRegistered(String phoneNumber) async {
+    try {
+      final querySnapshot = await _firestore
+          .collection('users') // Replace with your Firestore collection name
+          .where('phoneNumber', isEqualTo: phoneNumber)
+          .get();
+
+      return querySnapshot.docs.isNotEmpty;
+    } catch (error) {
+      print('Error checking phone number registration: $error');
+      return false; // Return false in case of an error
+    }
+  }
+
+  Future<User?> registerWithEmailAndPassword(
+      String email, String password, String name, String phoneNumber) async {
+    try {
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      User? user = result.user;
+
+      if (user != null) {
+        // Save additional user data to Firestore
+        await _firestore.collection('users').doc(user.uid).set({
+          'name': name,
+          'phoneNumber': phoneNumber,
+        });
+      }
+
+      return user;
+    } catch (error) {
+      print('Error registering user: $error');
+      return null;
+    }
+  }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: RegisterPage(),
+  ));
+}
