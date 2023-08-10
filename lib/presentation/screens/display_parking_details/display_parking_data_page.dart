@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mapsss/presentation/colors/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:android_intent_plus/android_intent.dart';
+import 'package:geolocator/geolocator.dart';
 
 class DisplayParkingDataPage extends StatefulWidget {
   final String parkingName;
@@ -228,9 +229,14 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
   }
 
   void openGoogleMapsNavigation() async {
+
+    Position position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
+
     // Construct the Google Maps URL with the selected parking location and the current location
     String parkingLocation = '${widget.location.latitude},${widget.location.longitude}';
-    String currentLocation = 'your_current_latitude,your_current_longitude'; // Replace with the actual current location
+    String currentLocation =  '${position.latitude},${position.longitude}'; // Replace with the actual current location
 
     String url = 'https://www.google.com/maps/dir/?api=1&destination=$parkingLocation&origin=$currentLocation&travelmode=driving';
 
