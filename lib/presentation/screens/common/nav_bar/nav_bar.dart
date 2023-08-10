@@ -14,18 +14,27 @@ class BottomNavigationBarPage extends StatefulWidget {
   @override
   State<BottomNavigationBarPage> createState() =>
       _BottomNavigationBarPageState();
+
+  static void setIndex(int i) {}
 }
 
 class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = <Widget>[
     ParkingMapView(),
-    MyApp(),
+    SearchPage(),
+    
     UserProfilePage(),
     SettingsPage(),
   ];
 
   void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  void setIndex(int index){
     setState(() {
       _selectedIndex = index;
     });
