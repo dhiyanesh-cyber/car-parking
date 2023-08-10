@@ -45,21 +45,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
 
 
-              // REGISTER TEXT
 
 
-              // Align(
-              //   alignment: Alignment.centerLeft,
-              //   child: Text(
-              //     "Register",
-              //     style: TextStyle(
-              //
-              //       fontSize: 24,
-              //       fontWeight: FontWeight.w800,
-              //     ),
-              //
-              //   ),
-              // ),
 
               Image.asset(
                 'assets/Signup.png', // Replace 'welcome.gif' with your actual gif file path
