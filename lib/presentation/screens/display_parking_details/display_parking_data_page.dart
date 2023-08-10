@@ -3,6 +3,17 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mapsss/presentation/colors/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+// Define the openGooglePayApp function outside the classes
+void openGooglePayApp() async {
+  const String googlePayAppUrl = "https://www.google.com";
+  final Uri uri = Uri.parse(googlePayAppUrl);
+  if (await canLaunchUrl(uri)) {
+    await launchUrl(uri);
+  } else {
+    throw 'Could not launch Google Pay';
+  }
+}
+
 class DisplayParkingDataPage extends StatefulWidget {
   final String parkingName;
   final LatLng location;
@@ -16,14 +27,12 @@ class DisplayParkingDataPage extends StatefulWidget {
 class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
   String vechicalOption = 'Bike';
   Duration parkingTime = const Duration(hours: 0, minutes: 00);
-
   double ammount = 0.0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CustomColors.myHexColor,
-
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
@@ -37,19 +46,19 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
           'Parking Information',
           textAlign: TextAlign.center,
           style: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20),
+            color: Colors.black87,
+            fontWeight: FontWeight.w500,
+            fontSize: 20,
+          ),
         ),
         elevation: 0,
       ),
-        body: SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              
               Image.asset('assets/info.png'),
               const SizedBox(
                 height: 20,
@@ -76,19 +85,21 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                 width: 350,
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      15,
-                    ),
-                    color: Color(0xFFc86868)),
+                  borderRadius: BorderRadius.circular(
+                    15,
+                  ),
+                  color: Color(0xFFc86868),
+                ),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton(
                     iconEnabledColor: Colors.black87,
                     dropdownColor: CustomColors.myHexColorDark,
                     value: vechicalOption,
                     style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 17,
-                        color: Colors.black87),
+                      fontWeight: FontWeight.w700,
+                      fontSize: 17,
+                      color: Colors.black87,
+                    ),
                     items: const [
                       DropdownMenuItem(
                         value: 'Bike',
@@ -116,10 +127,10 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        if(ammount > 0)
-{                       parkingTime -= const Duration(hours: 1, minutes: 00);
-                        ammount -= 5;
-                        } 
+                        if (ammount > 0) {
+                          parkingTime -= const Duration(hours: 1, minutes: 00);
+                          ammount -= 5;
+                        }
                       });
                     },
                     child: Container(
@@ -127,10 +138,11 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                       width: 50,
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            10,
-                          ),
-                          color: Color(0xFFc86868).withOpacity(.8)),
+                        borderRadius: BorderRadius.circular(
+                          10,
+                        ),
+                        color: Color(0xFFc86868).withOpacity(.8),
+                      ),
                       child: const Center(child: Icon(Icons.arrow_back_ios)),
                     ),
                   ),
@@ -156,10 +168,11 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                       width: 50,
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            10,
-                          ),
-                          color: const Color(0xFFc86868).withOpacity(.8)),
+                        borderRadius: BorderRadius.circular(
+                          10,
+                        ),
+                        color: const Color(0xFFc86868).withOpacity(.8),
+                      ),
                       child: const Center(child: Icon(Icons.arrow_forward_ios)),
                     ),
                   ),
@@ -170,31 +183,34 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
               ),
               Center(
                 child: Text(
-                  "Total ammount: ₹" + ammount.toString(),
+                  "Total amount: ₹" + ammount.toString(),
                   style: TextStyle(fontWeight: FontWeight.w700),
                 ),
-              ), SizedBox(
+              ),
+              SizedBox(
                 height: 50,
               ),
               Center(
                 child: Column(
-
-                      children: [
-
-                        Container(
-                            height: 50,
-                            width: 100,
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                  15,
-                                ),
-                                color: const Color(0xFFc86868)),
-                            child: Center(child: Image.asset('assets/google-pay.png'))),
-                      ],
+                  children: [
+                    Container(
+                      height: 50,
+                      width: 100,
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                          15,
+                        ),
+                        color: const Color(0xFFc86868),
+                      ),
+                      child: GestureDetector(
+                        onTap: openGoogleMapsNavigation, // Call the method when button is pressed
+                        child: Center(child: Image.asset('assets/google-pay.png')),
+                      ),
+                    ),
+                  ],
                 ),
-
-              )
+              ),
             ],
           ),
         ),
@@ -203,17 +219,24 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
   }
 
   void openGoogleMapsNavigation() async {
-    // Construct the Google Maps URL with the selected parking location and the current location
     String parkingLocation = '${widget.location.latitude},${widget.location.longitude}';
-    String currentLocation = 'your_current_latitude,your_current_longitude'; // Replace with the actual current location
+    String currentLocation = 'your_current_latitude,your_current_longitude';
 
-    String url = 'https://www.google.com/maps/dir/?api=1&destination=$parkingLocation&origin=$currentLocation&travelmode=driving';
+    String url = ('https://developer.paypal.com/docs/log-in-with-paypal/integrate/');
 
-    if (await canLaunch(url)) {
-      await launch(url);
+    final Uri uri = Uri.parse(url);
+
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
     } else {
       throw 'Could not launch $url';
     }
   }
 
+  }
+
+
+
+void main() {
+  runApp(MaterialApp(home: DisplayParkingDataPage(parkingName: 'Parking Name', location: LatLng(0, 0))));
 }
