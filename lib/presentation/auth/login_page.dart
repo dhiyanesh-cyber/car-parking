@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import '../colors/colors.dart';
 import 'auth_service.dart';
 
 
@@ -10,9 +10,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  Color myHexColor = Color(0xFFFDE3E3);
-  Color myHexColorDark = Color(0xFFECC9C9);
-  Color myHexColorDarker = Color(0xFFD0A6A6);
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -21,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: myHexColor,
+      backgroundColor: CustomColors.myHexColor,
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
@@ -31,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         title: Text("Log In", style: TextStyle(color: Colors.black87),),
         iconTheme: IconThemeData(color: Colors.black),
-        backgroundColor: myHexColor,
+        backgroundColor: CustomColors.myHexColor,
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -59,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Container(
                 decoration: BoxDecoration(
-                  color: myHexColorDark,
+                  color: CustomColors.myHexColorDark,
                   borderRadius: BorderRadius.circular(15),
 
                 ),
@@ -81,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
 
               Container(
                 decoration: BoxDecoration(
-                  color: myHexColorDark,
+                  color: CustomColors.myHexColorDark,
                   borderRadius: BorderRadius.circular(15),
 
                 ),
@@ -133,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                     backgroundColor: Colors.transparent,
                     shadowColor: Colors.transparent,
                   ),
-                  child: Text('Login',style: TextStyle(color: myHexColor),),
+                  child: Text('Login',style: TextStyle(color: CustomColors.myHexColor),),
                 ),
               ),
 
@@ -141,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () {
                   Navigator.pushNamed(context, '/register');
                 },
-                child: Text('Don\'t have an account? Register', style: TextStyle(color: myHexColorDarker),),
+                child: Text('Don\'t have an account? Register', style: TextStyle(color: CustomColors.myHexColorDarker),),
               ),
             ],
           ),

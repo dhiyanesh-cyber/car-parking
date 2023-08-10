@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mapsss/presentation/colors/colors.dart';
+import 'package:ParkMe/presentation/colors/colors.dart';
 
 
 class AboutPage extends StatelessWidget {

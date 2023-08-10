@@ -1,6 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:mapsss/presentation/colors/colors.dart';
+import 'package:ParkMe/presentation/colors/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:android_intent_plus/android_intent.dart';
 import 'package:geolocator/geolocator.dart';
@@ -49,25 +51,29 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset('assets/info.png'),
+              Image.asset('assets/payment.png'),
               const SizedBox(
                 height: 20,
               ),
-              Text(
-                widget.parkingName,
-                style: const TextStyle(
-                  fontSize: 19,
-                  fontWeight: FontWeight.w700,
+              Center(
+                child: Text(
+                  widget.parkingName,
+                  style: const TextStyle(
+                    fontSize: 19,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
-              const SizedBox(
+              SizedBox(
                 height: 25,
               ),
-              const Text(
-                "Selected What are you going to park",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              Center(
+                child: Text(
+                  "Selected What are you going to park",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
               ),
-              const SizedBox(
+              SizedBox(
                 height: 20,
               ),
               Container(
@@ -78,7 +84,7 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                     borderRadius: BorderRadius.circular(
                       15,
                     ),
-                    color: Color(0xFFc86868)),
+                    color: Color(0xFFc86868).withOpacity(.8)),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton(
                     iconEnabledColor: Colors.black87,
@@ -123,13 +129,13 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                     },
                     child: Container(
                       height: 50,
-                      width: 50,
+                      width: 95,
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(
                             10,
                           ),
-                          color: Color(0xFFc86868).withOpacity(.8)),
+                          color: Color(0xFFc86868).withOpacity(.0)),
                       child: const Center(child: Icon(Icons.arrow_back_ios)),
                     ),
                   ),
@@ -152,13 +158,13 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                     },
                     child: Container(
                       height: 50,
-                      width: 50,
+                      width: 95,
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(
                             10,
                           ),
-                          color: const Color(0xFFc86868).withOpacity(.8)),
+                          color: const Color(0xFFc86868).withOpacity(0)),
                       child: const Center(child: Icon(Icons.arrow_forward_ios)),
                     ),
                   ),
@@ -185,31 +191,32 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                       },
                       child: Container(
                         height: 50,
-                        width: 100,
+                        width: 230,
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                              15,
+                            borderRadius: BorderRadius.circular(15,),
+                            color: Color(0xFFc86868).withOpacity(0.8)
                             ),
-                            color: const Color(0xFFc86868)),
                         child: Center(child: Image.asset('assets/google-pay.png')),
                       ),
                     ),
                   ],
                 ),
               ),
+              SizedBox(height: 30,)
             ],
           ),
         ),
       ),
-      bottomNavigationBar: Padding(
+      bottomNavigationBar: Container(
+
         padding: const EdgeInsets.all(20.0),
         child: ElevatedButton(
           onPressed: () {
             openGoogleMapsNavigation();
           },
           style: ElevatedButton.styleFrom(
-            primary: Colors.black.withOpacity(0.8),
+            backgroundColor: Color(0xFFc86868).withOpacity(0.8),
             elevation: 0,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           ),
@@ -218,7 +225,8 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
             child: Text(
               'Navigate',
               style: TextStyle(
-                color: Colors.white,
+                fontSize: 16,
+                color: Colors.black87,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -263,5 +271,3 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
   }
 
 }
-
-

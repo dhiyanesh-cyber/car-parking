@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:mapsss/presentation/colors/colors.dart';
-import 'package:mapsss/presentation/screens/display_parking_details/DisplayParkingData_page.dart';
-import 'package:mapsss/presentation/common/nav_animation/navigateWithAnimation.dart';
-import 'package:mapsss/presentation/screens/map_view/parking_map_view.dart';
+import 'package:ParkMe/presentation/colors/colors.dart';
+import 'package:ParkMe/presentation/screens/display_parking_details/DisplayParkingData_page.dart';
+import 'package:ParkMe/presentation/common/nav_animation/navigateWithAnimation.dart';
+import 'package:ParkMe/presentation/screens/map_view/parking_map_view.dart';
 
-import 'package:mapsss/presentation/screens/home/simple_starting_screen.dart';
+import 'package:ParkMe/presentation/screens/home/simple_starting_screen.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
