@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:location/location.dart';
-import 'package:mapsss/presentation/colors/colors.dart';
-import 'package:mapsss/presentation/screens/display_parking_details/DisplayParkingData_page.dart';
-import 'package:mapsss/presentation/screens/settings/settings_page.dart';
-import 'package:mapsss/presentation/screens/home/simple_starting_screen.dart';
+import 'package:ParkMe/presentation/colors/colors.dart';
+import 'package:ParkMe/presentation/screens/display_parking_details/DisplayParkingData_page.dart';
+import 'package:ParkMe/presentation/screens/settings/settings_page.dart';
+import 'package:ParkMe/presentation/screens/home/simple_starting_screen.dart';
 import '../display_parking_details/display_parking_data_page.dart';
 import '../parking_Details/parking_details_page.dart';
 import '../../common/nav_animation/navigateWithAnimation.dart';
@@ -12,7 +12,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../Func/parking_data_service.dart';
 import '../../Func/parking_dialog.dart';
 import '../display_parking_details/display_parking_data_page.dart';
-import 'package:mapsss/presentation/screens/map_view/map_utils.dart';
+import 'package:ParkMe/presentation/screens/map_view/map_utils.dart';
 
 
 

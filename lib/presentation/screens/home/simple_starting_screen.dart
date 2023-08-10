@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 
-import 'package:mapsss/presentation/screens/about/about.dart';
-import 'package:mapsss/presentation/screens/map_view/parking_map_view.dart';
+import 'package:ParkMe/presentation/screens/about/about.dart';
+import 'package:ParkMe/presentation/screens/map_view/parking_map_view.dart';
 
-import 'package:mapsss/presentation/screens/settings/settings_page.dart';
+import 'package:ParkMe/presentation/screens/settings/settings_page.dart';
 import '../../common/nav_animation/navigateWithAnimation.dart';
 import '../display_parking_details/DisplayParkingData_page.dart';
 import '../../../main.dart';
-import 'package:mapsss/presentation/colors/colors.dart';
+import 'package:ParkMe/presentation/colors/colors.dart';
 
 
 

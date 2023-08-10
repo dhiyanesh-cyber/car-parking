@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:mapsss/presentation/colors/colors.dart';
+import 'package:ParkMe/presentation/colors/colors.dart';
 
 class ParkingDialog {
   // Method to show the parking list dialog with sorted parking locations

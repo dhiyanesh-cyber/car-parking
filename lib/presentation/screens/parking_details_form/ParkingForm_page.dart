@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:location/location.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:mapsss/presentation/colors/colors.dart';
+import 'package:ParkMe/presentation/colors/colors.dart';
 
 class FormPage extends StatefulWidget {
   @override

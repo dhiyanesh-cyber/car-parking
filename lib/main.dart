@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mapsss/presentation/screens/common/nav_bar/nav_bar.dart';
-import 'package:mapsss/presentation/screens/home/welcome_page.dart';
+import 'package:ParkMe/presentation/screens/common/nav_bar/nav_bar.dart';
+import 'package:ParkMe/presentation/screens/home/welcome_page.dart';
 import 'presentation/screens/display_parking_details/DisplayParkingData_page.dart';
 import 'presentation/screens/parking_details_form/ParkingForm_page.dart';
 import 'presentation/screens/settings/settings_page.dart';
@@ -20,7 +20,6 @@ void main() async {
 
   runApp(ParkingLocatorApp(initialRoute: userLoggedIn ? '/navBar' : '/welcomePage'));
 }
-
 
 
 // Check if the user is logged in
@@ -49,64 +48,11 @@ class ParkingLocatorApp extends StatelessWidget {
         '/navBar': (context) => BottomNavigationBarPage(),
         '/form': (context) => FormPage(),
         '/displayPage': (context) => DisplayPage(),
-
         '/settingsPage': (context) => SettingsPage()
 
       },
     );
   }
 }
-
-
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:mapsss/presentation/screens/common/nav_bar/nav_bar.dart';
-// import 'package:mapsss/presentation/screens/home/welcome_page.dart';
-// import 'presentation/screens/display_parking_details/DisplayParkingData_page.dart';
-// import 'presentation/screens/parking_details_form/ParkingForm_page.dart';
-// import 'presentation/screens/settings/settings_page.dart';
-// import 'presentation/auth/register_page.dart';
-// import 'presentation/screens/about/about.dart';
-// import 'presentation/auth/login_page.dart';
-// import 'presentation/screens/home/simple_starting_screen.dart';
-// import 'presentation/screens/map_view/parking_map_view.dart';
-// import 'package:firebase_core/firebase_core.dart';
-//
-//
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   await Firebase.initializeApp();
-//   runApp(const ParkingLocatorApp());
-// }
-//
-// class ParkingLocatorApp extends StatelessWidget {
-//   const ParkingLocatorApp({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: WelcomePage(),
-//       routes: {
-//         '/home' : (context) => SimpleStartingScreen(),
-//         '/welcomePage' : (context) => WelcomePage(),
-//         '/mapView': (context) => ParkingMapView(),
-//         '/aboutUs': (context) => AboutPage(),
-//         '/login': (context) => LoginPage(),
-//         '/register': (context) => RegisterPage(),
-//         '/navBar': (context) => BottomNavigationBarPage(),
-//         '/form': (context) => FormPage(),
-//         '/displayPage': (context) => DisplayPage(),
-//
-//         '/settingsPage': (context) => SettingsPage()
-//
-//       },
-//     );
-//   }
-// }
-
-
 
 
