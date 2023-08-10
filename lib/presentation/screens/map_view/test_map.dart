@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -6,9 +8,11 @@ import 'package:mapsss/presentation/colors/colors.dart';
 import 'package:mapsss/presentation/screens/map_view/search_history.dart';
 
 
+
 void main() {
   runApp(MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   @override
@@ -26,12 +30,27 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+
+  List<DocumentSnapshot> _searchResults = [];
+  List<String> _searchHistory = [];
+
   final TextEditingController _searchController = TextEditingController();
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  
 
   
 
   bool result = false;
+
+   @override
+  void initState() {
+    super.initState();
+    // Load existing search history
+    SearchHistoryManager.getSearchHistory().then((history) {
+      setState(() {
+        _searchHistory = history;
+      });
+    });
+  }
 
   Future<void> _searchParking(String searchText) async {
 
@@ -49,6 +68,16 @@ class _SearchPageState extends State<SearchPage> {
 
       if(searchText.toString().toLowerCase().trim() == parkingName.toString().toLowerCase().trim()){
         result = true;
+         SearchHistoryManager.addToSearchHistory(searchText);
+    
+    setState(() {
+      SearchHistoryManager.getSearchHistory().then((history) {
+      setState(() {
+        print(history);
+        _searchHistory = history;
+      });
+    });
+    });
         print(result);
         
       }
@@ -67,8 +96,18 @@ class _SearchPageState extends State<SearchPage> {
         ),
       );
       result = false;
+      setState(() {
+      SearchHistoryManager.getSearchHistory().then((history) {
+      setState(() {
+        print(history);
+        _searchHistory = history;
+      });
+    });
+    });
     }
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -89,9 +128,25 @@ class _SearchPageState extends State<SearchPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            SizedBox(
+              height: 20,
+            ),
             SearchBar(searchController: _searchController, onSearch: _searchParking),
+            SizedBox(
+              height: 20,
+            ),
             NearbyParkingDialog(),
-            SearchHistoryBox(onSearch: (String ) {  },),
+            SizedBox(
+              height: 25,
+            ),
+            Center(child: Container(child: SearchHistoryBox(searchHistory: _searchHistory, onSearch:  _searchParking, clearSearchHistory: () {
+    setState(() {
+      _searchHistory.clear();
+    });
+  }))),
+            SizedBox(
+              height: 20,
+            ),
             FamousParkingAreas(),
           ],
         ),
@@ -192,51 +247,75 @@ class NearbyParkingDialog extends StatelessWidget {
     );
   }
 }
-
 class SearchHistoryBox extends StatelessWidget {
+ List<String> searchHistory;
   final Function(String) onSearch;
+  final Function() clearSearchHistory;
 
-  SearchHistoryBox({required this.onSearch});
+  SearchHistoryBox({
+    required this.searchHistory,
+    required this.onSearch,
+    required this.clearSearchHistory,
+  });
+
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<String>>(
-      future: SearchHistoryManager.getSearchHistory(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
-        } else if (snapshot.hasError) {
-          return Text('Error loading search history');
-        } else {
-          final searchHistory = snapshot.data ?? [];
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Search History',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        color: CustomColors.myHexColorDark,
+      ),
+      margin: EdgeInsets.all(30),
+      padding: EdgeInsets.all(30),
+      
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Search History',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            GestureDetector(
+              onTap: () {
+                SearchHistoryManager.clearSearchHistory();
+
+                clearSearchHistory;
+              
+                // Handle the delete action here
+                // For example, you could clear the search history.
+              },
+              child: Icon(Icons.delete),
+            ),
+          ],
+        ),
+        SizedBox(height: 8),
+          if (searchHistory.isNotEmpty)
+            Center(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: searchHistory.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: Container( // Wrap the leading widget with a Container
+            width: 48.0, // Set a desired width
+            child: Icon(Icons.history),
+          ),
+                    
+                    title: Text(searchHistory[index]),
+                    onTap: () {
+                      onSearch(searchHistory[index]);
+                    },
+                  );
+                },
               ),
-              SizedBox(height: 8),
-              if (searchHistory.isNotEmpty)
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: searchHistory.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      leading: Icon(Icons.history),
-                      title: Text(searchHistory[index]),
-                      onTap: () {
-                        onSearch(searchHistory[index]);
-                      },
-                    );
-                  },
-                ),
-              if (searchHistory.isEmpty)
-                Text('No search history available'),
-            ],
-          );
-        }
-      },
+            ),
+          if (searchHistory.isEmpty) Text(''),
+        ],
+      ),
     );
   }
 }
