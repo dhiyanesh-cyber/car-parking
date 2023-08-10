@@ -1,4 +1,4 @@
-name: mapsss
+name: ParkMe
 description: A new Flutter project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -116,6 +116,7 @@ flutter:
      - assets/google-pay-icon.png
      - assets/google-pay.png
      - assets/info.png
+     - assets/payment.png
 
 
   #   - images/a_dot_ham.jpeg

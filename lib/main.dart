@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mapsss/presentation/screens/common/nav_bar/nav_bar.dart';
-import 'package:mapsss/presentation/screens/home/welcome_page.dart';
+import 'package:ParkMe/presentation/screens/common/nav_bar/nav_bar.dart';
+import 'package:ParkMe/presentation/screens/home/welcome_page.dart';
 import 'presentation/screens/display_parking_details/DisplayParkingData_page.dart';
 import 'presentation/screens/parking_details_form/ParkingForm_page.dart';
 import 'presentation/screens/settings/settings_page.dart';

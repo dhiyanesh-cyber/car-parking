@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mapsss/presentation/colors/colors.dart';
-import 'package:mapsss/presentation/screens/about/about.dart';
-import 'package:mapsss/presentation/screens/map_view/parking_map_view.dart';
+import 'package:ParkMe/presentation/colors/colors.dart';
+import 'package:ParkMe/presentation/screens/about/about.dart';
+import 'package:ParkMe/presentation/screens/map_view/parking_map_view.dart';
 import '../../profile/user_profile.dart';
 import '../../settings/settings_page.dart';
 
-import '../../map_view/test_map.dart';
+import '../../search/search.dart';
 
 
 class BottomNavigationBarPage extends StatefulWidget {

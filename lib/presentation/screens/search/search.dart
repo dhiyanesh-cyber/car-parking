@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:mapsss/presentation/screens/map_view/parking_map_view.dart';
-import 'package:mapsss/presentation/colors/colors.dart';
-import 'package:mapsss/presentation/screens/map_view/search_history.dart';
+import 'package:ParkMe/presentation/screens/map_view/parking_map_view.dart';
+import 'package:ParkMe/presentation/colors/colors.dart';
+import 'package:ParkMe/presentation/screens/map_view/search_history.dart';
 
 
 
@@ -131,7 +131,11 @@ class _SearchPageState extends State<SearchPage> {
             SizedBox(
               height: 20,
             ),
+
+
             SearchBar(searchController: _searchController, onSearch: _searchParking),
+
+
             SizedBox(
               height: 20,
             ),
@@ -166,27 +170,30 @@ class SearchBar extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Container(
-        height: 45,
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.black87),
-          borderRadius: BorderRadius.circular(50),
+          color: CustomColors.myHexColorDark,
+          borderRadius: BorderRadius.circular(15),
         ),
-        padding: EdgeInsets.symmetric(horizontal: 16.0),
-        child: TextField(
-          controller: searchController,
-          decoration: InputDecoration(
-            hintText: 'Search for parking...',
-            border: InputBorder.none,
-            suffixIcon: IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                onSearch(searchController.text);
-              },
+        child: Padding(
+          padding: const EdgeInsets.all(7.0),
+          child: TextField(
+            cursorColor: Colors.black87,
+            controller: searchController,
+            decoration: InputDecoration(
+              hintText: 'Search for parking...',
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+              suffixIcon: IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {
+                  onSearch(searchController.text);
+                },
+              ),
             ),
+            onSubmitted: (value) {
+              onSearch(value);
+            },
           ),
-          onSubmitted: (value) {
-            onSearch(value);
-          },
         ),
       ),
     );
