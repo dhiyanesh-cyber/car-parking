@@ -48,8 +48,8 @@ class _HomePageState extends State<HomePage> {
   Future<UpiResponse> initiateTransaction(UpiApp app) async {
     return _upiIndia.startTransaction(
       app: app,
-      receiverUpiId: "9078600498@ybl",
-      receiverName: 'Md Azharuddin',
+      receiverUpiId: "dhiyaneshsasi03@okaxis",
+      receiverName: 'Dhiyanesh',
       transactionRefId: 'TestingUpiIndiaPlugin',
       transactionNote: 'Not actual. Just an example.',
       amount: 1.00,

@@ -87,13 +87,13 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                     color: Color(0xFFc86868).withOpacity(.8)),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton(
-                    iconEnabledColor: Colors.black87,
-                    dropdownColor: CustomColors.myHexColorDark,
+                    iconEnabledColor: CustomColors.myHexColorLight,
+                    dropdownColor: Color(0xFFc86868),
                     value: vechicalOption,
                     style: const TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 17,
-                        color: Colors.black87),
+                        color: CustomColors.myHexColorLight),
                     items: const [
                       DropdownMenuItem(
                         value: 'Bike',
@@ -177,7 +177,7 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
-                          color: const Color(0xFFc86868),
+                          color: const Color(0xFFc86868).withOpacity(0.8),
                         ),
                         child: ElevatedButton(
                           onPressed: () {
@@ -190,10 +190,10 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.transparent, // Make the button transparent
-                            onPrimary: Colors.white, // Set text color
+                            backgroundColor: Colors.transparent,
+                            elevation: 0,  // Set text color
                           ),
-                          child: Text('Pay'),
+                          child: Text('Pay', style: TextStyle(color: CustomColors.myHexColorLight),),
                         ),
 
 
@@ -228,7 +228,7 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
               'Navigate',
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.black87,
+                color: CustomColors.myHexColorLight,
                 fontWeight: FontWeight.bold,
               ),
             ),
