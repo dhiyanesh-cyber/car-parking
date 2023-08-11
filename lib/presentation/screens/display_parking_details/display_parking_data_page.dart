@@ -128,14 +128,7 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                       });
                     },
                     child: Container(
-                      height: 50,
-                      width: 95,
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            10,
-                          ),
-                          color: Color(0xFFc86868).withOpacity(.0)),
+                      
                       child: const Center(child: Icon(Icons.arrow_back_ios)),
                     ),
                   ),
@@ -157,14 +150,7 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                       });
                     },
                     child: Container(
-                      height: 50,
-                      width: 95,
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            10,
-                          ),
-                          color: const Color(0xFFc86868).withOpacity(0)),
+
                       child: const Center(child: Icon(Icons.arrow_forward_ios)),
                     ),
                   ),
