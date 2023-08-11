@@ -38,58 +38,62 @@ class ParkingDialog {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Colors.black.withOpacity(0.8),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          shadowColor: Colors.black.withOpacity(0),
-          title: Text(
-            'Parking Locations Sorted by Distance',
-            style: TextStyle(color: CustomColors.myHexColorDarker),
-          ),
-          content: Container(
-            width: double.maxFinite,
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: sortedParkingList.length,
-              itemBuilder: (BuildContext context, int index) {
-                String name = sortedParkingList[index]['name'];
-                double distance = sortedParkingList[index]['distance'];
+        return Container(
+          margin: EdgeInsets.only(bottom: 70),
+          child: AlertDialog(
+            backgroundColor: Colors.black.withOpacity(0.8),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            shadowColor: Colors.black.withOpacity(0),
 
-                return GestureDetector(
-                  onTap: () {
-                    // Navigate to the respective details page when a parking location is tapped
-                    navigateToParkingDetails(
-                      name,
-                      LatLng(
-                        sortedParkingList[index]['latitude'],
-                        sortedParkingList[index]['longitude'],
+            title: Text(
+              'Parkings Near You !',
+              style: TextStyle(color: CustomColors.myHexColorDarker),
+            ),
+            content: Container(
+              width: double.maxFinite,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: sortedParkingList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  String name = sortedParkingList[index]['name'];
+                  double distance = sortedParkingList[index]['distance'];
+
+                  return GestureDetector(
+                    onTap: () {
+                      // Navigate to the respective details page when a parking location is tapped
+                      navigateToParkingDetails(
+                        name,
+                        LatLng(
+                          sortedParkingList[index]['latitude'],
+                          sortedParkingList[index]['longitude'],
+                        ),
+                      );
+                    },
+                    child: ListTile(
+                      title: Text(
+                        'Parking Name: $name',
+                        style: TextStyle(color: Colors.white),
                       ),
-                    );
-                  },
-                  child: ListTile(
-                    title: Text(
-                      'Parking Name: $name',
-                      style: TextStyle(color: Colors.white),
+                      subtitle: Text(
+                        'Distance: ${distance.toStringAsFixed(2)} Km',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
-                    subtitle: Text(
-                      'Distance: ${distance.toStringAsFixed(2)} Km',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Close', style: TextStyle(color: CustomColors.myHexColor),),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
           ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Close', style: TextStyle(color: CustomColors.myHexColor),),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
         );
       },
     );

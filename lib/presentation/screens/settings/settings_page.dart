@@ -7,6 +7,8 @@ import 'package:ParkMe/presentation/screens/map_view/parking_map_view.dart';
 
 import 'package:ParkMe/presentation/screens/home/simple_starting_screen.dart';
 
+import '../feedback/feedback_page.dart';
+
 class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -133,6 +135,39 @@ class SettingsPage extends StatelessWidget {
 
 
                 ],
+
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              Container(
+                height: 70.0,
+                width: 130,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  gradient: LinearGradient(
+                    colors: [Colors.black87, Colors.grey.shade800],
+                  ),
+                ),
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    // Log out the user and navigate to the LoginPage.
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => FeedbackPage()),
+                    );
+                  },
+                  icon: Icon(Icons.feedback, color: CustomColors.myHexColor,),
+                  label: Text('Feedback',style: TextStyle(color: CustomColors.myHexColor)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
               ),
               SizedBox(height: 16), // Add some spacing between buttons
               // You can add additional buttons or widgets here if needed
@@ -161,4 +196,11 @@ class SettingsPage extends StatelessWidget {
   }
 
 
-}
+  }
+
+
+
+
+
+
+
