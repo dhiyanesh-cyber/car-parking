@@ -92,7 +92,7 @@ class _SearchPageState extends State<SearchPage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ParkingMapView(),
+          builder: (context) => ParkingMapView(isFirst: 0,),
         ),
       );
       result = false;
@@ -206,8 +206,6 @@ class NearbyParkingDialog extends StatelessWidget {
     // Replace the images list with your image assets
     List<String> imageAssets = [
      'assets/koodal Azhagar Temple.jpg',
-     'assets/birla-planetarium.jpg',
-     'assets/kamraj-sagar-dam.jpg',
      'assets/Madurai Kamaraj University.jpg',
      'assets/Madurai museum.jpg',
      'assets/Meenakshi temple.jpg',
@@ -230,7 +228,7 @@ class NearbyParkingDialog extends StatelessWidget {
                 // Navigate to the same image detail page for other images
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ParkingMapView()),
+                  MaterialPageRoute(builder: (context) => ParkingMapView(isFirst: index)),
                 );
               
             },

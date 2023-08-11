@@ -21,7 +21,7 @@ class BottomNavigationBarPage extends StatefulWidget {
 class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = <Widget>[
-    ParkingMapView(),
+    ParkingMapView( isFirst: -1),
     SearchPage(),
     
     UserProfilePage(),
