@@ -51,6 +51,7 @@ dependencies:
   url_launcher: ^6.1.12
   android_intent_plus: ^4.0.2
   pay: ^1.1.2
+  upi_pay_india: ^1.0.1+3
 
 
 

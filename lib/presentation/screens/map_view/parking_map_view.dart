@@ -27,6 +27,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
   LatLng _currentLocation = LatLng(9.939093, 78.121719);
   Set<Marker> _parkingMarkers = {};
   List<Map<String, dynamic>> parkingDataList = [];
+  late LocationData locationData;
 
   @override
   void initState() {
@@ -118,7 +119,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     // Check and request location service and permission
     bool serviceEnabled;
     PermissionStatus permissionGranted;
-    LocationData locationData;
+    
 
     serviceEnabled = await _location.serviceEnabled();
     if (!serviceEnabled) {
@@ -137,7 +138,12 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     }
 
     // Get the user's current location
-    locationData = await _location.getLocation();
+    LocationData? locationData; // Note the nullable type
+
+if (locationData == null) {
+  locationData = await _location.getLocation();
+}
+
     LatLng currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
 
     setState(() {

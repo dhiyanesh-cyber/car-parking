@@ -7,6 +7,7 @@ import 'package:android_intent_plus/android_intent.dart';
 import 'package:pay/pay.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:ParkMe/presentation/screens/display_parking_details/payment.dart';
+import 'testGpay.dart';
 
 class DisplayParkingDataPage extends StatefulWidget {
   final String parkingName;
@@ -224,43 +225,6 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
               Center(
                 child: Column(
                   children: [
-<<<<<<< HEAD
-                    GestureDetector(
-  onTap: () {
-    // Create the payment configuration.
-
-
-    // Create the Google Pay button.
- 
-
-
-    // Show the Google Pay button.
-    
-  },
-  
-  child: Container(
-    height: 50,
-    width: 100,
-    padding: const EdgeInsets.symmetric(horizontal: 15),
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(
-          15,
-        ),
-        color: const Color(0xFFc86868)),
-    child:  GooglePayButton(
-  paymentConfiguration: PaymentConfiguration.fromJsonString(
-      defaultGooglePay),
-  paymentItems: paymentItems,
-  type: GooglePayButtonType.pay,
-  margin: const EdgeInsets.only(top: 55.0),
-  onPaymentResult: onGooglePayResult,
-  loadingIndicator: const Center(
-    child: CircularProgressIndicator(),
-  ),
-),
-  ),
-),
-=======
                   Container(
                         height: 50,
                         width: 100,
@@ -275,7 +239,7 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => gpay(),
+                                builder: (context) => App(),
                               ),
                             );
                           },
@@ -292,7 +256,6 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
 
 
                     ),
->>>>>>> 854fa779035b3374695e60d278461e81dbf23942
                   ],
                 ),
               ),
