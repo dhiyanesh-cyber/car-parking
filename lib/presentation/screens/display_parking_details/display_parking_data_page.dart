@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ParkMe/presentation/colors/colors.dart';
@@ -7,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:android_intent_plus/android_intent.dart';
 import 'package:pay/pay.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:ParkMe/presentation/screens/display_parking_details/payment.dart';
 
 class DisplayParkingDataPage extends StatefulWidget {
   final String parkingName;
@@ -181,14 +181,7 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                       });
                     },
                     child: Container(
-                      height: 50,
-                      width: 95,
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            10,
-                          ),
-                          color: Color(0xFFc86868).withOpacity(.0)),
+                      
                       child: const Center(child: Icon(Icons.arrow_back_ios)),
                     ),
                   ),
@@ -210,14 +203,7 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                       });
                     },
                     child: Container(
-                      height: 50,
-                      width: 95,
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            10,
-                          ),
-                          color: const Color(0xFFc86868).withOpacity(0)),
+
                       child: const Center(child: Icon(Icons.arrow_forward_ios)),
                     ),
                   ),
@@ -238,6 +224,7 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
               Center(
                 child: Column(
                   children: [
+<<<<<<< HEAD
                     GestureDetector(
   onTap: () {
     // Create the payment configuration.
@@ -273,6 +260,39 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
 ),
   ),
 ),
+=======
+                  Container(
+                        height: 50,
+                        width: 100,
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: const Color(0xFFc86868),
+                        ),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // Add your pay button's onPressed logic here
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => gpay(),
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.transparent, // Make the button transparent
+                            onPrimary: Colors.white, // Set text color
+                          ),
+                          child: Text('Pay'),
+                        ),
+
+
+
+
+
+
+                    ),
+>>>>>>> 854fa779035b3374695e60d278461e81dbf23942
                   ],
                 ),
               ),
