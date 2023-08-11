@@ -238,6 +238,8 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
     );
   }
 
+
+
   void openGoogleMapsNavigation() async {
 
     Position position = await Geolocator.getCurrentPosition(

@@ -31,8 +31,13 @@ class _ParkingMapViewState extends State<ParkingMapView> {
   @override
   void initState() {
     super.initState();
-    _getLocation();
-    _fetchParkingData(); // Fetch parking data when the view is initialized
+    _initializeMap();
+  }
+
+  Future<void> _initializeMap() async {
+    await _getLocation();
+    parkingDataList = await ParkingDataService.fetchParkingData();
+    _showParkingMarkers(parkingDataList);
   }
 
 
@@ -107,8 +112,46 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     );
   }
 
+  void _showParkingPopup(String parkingName, LatLng location) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16))),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  parkingName,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
 
-  // Fetch parking data from Firestore
+
+                SizedBox(height: 20),
+                ElevatedButton(
+
+                  onPressed: () {
+                    Navigator.pop(context); // Close the popup
+                    _navigateToParkingDetailsPage(parkingName, location);
+                  },
+                  child: Text('Details'),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+
+
   Future<void> _fetchParkingData() async {
     parkingDataList = await ParkingDataService.fetchParkingData();
   }
@@ -139,11 +182,12 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     // Get the user's current location
     locationData = await _location.getLocation();
     LatLng currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
+    _currentLocation = currentLocation;
+    // Fetch and show the parking markers on the map
+    MapUtils.zoomToLocation(_mapController, _currentLocation);
 
     setState(() {
-      _currentLocation = currentLocation;
-      // Fetch and show the parking markers on the map
-      MapUtils.zoomToLocation(_mapController, _currentLocation); // Use the zoomToLocation function
+      // Use the zoomToLocation function
 
       _showParkingMarkers(parkingDataList);
     });
@@ -183,7 +227,8 @@ class _ParkingMapViewState extends State<ParkingMapView> {
             icon: customMarker,
             onTap: () {
               // Navigate to the parking details page when the marker is tapped
-              _navigateToParkingDetailsPage(parkingName, parkingLocation);
+              // _navigateToParkingDetailsPage(parkingName, parkingLocation);
+              _showParkingPopup(parkingName, parkingLocation);
               // _onMarkerTapped(MarkerId(parkingName));
             },
           ),
