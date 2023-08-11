@@ -122,7 +122,7 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
               ),
               Center(
                 child: Text(
-                  "Selected What are you going to park",
+                  "Select What are you going to park",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
               ),
@@ -150,7 +150,7 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                     items: const [
                       DropdownMenuItem(
                         value: 'Bike',
-                        child: Text('Bike'),
+                        child: Text('Two wheeler'),
                       ),
                       DropdownMenuItem(
                         value: 'Car',
@@ -228,7 +228,7 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
               ),
               Center(
                 child: Text(
-                  "Total ammount: ₹" + ammount.toString(),
+                  "Total amount: ₹" + ammount.toString(),
                   style: TextStyle(fontWeight: FontWeight.w700),
                 ),
               ),

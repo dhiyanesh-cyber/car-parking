@@ -199,6 +199,7 @@ class SearchBar extends StatelessWidget {
     );
   }
 }
+
 class NearbyParkingDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
