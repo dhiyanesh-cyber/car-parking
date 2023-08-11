@@ -17,27 +17,44 @@ import 'package:ParkMe/presentation/screens/map_view/map_utils.dart';
 
 
 class ParkingMapView extends StatefulWidget {
+  final int isFirst; // Add this line
+
+  ParkingMapView({required this.isFirst});
   @override
   _ParkingMapViewState createState() => _ParkingMapViewState();
 }
 
 class _ParkingMapViewState extends State<ParkingMapView> {
+  
   GoogleMapController? _mapController;
   Location _location = Location();
   LatLng _currentLocation = LatLng(9.939093, 78.121719);
   Set<Marker> _parkingMarkers = {};
   List<Map<String, dynamic>> parkingDataList = [];
+  late LocationData locationData;
+ 
+  List<LatLng> latlang = [LatLng(9.914540330991873,78.11396268654826),
+  LatLng(9.94970300044104, 78.02092294426797),
+  LatLng(9.929912407504423, 78.13872093995883),
+  LatLng(9.91977926967325, 78.11982459393568),
+  LatLng(9.920376832315313, 78.1213395037362),
+  LatLng(9.913666874803905, 78.12629729762934),
+  LatLng(9.910817942643579, 78.14752226394555),
+  LatLng(9.91520620649439, 78.12376839201691)];
+
 
   @override
   void initState() {
     super.initState();
     _initializeMap();
+    
   }
 
   Future<void> _initializeMap() async {
     await _getLocation();
     parkingDataList = await ParkingDataService.fetchParkingData();
     _showParkingMarkers(parkingDataList);
+    print(widget.isFirst);
   }
 
 
@@ -161,7 +178,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     // Check and request location service and permission
     bool serviceEnabled;
     PermissionStatus permissionGranted;
-    LocationData locationData;
+    
 
     serviceEnabled = await _location.serviceEnabled();
     if (!serviceEnabled) {
@@ -180,11 +197,24 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     }
 
     // Get the user's current location
-    locationData = await _location.getLocation();
+    LocationData? locationData; // Note the nullable type
+
+if (locationData == null) {
+  locationData = await _location.getLocation();
+}
+   if(widget.isFirst == -1){
     LatLng currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
     _currentLocation = currentLocation;
     // Fetch and show the parking markers on the map
     MapUtils.zoomToLocation(_mapController, _currentLocation);
+   }
+   else{
+    LatLng currentLocation = latlang[widget.isFirst];
+    _currentLocation = currentLocation;
+    // Fetch and show the parking markers on the map
+    MapUtils.zoomToLocation(_mapController, _currentLocation);
+   }
+    
 
     setState(() {
       // Use the zoomToLocation function

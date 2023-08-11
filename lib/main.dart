@@ -41,7 +41,7 @@ class ParkingLocatorApp extends StatelessWidget {
       routes: {
         '/home' : (context) => SimpleStartingScreen(),
         '/welcomePage' : (context) => WelcomePage(),
-        '/mapView': (context) => ParkingMapView(),
+        '/mapView': (context) => ParkingMapView(isFirst: -1),
         '/aboutUs': (context) => AboutPage(),
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
