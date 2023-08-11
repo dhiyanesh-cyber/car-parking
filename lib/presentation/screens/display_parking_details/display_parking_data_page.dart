@@ -128,7 +128,7 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                       });
                     },
                     child: Container(
-                      
+
                       child: const Center(child: Icon(Icons.arrow_back_ios)),
                     ),
                   ),
