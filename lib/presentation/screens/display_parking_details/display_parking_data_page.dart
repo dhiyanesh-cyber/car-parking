@@ -1,11 +1,11 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ParkMe/presentation/colors/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:android_intent_plus/android_intent.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:ParkMe/presentation/screens/display_parking_details/payment.dart';
 
 class DisplayParkingDataPage extends StatefulWidget {
   final String parkingName;
@@ -171,20 +171,36 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
               Center(
                 child: Column(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        openGooglePayApp();
-                      },
-                      child: Container(
+                  Container(
                         height: 50,
-                        width: 230,
+                        width: 100,
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15,),
-                            color: Color(0xFFc86868).withOpacity(0.8)
-                            ),
-                        child: Center(child: Image.asset('assets/google-pay.png')),
-                      ),
+                          borderRadius: BorderRadius.circular(15),
+                          color: const Color(0xFFc86868),
+                        ),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // Add your pay button's onPressed logic here
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => gpay(),
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.transparent, // Make the button transparent
+                            onPrimary: Colors.white, // Set text color
+                          ),
+                          child: Text('Pay'),
+                        ),
+
+
+
+
+
+
                     ),
                   ],
                 ),
