@@ -15,12 +15,14 @@ class ParkingDataService {
       double latitude = doc.get('latitude');
       double longitude = doc.get('longitude');
       String parkingName = doc.get('parkingName');
+      int slots = doc.get('totalParkingSlots');
 
       // Create a map with parking details and add it to the parkingDataList
       Map<String, dynamic> parkingData = {
         'latitude': latitude,
         'longitude': longitude,
         'parkingName': parkingName,
+        'slots' : slots,
       };
       parkingDataList.add(parkingData);
     });

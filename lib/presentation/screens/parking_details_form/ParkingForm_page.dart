@@ -20,6 +20,8 @@ class _FormPageState extends State<FormPage> {
 
   TextEditingController _parkingNameController = TextEditingController();
   TextEditingController _mobileNumberController = TextEditingController();
+  TextEditingController _totalSlotsController = TextEditingController();
+  TextEditingController _chargePerHourController = TextEditingController();
 
   // Function to pick an image from gallery
   Future getImage() async {
@@ -86,17 +88,49 @@ class _FormPageState extends State<FormPage> {
       String? imageUrl = await _uploadImageToStorage(_image!, imageName);
 
       if (imageUrl != null) {
+        // Parse totalParkingSlots and chargePerHour from text input fields
+        int totalParkingSlots = int.tryParse(_totalSlotsController.text) ?? 0;
+        double chargePerHour = double.tryParse(_chargePerHourController.text) ?? 0.0;
+
+        // Validate mobile number
+        String mobileNumber = _mobileNumberController.text;
+        if (mobileNumber.length != 10) {
+          _showMobileNumberErrorAlert();
+          return;
+        }
+
+        // Show loading dialog
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Saving Data'),
+              content: CircularProgressIndicator(),
+            );
+          },
+        );
+
         // Save the form data along with user's location data
-        FirebaseFirestore.instance.collection("parkingData").add({
+        await FirebaseFirestore.instance.collection("parkingData").add({
           'parkingName': _parkingNameController.text,
-          'mobileNumber': _mobileNumberController.text,
+          'mobileNumber': mobileNumber,
           'imageUrl': imageUrl,
           'latitude': _userLocation!.latitude,
           'longitude': _userLocation!.longitude,
+          'totalParkingSlots': totalParkingSlots,
+          'chargePerHour': chargePerHour,
         });
 
+        // Close the loading dialog
+        Navigator.of(context).pop();
+
+        // Clear text input fields
         _parkingNameController.clear();
         _mobileNumberController.clear();
+        _totalSlotsController.clear();
+        _chargePerHourController.clear();
+
         setState(() {
           _image = null;
           _provideLocation = false;
@@ -111,6 +145,30 @@ class _FormPageState extends State<FormPage> {
       }
     }
   }
+
+
+// Function to show an alert for invalid mobile number
+  void _showMobileNumberErrorAlert() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Invalid Mobile Number'),
+          content: Text('Mobile number must be exactly 10 digits long.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
 
   // Function to show an alert to enable location services
   void _showEnableLocationAlert() {
@@ -260,6 +318,48 @@ class _FormPageState extends State<FormPage> {
                     controller: _mobileNumberController,
                     decoration: InputDecoration(
                       hintText: 'Mobile Number',
+                      labelStyle: TextStyle(color: Colors.black87),
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 24,),
+              Container(
+                decoration: BoxDecoration(
+                  color: CustomColors.myHexColorDark,
+                  borderRadius: BorderRadius.circular(15),
+
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    cursorColor: Colors.black87,
+                    controller: _totalSlotsController,
+                    decoration: InputDecoration(
+                      hintText: 'Total number of parking slots',
+                      labelStyle: TextStyle(color: Colors.black87),
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
+              Container(
+                decoration: BoxDecoration(
+                  color: CustomColors.myHexColorDark,
+                  borderRadius: BorderRadius.circular(15),
+
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    cursorColor: Colors.black87,
+                    controller: _chargePerHourController,
+                    decoration: InputDecoration(
+                      hintText: 'Charge per hour',
                       labelStyle: TextStyle(color: Colors.black87),
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),

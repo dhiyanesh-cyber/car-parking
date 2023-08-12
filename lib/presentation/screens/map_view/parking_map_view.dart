@@ -129,7 +129,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     );
   }
 
-  void _showParkingPopup(String parkingName, LatLng location) {
+  void _showParkingPopup(String parkingName, LatLng location,int slots) {
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
@@ -155,7 +155,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
 
                   onPressed: () {
                     Navigator.pop(context); // Close the popup
-                    _navigateToParkingDetailsPage(parkingName, location);
+                    _navigateToParkingDetailsPage(parkingName, location,slots);
                   },
                   child: Text('Details'),
                 ),
@@ -247,6 +247,7 @@ if (locationData == null) {
         double latitude = parkingData['latitude'];
         double longitude = parkingData['longitude'];
         String parkingName = parkingData['parkingName'];
+        int slots = parkingData['slots'];
         LatLng parkingLocation = LatLng(latitude, longitude);
 
         // Add the parking marker to the set of markers
@@ -258,7 +259,7 @@ if (locationData == null) {
             onTap: () {
               // Navigate to the parking details page when the marker is tapped
               // _navigateToParkingDetailsPage(parkingName, parkingLocation);
-              _showParkingPopup(parkingName, parkingLocation);
+              _showParkingPopup(parkingName, parkingLocation,slots);
               // _onMarkerTapped(MarkerId(parkingName));
             },
           ),
@@ -278,13 +279,13 @@ if (locationData == null) {
   }
 
   // Navigate to the parking details page
-  void _navigateToParkingDetailsPage(String parkingName, LatLng location) {
+  void _navigateToParkingDetailsPage(String parkingName, LatLng location,int slots) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => DisplayParkingDataPage(
           parkingName: parkingName,
-          location: location,
+          location: location, totalSlots: slots,
         ),
       ),
     );

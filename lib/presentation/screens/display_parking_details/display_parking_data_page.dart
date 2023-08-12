@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ParkMe/presentation/colors/colors.dart';
@@ -12,8 +13,10 @@ import 'testGpay.dart';
 class DisplayParkingDataPage extends StatefulWidget {
   final String parkingName;
   final LatLng location;
+  final int totalSlots;
 
-  DisplayParkingDataPage({required this.parkingName, required this.location});
+
+  DisplayParkingDataPage({required this.parkingName, required this.location,required this.totalSlots});
 
   @override
   State<DisplayParkingDataPage> createState() => _DisplayParkingDataPageState();
@@ -23,7 +26,30 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
   String vechicalOption = 'Bike';
   Duration parkingTime = const Duration(hours: 0, minutes: 00);
   double ammount = 0.0;
-       String defaultGooglePay = '''{
+  int remainingSlots = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    // Fetch the total number of slots from Firestore
+    fetchTotalSlots();
+  }
+
+  void fetchTotalSlots() async {
+    // Fetch the document containing parking data
+    final parkingDataSnapshot =
+    await FirebaseFirestore.instance.collection("parkingData").doc("HVzDnLINhcpvewJoocwv").get();
+
+    // Get the totalParkingSlots value from the document
+    int totalParkingSlots = parkingDataSnapshot["totalParkingSlots"];
+
+    // Calculate the remaining slots
+    setState(() {
+      remainingSlots = totalParkingSlots;
+    });
+  }
+
+  String defaultGooglePay = '''{
   "provider": "google_pay",
   "data": {
     "environment": "TEST",
@@ -164,6 +190,15 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                       });
                     },
                   ),
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Center(
+                child: Text(
+                  "Remaining Slots: $remainingSlots",
+                  style: TextStyle(fontWeight: FontWeight.w700),
                 ),
               ),
               const SizedBox(
