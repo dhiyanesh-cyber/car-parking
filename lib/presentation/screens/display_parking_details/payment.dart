@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:upi_india/upi_india.dart';
 
+import '../../colors/colors.dart';
+
 void main() => runApp(gpay());
 
 class gpay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Test UPI',
       home: HomePage(),
     );
@@ -152,8 +155,25 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: CustomColors.myHexColor,
       appBar: AppBar(
-        title: Text('UPI'),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios_rounded),
+        ),
+        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: CustomColors.myHexColor,
+        title: Text(
+          'Payment',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              color: Colors.black87,
+              fontWeight: FontWeight.w500,
+              fontSize: 20),
+        ),
+        elevation: 0,
       ),
       body: Column(
         children: <Widget>[

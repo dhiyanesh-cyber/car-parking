@@ -15,7 +15,6 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: CustomColors.myHexColor,
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         backgroundColor: CustomColors.myHexColor,
         title: Text(
           'Settings',

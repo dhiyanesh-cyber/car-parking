@@ -13,7 +13,6 @@ void main() {
   runApp(MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -30,18 +29,11 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-
   List<DocumentSnapshot> _searchResults = [];
   List<String> _searchHistory = [];
-
   final TextEditingController _searchController = TextEditingController();
-  
 
-  
-
-  bool result = false;
-
-   @override
+  @override
   void initState() {
     super.initState();
     // Load existing search history
@@ -53,61 +45,24 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Future<void> _searchParking(String searchText) async {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance.collection("parkingData").get();
 
-
-        QuerySnapshot snapshot = await FirebaseFirestore.instance.collection("parkingData").get();
-
-    // Iterate through the documents in the snapshot
-    snapshot.docs.forEach((doc) {
-      // Extract latitude, longitude, and parking name from each document
-
-      String parkingName = doc.get('parkingName');
-
-      
-      
-
-      if(searchText.toString().toLowerCase().trim() == parkingName.toString().toLowerCase().trim()){
-        result = true;
-         SearchHistoryManager.addToSearchHistory(searchText);
-    
     setState(() {
-      SearchHistoryManager.getSearchHistory().then((history) {
-      setState(() {
-        print(history);
-        _searchHistory = history;
-      });
+      _searchResults = snapshot.docs.where((doc) {
+        String parkingName = doc.get('parkingName');
+        return parkingName.toLowerCase().contains(searchText.toLowerCase().trim());
+      }).toList();
     });
-    });
-        print(result);
-        
-      }
-    
-  });
-  
-
-    
-
-    if (result) {
-      // Navigate to ParkingDetailsPage with the parking data
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ParkingMapView(isFirst: 0,),
-        ),
-      );
-      result = false;
-      setState(() {
-      SearchHistoryManager.getSearchHistory().then((history) {
-      setState(() {
-        print(history);
-        _searchHistory = history;
-      });
-    });
-    });
-    }
   }
 
-  
+  void _navigateToParkingDetails(String parkingName) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ParkingMapView(isFirst: -1,),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,11 +86,12 @@ class _SearchPageState extends State<SearchPage> {
             SizedBox(
               height: 20,
             ),
-
-
-            SearchBar(searchController: _searchController, onSearch: _searchParking),
-
-
+            SearchBar(
+              searchController: _searchController,
+              onSearch: _searchParking,
+              searchResults: _searchResults,
+              onTapResult: _navigateToParkingDetails,
+            ),
             SizedBox(
               height: 20,
             ),
@@ -143,11 +99,19 @@ class _SearchPageState extends State<SearchPage> {
             SizedBox(
               height: 25,
             ),
-            Center(child: Container(child: SearchHistoryBox(searchHistory: _searchHistory, onSearch:  _searchParking, clearSearchHistory: () {
-    setState(() {
-      _searchHistory.clear();
-    });
-  }))),
+            Center(
+              child: Container(
+                child: SearchHistoryBox(
+                  searchHistory: _searchHistory,
+                  onSearch: _searchParking,
+                  clearSearchHistory: () {
+                    setState(() {
+                      _searchHistory.clear();
+                    });
+                  },
+                ),
+              ),
+            ),
             SizedBox(
               height: 20,
             ),
@@ -158,41 +122,68 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 }
-
-class SearchBar extends StatelessWidget {
+class SearchBar extends StatefulWidget {
   final TextEditingController searchController;
   final Function(String) onSearch;
+  final List<DocumentSnapshot> searchResults;
+  final Function(String) onTapResult;
 
-  SearchBar({required this.searchController, required this.onSearch});
+  SearchBar({required this.searchController, required this.onSearch, required this.searchResults, required this.onTapResult});
 
   @override
+  _SearchBarState createState() => _SearchBarState();
+}
+
+class _SearchBarState extends State<SearchBar> {
+  @override
   Widget build(BuildContext context) {
+    final isSuggestionVisible = widget.searchController.text.isNotEmpty && widget.searchResults.isNotEmpty;
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: CustomColors.myHexColorDark,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(7.0),
-          child: TextField(
-            cursorColor: Colors.black87,
-            controller: searchController,
-            decoration: InputDecoration(
-              hintText: 'Search for parking...',
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-              suffixIcon: IconButton(
-                icon: Icon(Icons.search),
-                onPressed: () {
-                  onSearch(searchController.text);
-                },
-              ),
+      child: GestureDetector(
+        onTap: () {
+          // Clear focus to dismiss the keyboard and suggestion box
+          FocusScope.of(context).unfocus();
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            color: CustomColors.myHexColorDark,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(7.0),
+            child: Column(
+              children: [
+                TextField(
+                  cursorColor: Colors.black87,
+                  controller: widget.searchController,
+                  onChanged: (value) {
+                    widget.onSearch(value);
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Search for parking...',
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                  ),
+                ),
+                if (isSuggestionVisible)
+                  Container(
+                    color: Colors.white,
+                    child: Column(
+                      children: widget.searchResults.map((snapshot) {
+                        String parkingName = snapshot.get('parkingName');
+                        return ListTile(
+                          title: Text(parkingName),
+                          onTap: () {
+                            widget.onTapResult(parkingName);
+                          },
+                        );
+                      }).toList(),
+                    ),
+                  ),
+              ],
             ),
-            onSubmitted: (value) {
-              onSearch(value);
-            },
           ),
         ),
       ),
@@ -200,37 +191,34 @@ class SearchBar extends StatelessWidget {
   }
 }
 
+
 class NearbyParkingDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Replace the images list with your image assets
     List<String> imageAssets = [
-     'assets/koodal Azhagar Temple.jpg',
-     'assets/Madurai Kamaraj University.jpg',
-     'assets/Madurai museum.jpg',
-     'assets/Meenakshi temple.jpg',
-     'assets/puthu mandapam.jpg',
-     'assets/st-mary-s-cathedral.jpg',
-     'assets/TEPPAKULAM.jpg',
-     'assets/Thirumalai nayakar mahal.jpeg',
-
+      'assets/koodal Azhagar Temple.jpg',
+      'assets/Madurai Kamaraj University.jpg',
+      'assets/Madurai museum.jpg',
+      'assets/Meenakshi temple.jpg',
+      'assets/puthu mandapam.jpg',
+      'assets/st-mary-s-cathedral',
+      'assets/TEPPAKULAM.jpg',
+      'assets/Thirumalai nayakar mahal.jpg',
+      // ... other image assets ...
     ];
 
     return Container(
-      height: 70, // Adjust the height as needed
+      height: 70,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: imageAssets.length,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {
-              
-                // Navigate to the same image detail page for other images
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ParkingMapView(isFirst: index)),
-                );
-              
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ParkingMapView(isFirst: index,)),
+              );
             },
             child: Padding(
               padding: const EdgeInsets.only(
@@ -238,14 +226,11 @@ class NearbyParkingDialog extends StatelessWidget {
                 bottom: 2.0,
                 right: 2.5,
                 left: 15.0,
-                
               ),
               child: CircleAvatar(
-                backgroundImage: AssetImage(imageAssets[index] ),
-                
-                radius: 32, // Adjust the size of the circle
+                backgroundImage: AssetImage(imageAssets[index]),
+                radius: 32,
               ),
-              
             ),
           );
         },

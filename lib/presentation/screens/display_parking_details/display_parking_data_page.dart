@@ -239,7 +239,7 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => App(),
+                                builder: (context) => gpay(),
                               ),
                             );
                           },
