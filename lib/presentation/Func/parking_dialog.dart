@@ -28,6 +28,7 @@ class ParkingDialog {
         'distance': distance * 0.001, // Convert distance to kilometers
         'latitude': parkingData['latitude'],
         'longitude': parkingData['longitude'],
+        'slots' : parkingData['slots'],
       });
     });
 

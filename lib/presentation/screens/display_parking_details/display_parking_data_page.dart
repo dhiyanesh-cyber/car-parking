@@ -37,11 +37,10 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
 
   void fetchTotalSlots() async {
     // Fetch the document containing parking data
-    final parkingDataSnapshot =
-    await FirebaseFirestore.instance.collection("parkingData").doc("HVzDnLINhcpvewJoocwv").get();
+
 
     // Get the totalParkingSlots value from the document
-    int totalParkingSlots = parkingDataSnapshot["totalParkingSlots"];
+    int totalParkingSlots = widget.totalSlots;
 
     // Calculate the remaining slots
     setState(() {

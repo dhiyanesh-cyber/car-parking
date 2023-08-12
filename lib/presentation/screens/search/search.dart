@@ -221,9 +221,9 @@ class NearbyParkingDialog extends StatelessWidget {
       'assets/Madurai museum.jpg',
       'assets/Meenakshi temple.jpg',
       'assets/puthu mandapam.jpg',
-      'assets/st-mary-s-cathedral',
+      'assets/st-mary-s-cathedral.jpg',
       'assets/TEPPAKULAM.jpg',
-      'assets/Thirumalai nayakar mahal.jpg',
+      'assets/Thirumalai nayakar mahal.jpeg',
       // ... other image assets ...
     ];
 
