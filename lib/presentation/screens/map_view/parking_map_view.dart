@@ -134,7 +134,9 @@ class _ParkingMapViewState extends State<ParkingMapView> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16))),
+
+          decoration: BoxDecoration(
+          color: CustomColors.myHexColor),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -144,6 +146,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
                 Text(
                   parkingName,
                   style: TextStyle(
+
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
@@ -151,13 +154,20 @@ class _ParkingMapViewState extends State<ParkingMapView> {
 
 
                 SizedBox(height: 20),
-                ElevatedButton(
+                Container(
 
-                  onPressed: () {
-                    Navigator.pop(context); // Close the popup
-                    _navigateToParkingDetailsPage(parkingName, location,slots);
-                  },
-                  child: Text('Details'),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFFc86868).withOpacity(0.8),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context); // Close the popup
+                      _navigateToParkingDetailsPage(parkingName, location,slots);
+                    },
+                    child: Text('Details'),
+                  ),
                 ),
               ],
             ),
