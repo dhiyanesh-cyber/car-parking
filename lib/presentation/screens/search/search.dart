@@ -152,35 +152,32 @@ class _SearchBarState extends State<SearchBar> {
             borderRadius: BorderRadius.circular(15),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(7.0),
-            child: Column(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
               children: [
-                TextField(
-                  cursorColor: Colors.black87,
-                  controller: widget.searchController,
-                  onChanged: (value) {
-                    widget.onSearch(value);
-                  },
-                  decoration: InputDecoration(
-                    hintText: 'Search for parking...',
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                Icon(Icons.search),
+                SizedBox(width: 10),
+                Expanded(
+                  child: TextField(
+                    cursorColor: Colors.black87,
+                    controller: widget.searchController,
+                    onChanged: (value) {
+                      widget.onSearch(value);
+                    },
+                    decoration: InputDecoration(
+                      hintText: 'Search for parking...',
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(vertical: 14),
+                    ),
                   ),
                 ),
-                if (isSuggestionVisible)
-                  Container(
-                    color: Colors.white,
-                    child: Column(
-                      children: widget.searchResults.map((snapshot) {
-                        String parkingName = snapshot.get('parkingName');
-                        return ListTile(
-                          title: Text(parkingName),
-                          onTap: () {
-                            widget.onTapResult(parkingName);
-                          },
-                        );
-                      }).toList(),
-                    ),
+                if (widget.searchController.text.isNotEmpty)
+                  GestureDetector(
+                    onTap: () {
+                      widget.searchController.clear();
+                      widget.onSearch('');
+                    },
+                    child: Icon(Icons.clear),
                   ),
               ],
             ),
@@ -190,6 +187,7 @@ class _SearchBarState extends State<SearchBar> {
     );
   }
 }
+
 
 
 class NearbyParkingDialog extends StatelessWidget {
