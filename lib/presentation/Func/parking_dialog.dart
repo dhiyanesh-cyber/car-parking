@@ -9,7 +9,7 @@ class ParkingDialog {
       BuildContext context,
       List<Map<String, dynamic>> parkingDataList,
       LatLng currentLocation,
-      Function(String, LatLng) navigateToParkingDetails,
+      Function(String, LatLng,int) navigateToParkingDetails,
       ) {
     // Create a list to store parking locations sorted by distance
     List<Map<String, dynamic>> sortedParkingList = [];
@@ -68,7 +68,10 @@ class ParkingDialog {
                         LatLng(
                           sortedParkingList[index]['latitude'],
                           sortedParkingList[index]['longitude'],
+
+
                         ),
+                        sortedParkingList[index]['slots'],
                       );
                     },
                     child: ListTile(
