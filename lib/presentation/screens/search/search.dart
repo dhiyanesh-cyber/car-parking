@@ -213,6 +213,7 @@ class _SearchBarState extends State<SearchBar> {
 
 
 class NearbyParkingDialog extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     List<String> imageAssets = [

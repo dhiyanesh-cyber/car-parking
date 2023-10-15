@@ -4,7 +4,6 @@ import 'package:ParkMe/presentation/screens/about/about.dart';
 import 'package:ParkMe/presentation/screens/map_view/parking_map_view.dart';
 import '../../profile/user_profile.dart';
 import '../../settings/settings_page.dart';
-
 import '../../search/search.dart';
 
 
@@ -23,7 +22,6 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
   static final List<Widget> _widgetOptions = <Widget>[
     ParkingMapView( isFirst: -1),
     SearchPage(),
-    
     UserProfilePage(),
     SettingsPage(),
   ];
