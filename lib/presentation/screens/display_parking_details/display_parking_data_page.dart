@@ -269,9 +269,7 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                         ),
                         child: ElevatedButton(
                           onPressed: () {
-                            setState(() {
-                              remainingSlots = remainingSlots-1;
-                            });
+
                             // Add your pay button's onPressed logic here
                             Navigator.push(
                               context,
@@ -279,6 +277,9 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                                 builder: (context) => gpay(),
                               ),
                             );
+                            setState(() {
+                              remainingSlots = remainingSlots-1;
+                            });
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.transparent,

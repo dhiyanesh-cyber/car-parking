@@ -45,13 +45,14 @@ class _ParkingMapViewState extends State<ParkingMapView> {
 
   @override
   void initState() {
-    super.initState();
+    _getLocation();
     _initializeMap();
+    super.initState();
+
     
   }
 
   Future<void> _initializeMap() async {
-    await _getLocation();
     parkingDataList = await ParkingDataService.fetchParkingData();
     _showParkingMarkers(parkingDataList);
     print(widget.isFirst);
@@ -129,14 +130,14 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     );
   }
 
-  void _showParkingPopup(String parkingName, LatLng location,int slots) {
+  void _showParkingPopup(String parkingName, LatLng location, int slots) {
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
         return Container(
-
           decoration: BoxDecoration(
-          color: CustomColors.myHexColor),
+            color: CustomColors.myHexColor,
+          ),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -146,16 +147,33 @@ class _ParkingMapViewState extends State<ParkingMapView> {
                 Text(
                   parkingName,
                   style: TextStyle(
-
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
                 ),
 
+                SizedBox(height: 20),
+
+                // Additional Text widget for CCTV availability
+                Text(
+                  'CCTV Availability: Yes', // Change as needed
+                  style: TextStyle(
+                    fontWeight: FontWeight.normal,
+                    fontSize: 14,
+                  ),
+                ),
+                SizedBox(height: 10),
+                // Additional Text widget for EV charging availability
+                Text(
+                  'EV Charging Availability: Yes', // Change as needed
+                  style: TextStyle(
+                    fontWeight: FontWeight.normal,
+                    fontSize: 14,
+                  ),
+                ),
 
                 SizedBox(height: 20),
                 Container(
-
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFFc86868).withOpacity(0.8),
@@ -164,7 +182,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
                     ),
                     onPressed: () {
                       Navigator.pop(context); // Close the popup
-                      _navigateToParkingDetailsPage(parkingName, location,slots);
+                      _navigateToParkingDetailsPage(parkingName, location, slots);
                     },
                     child: Text('Details'),
                   ),
@@ -176,6 +194,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
       },
     );
   }
+
 
 
 
@@ -228,7 +247,6 @@ if (locationData == null) {
 
     setState(() {
       // Use the zoomToLocation function
-
       _showParkingMarkers(parkingDataList);
     });
   }
@@ -249,6 +267,7 @@ if (locationData == null) {
           markerId: MarkerId("user_location"),
           position: _currentLocation,
           icon: BitmapDescriptor.defaultMarker,
+
         ),
       );
 
@@ -260,18 +279,20 @@ if (locationData == null) {
         int slots = parkingData['slots'];
         LatLng parkingLocation = LatLng(latitude, longitude);
 
+
         // Add the parking marker to the set of markers
         _parkingMarkers.add(
           Marker(
             markerId: MarkerId(parkingName),
             position: parkingLocation,
             icon: customMarker,
-            onTap: () {
-              // Navigate to the parking details page when the marker is tapped
-              // _navigateToParkingDetailsPage(parkingName, parkingLocation);
-              _showParkingPopup(parkingName, parkingLocation,slots);
-              // _onMarkerTapped(MarkerId(parkingName));
-            },
+            infoWindow: InfoWindow(
+              title: parkingName,
+              snippet: slots > 0 ? "Available slots: $slots" : "No available slots",
+              onTap: () {
+                _showParkingPopup(parkingName, parkingLocation, slots);
+              },
+            ),
           ),
         );
       });

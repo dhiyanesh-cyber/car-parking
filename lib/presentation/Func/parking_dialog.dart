@@ -84,6 +84,7 @@ class ParkingDialog {
                         'Distance: ${distance.toStringAsFixed(2)} Km',
                         style: TextStyle(color: Colors.white),
                       ),
+
                     ),
                   );
                 },
