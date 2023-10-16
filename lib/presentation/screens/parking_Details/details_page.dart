@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ParkMe/presentation/screens/map_view/parking_map_view.dart';
-import 'package:ParkMe/presentation/screens/settings/settings_page.dart';
-import 'package:ParkMe/presentation/screens/home/simple_starting_screen.dart';
 
-import '../../common/nav_animation/navigateWithAnimation.dart';
 
 class DetailsPage extends StatelessWidget {
   final String imageUrl;
