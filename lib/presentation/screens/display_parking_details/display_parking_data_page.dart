@@ -1,14 +1,11 @@
 import 'dart:ui';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ParkMe/presentation/colors/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:android_intent_plus/android_intent.dart';
 import 'package:pay/pay.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:ParkMe/presentation/screens/display_parking_details/payment.dart';
-import 'testGpay.dart';
 
 class DisplayParkingDataPage extends StatefulWidget {
   final String parkingName;
@@ -352,7 +349,6 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
   }
 
 void openGooglePayApp(String recipientVPA, String recipientName, double amount) async {
-    final String googlePayPackageName = "com.google.android.apps.nbu.paisa.user";
     String encodedVPA = Uri.encodeComponent(recipientVPA);
     String encodedName = Uri.encodeComponent(recipientName);
 

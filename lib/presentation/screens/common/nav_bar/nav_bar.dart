@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ParkMe/presentation/colors/colors.dart';
-import 'package:ParkMe/presentation/screens/about/about.dart';
 import 'package:ParkMe/presentation/screens/map_view/parking_map_view.dart';
 import '../../profile/user_profile.dart';
 import '../../settings/settings_page.dart';

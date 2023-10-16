@@ -13,7 +13,7 @@ import 'presentation/screens/map_view/parking_map_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized(); 
   await Firebase.initializeApp();
 
   final bool userLoggedIn = isLoggedIn();
@@ -54,5 +54,3 @@ class ParkingLocatorApp extends StatelessWidget {
     );
   }
 }
-
-
