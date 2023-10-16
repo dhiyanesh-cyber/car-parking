@@ -40,6 +40,25 @@ class AuthService {
   //   }
   // }
 
+
+  //saving user role to database
+  Future<void> saveUserRole(String userId, String role) async {
+    try {
+      // Reference to Firestore collection named "users"
+      CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
+
+      // Create a document reference for the user
+      DocumentReference userDocument = usersCollection.doc(userId);
+
+      // Update the user's role in Firestore
+      await userDocument.update({
+        'role': role,
+      });
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   Future<User?> registerWithEmailAndPassword(
       String email,
       String password,
@@ -109,6 +128,8 @@ class AuthService {
   Future<void> signOut() async {
     await _auth.signOut();
   }
+
+
 
 
 }

@@ -15,6 +15,10 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+
+
+  String? _selectedRole;
 
   AuthService _authService = AuthService();
 
@@ -131,6 +135,62 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
               ),
+
+              SizedBox(height: 16),
+
+              Container(
+                decoration: BoxDecoration(
+                  color: myHexColorDark,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(7.0),
+                  child: TextField(
+                    cursorColor: Colors.black87,
+                    controller: _confirmPasswordController,
+                    decoration: InputDecoration(
+                      hintText: 'Confirm Password',
+                      labelStyle: TextStyle(color: Colors.black87),
+                      border: InputBorder.none,
+                      contentPadding:
+                      EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                    ),
+                    obscureText: true,
+                  ),
+                ),
+              ),
+              SizedBox(height: 16),
+
+              Container(
+                decoration: BoxDecoration(
+                  color: myHexColorDark,
+                  borderRadius: BorderRadius.circular(15),),
+                child: Padding(
+                  padding: const EdgeInsets.all(7.0),
+                  child: DropdownButtonFormField<String>(
+                    decoration: InputDecoration(
+                      hintText: 'Role',
+                      labelStyle: TextStyle(color: Colors.black87),
+                      border: InputBorder.none,
+                      contentPadding:
+                      EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                    ),
+                    value: _selectedRole,
+                    items: ['Client', 'Admin'].map((role) {
+                      return DropdownMenuItem<String>(
+                        value: role,
+                        child: Text(role),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _selectedRole = newValue;
+                      });
+                    },
+                  ),
+                ),
+              ),
+
               SizedBox(height: 40),
               Container(
                 height: 50.0,
@@ -145,8 +205,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   onPressed: () async {
                     String email = _emailController.text.trim();
                     String password = _passwordController.text.trim();
+                    String confirmPassword = _confirmPasswordController.text.trim();
                     String name = _nameController.text.trim();
                     String phoneNumber = _phoneNumberController.text.trim();
+                    String role = _selectedRole ?? "Client";
 
                     if (phoneNumber.length != 10) {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -158,6 +220,13 @@ class _RegisterPageState extends State<RegisterPage> {
                     if (!_isValidEmail(email)) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('Enter a valid email')),
+                      );
+                      return;
+                    }
+
+                    if (password != confirmPassword) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Passwords do not match')),
                       );
                       return;
                     }
@@ -184,6 +253,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       password,
                       name,
                       phoneNumber,
+                      role,
                     );
 
                     if (user != null) {
@@ -254,7 +324,7 @@ class AuthService {
   }
 
   Future<User?> registerWithEmailAndPassword(
-      String email, String password, String name, String phoneNumber) async {
+      String email, String password, String name, String phoneNumber, String role) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
         email: email,
@@ -267,7 +337,10 @@ class AuthService {
         // Save additional user data to Firestore
         await _firestore.collection('users').doc(user.uid).set({
           'name': name,
+          'email': email,
           'phoneNumber': phoneNumber,
+          'role': role,
+
         });
       }
 
