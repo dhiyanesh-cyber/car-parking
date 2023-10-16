@@ -8,60 +8,55 @@ import '../../Func/parking_data_service.dart';
 import '../../Func/parking_dialog.dart';
 import 'package:ParkMe/presentation/screens/map_view/map_utils.dart';
 
-
-
 class ParkingMapView extends StatefulWidget {
-  final int isFirst; // Add this line
+  final int isFirst;
 
   ParkingMapView({required this.isFirst});
+
   @override
   _ParkingMapViewState createState() => _ParkingMapViewState();
 }
 
 class _ParkingMapViewState extends State<ParkingMapView> {
-  
   GoogleMapController? _mapController;
   Location _location = Location();
   LatLng _currentLocation = LatLng(9.939093, 78.121719);
   Set<Marker> _parkingMarkers = {};
   List<Map<String, dynamic>> parkingDataList = [];
   late LocationData locationData;
- 
-  List<LatLng> latlang = [LatLng(9.914540330991873,78.11396268654826),
-  LatLng(9.94970300044104, 78.02092294426797),
-  LatLng(9.929912407504423, 78.13872093995883),
-  LatLng(9.91977926967325, 78.11982459393568),
-  LatLng(9.920376832315313, 78.1213395037362),
-  LatLng(9.913666874803905, 78.12629729762934),
-  LatLng(9.910817942643579, 78.14752226394555),
-  LatLng(9.91520620649439, 78.12376839201691)];
 
+  // Define the list of LatLng locations for parking spots
+  List<LatLng> latlang = [
+    LatLng(9.914540330991873, 78.11396268654826),
+    LatLng(9.94970300044104, 78.02092294426797),
+    LatLng(9.929912407504423, 78.13872093995883),
+    LatLng(9.91977926967325, 78.11982459393568),
+    LatLng(9.920376832315313, 78.1213395037362),
+    LatLng(9.913666874803905, 78.12629729762934),
+    LatLng(9.910817942643579, 78.14752226394555),
+    LatLng(9.91520620649439, 78.12376839201691),
+  ];
 
   @override
   void initState() {
     _getLocation();
     _initializeMap();
     super.initState();
-
-    
   }
 
   Future<void> _initializeMap() async {
     parkingDataList = await ParkingDataService.fetchParkingData();
     _showParkingMarkers(parkingDataList);
-    print(widget.isFirst);
+    // print(widget.isFirst);
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       backgroundColor: Colors.white,
       body: SafeArea(
         bottom: false,
         child: Stack(
-
           children: [
             GoogleMap(
               onMapCreated: _onMapCreated,
@@ -72,26 +67,21 @@ class _ParkingMapViewState extends State<ParkingMapView> {
               markers: _parkingMarkers,
               zoomControlsEnabled: false,
             ),
-
             Container(
               margin: EdgeInsets.only(bottom: 60),
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-
                   padding: const EdgeInsets.only(bottom: 20),
                   child: ElevatedButton(
                     onPressed: _showParkingListDialog,
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.black.withOpacity(0.85),
+                      backgroundColor: Colors.black.withOpacity(0.85),
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
                     ),
-
-
-
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(
@@ -103,12 +93,9 @@ class _ParkingMapViewState extends State<ParkingMapView> {
                       ),
                     ),
                   ),
-
                 ),
-
               ),
             ),
-
           ],
         ),
       ),
@@ -118,7 +105,7 @@ class _ParkingMapViewState extends State<ParkingMapView> {
         child: FloatingActionButton(
           backgroundColor: Colors.black87,
           onPressed: _showMyLocation,
-          child: Icon(Icons.my_location, color: CustomColors.myHexColor,),
+          child: Icon(Icons.my_location, color: CustomColors.myHexColor),
         ),
       ),
     );
@@ -145,37 +132,34 @@ class _ParkingMapViewState extends State<ParkingMapView> {
                     fontSize: 16,
                   ),
                 ),
-
                 SizedBox(height: 20),
-
-                // Additional Text widget for CCTV availability
                 Text(
-                  'CCTV Availability: Yes', // Change as needed
+                  'CCTV Availability: Yes',
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: 14,
                   ),
                 ),
                 SizedBox(height: 10),
-                // Additional Text widget for EV charging availability
                 Text(
-                  'EV Charging Availability: Yes', // Change as needed
+                  'EV Charging Availability: Yes',
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: 14,
                   ),
                 ),
-
                 SizedBox(height: 20),
                 Container(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFFc86868).withOpacity(0.8),
                       elevation: 0,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
                     ),
                     onPressed: () {
-                      Navigator.pop(context); // Close the popup
+                      Navigator.pop(context);
                       _navigateToParkingDetailsPage(parkingName, location, slots);
                     },
                     child: Text('Details'),
@@ -189,19 +173,13 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     );
   }
 
-
-
-
   Future<void> _fetchParkingData() async {
     parkingDataList = await ParkingDataService.fetchParkingData();
   }
 
-  // Show the user's current location on the map and display parking markers
   Future<void> _getLocation() async {
-    // Check and request location service and permission
     bool serviceEnabled;
     PermissionStatus permissionGranted;
-    
 
     serviceEnabled = await _location.serviceEnabled();
     if (!serviceEnabled) {
@@ -219,33 +197,19 @@ class _ParkingMapViewState extends State<ParkingMapView> {
       }
     }
 
-    // Get the user's current location
-    LocationData? locationData; // Note the nullable type
-
-locationData = await _location.getLocation();
-   if(widget.isFirst == -1){
-    LatLng currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
+    LocationData? locationData;
+    locationData = await _location.getLocation();
+    LatLng currentLocation = (widget.isFirst == -1)
+        ? LatLng(locationData.latitude!, locationData.longitude!)
+        : latlang[widget.isFirst];
     _currentLocation = currentLocation;
-    // Fetch and show the parking markers on the map
     MapUtils.zoomToLocation(_mapController, _currentLocation);
-   }
-   else{
-    LatLng currentLocation = latlang[widget.isFirst];
-    _currentLocation = currentLocation;
-    // Fetch and show the parking markers on the map
-    MapUtils.zoomToLocation(_mapController, _currentLocation);
-   }
-    
-
     setState(() {
-      // Use the zoomToLocation function
       _showParkingMarkers(parkingDataList);
     });
   }
 
-  // Show the parking markers on the map
   Future<void> _showParkingMarkers(List<Map<String, dynamic>> parkingDataList) async {
-    // Load custom marker image for parking locations
     BitmapDescriptor customMarker = await BitmapDescriptor.fromAssetImage(
       ImageConfiguration(size: Size(5, 5)),
       'assets/park.png',
@@ -253,17 +217,14 @@ locationData = await _location.getLocation();
 
     setState(() {
       _parkingMarkers.clear();
-      // Add the marker for the user's current location
       _parkingMarkers.add(
         Marker(
           markerId: MarkerId("user_location"),
           position: _currentLocation,
           icon: BitmapDescriptor.defaultMarker,
-
         ),
       );
 
-      // Add markers for parking locations with names
       parkingDataList.forEach((parkingData) {
         double latitude = parkingData['latitude'];
         double longitude = parkingData['longitude'];
@@ -271,8 +232,6 @@ locationData = await _location.getLocation();
         int slots = parkingData['slots'];
         LatLng parkingLocation = LatLng(latitude, longitude);
 
-
-        // Add the parking marker to the set of markers
         _parkingMarkers.add(
           Marker(
             markerId: MarkerId(parkingName),
@@ -291,24 +250,23 @@ locationData = await _location.getLocation();
     });
   }
 
-  // Show the parking list dialog with sorted parking locations
   void _showParkingListDialog() {
     ParkingDialog.showParkingListDialog(
       context,
-      parkingDataList, // Pass the parkingDataList as a parameter
-      _currentLocation, // User's current location
-      _navigateToParkingDetailsPage, // Function to navigate to the details page
+      parkingDataList,
+      _currentLocation,
+      _navigateToParkingDetailsPage,
     );
   }
 
-  // Navigate to the parking details page
-  void _navigateToParkingDetailsPage(String parkingName, LatLng location,int slots) {
+  void _navigateToParkingDetailsPage(String parkingName, LatLng location, int slots) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => DisplayParkingDataPage(
           parkingName: parkingName,
-          location: location, totalSlots: slots,
+          location: location,
+          totalSlots: slots,
         ),
       ),
     );
@@ -318,47 +276,31 @@ locationData = await _location.getLocation();
     _mapController = controller;
   }
 
-
   void _showMyLocation() async {
-    // Show the user's current location on the map
     LocationData locationData = await _location.getLocation();
     LatLng currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
-    MapUtils.zoomToLocation(_mapController, currentLocation); // Use the zoomToLocation function
+    MapUtils.zoomToLocation(_mapController, currentLocation);
   }
 
-
-  //-------------------------------------------------------------------------- NAVIGATION LINES IMPLEMENTATION-----------------------------------------------------------------------------------------------------------------
-
-  // Called when a parking marker is tapped
   void _onMarkerTapped(MarkerId markerId) async {
     if (markerId.value == 'user_location') {
-      // If the user taps on their own location marker, do nothing.
       return;
     }
 
-    // Find the selected parking data based on the markerId
-    Map<String, dynamic>? selectedParkingData;
-    for (var parkingData in parkingDataList) {
-      if (parkingData['parkingName'] == markerId.value) {
-        selectedParkingData = parkingData;
-        break;
-      }
-    }
+    Map<String, dynamic>? selectedParkingData = parkingDataList.firstWhere(
+      (parkingData) => parkingData['parkingName'] == markerId.value,
+      // orElse: () => null,
+    );
 
-    if (selectedParkingData == null) {
-      return;
-    }
+    
 
-    // Get the LatLng of the selected parking
     double latitude = selectedParkingData['latitude'];
     double longitude = selectedParkingData['longitude'];
     LatLng selectedParkingLocation = LatLng(latitude, longitude);
 
-    // Get the user's current location
     LocationData locationData = await _location.getLocation();
     LatLng currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
 
-    // Navigate to the parking details page and pass the required data
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -370,9 +312,4 @@ locationData = await _location.getLocation();
       ),
     );
   }
-
-
-
-
-
 }

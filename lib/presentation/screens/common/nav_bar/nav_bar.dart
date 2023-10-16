@@ -4,6 +4,7 @@ import 'package:ParkMe/presentation/screens/map_view/parking_map_view.dart';
 import '../../profile/user_profile.dart';
 import '../../settings/settings_page.dart';
 import '../../search/search.dart';
+import 'package:ParkMe/parking_owners_screen/dashboard.dart';
 
 
 class BottomNavigationBarPage extends StatefulWidget {
@@ -20,6 +21,7 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = <Widget>[
     ParkingMapView( isFirst: -1),
+    // DashboardPage(username: "Indhira"),
     SearchPage(),
     UserProfilePage(),
     SettingsPage(),
