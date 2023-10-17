@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:ParkMe/presentation/screens/map_view/parking_map_view.dart';
-import 'package:ParkMe/presentation/colors/colors.dart';
-import 'package:ParkMe/presentation/screens/map_view/search_history.dart';
+import 'package:ParkMe/colors/colors.dart';
+import 'package:ParkMe/presentation/screens/search/search_history.dart';
 
 
 
@@ -53,9 +53,11 @@ class _SearchPageState extends State<SearchPage> {
         return parkingName.toLowerCase().contains(searchText.toLowerCase().trim());
       }).toList();
     });
+    
   }
 
   void _navigateToParkingDetails(String parkingName) {
+    SearchHistoryManager.addToSearchHistory(parkingName);
     Navigator.push(
       context,
       MaterialPageRoute(

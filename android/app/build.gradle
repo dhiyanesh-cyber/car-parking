@@ -73,7 +73,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:32.2.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.google.android.gms:play-services-wallet:19.2.0'
+    implementation "dev.shreyaspatil.EasyUpiPayment:EasyUpiPayment:3.0.3"
 
 
 

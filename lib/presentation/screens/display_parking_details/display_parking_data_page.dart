@@ -1,11 +1,8 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:ParkMe/presentation/colors/colors.dart';
+import 'package:ParkMe/colors/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:pay/pay.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:ParkMe/presentation/screens/display_parking_details/payment.dart';
 
 class DisplayParkingDataPage extends StatefulWidget {
   final String parkingName;
@@ -44,59 +41,6 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
       remainingSlots = totalParkingSlots;
     });
   }
-
-  String defaultGooglePay = '''{
-  "provider": "google_pay",
-  "data": {
-    "environment": "TEST",
-    "apiVersion": 2,
-    "apiVersionMinor": 0,
-    "allowedPaymentMethods": [
-      {
-        "type": "CARD",
-        "tokenizationSpecification": {
-          "type": "PAYMENT_GATEWAY",
-          "parameters": {
-            "gateway": "example",
-            "gatewayMerchantId": "gatewayMerchantId"
-          }
-        },
-        "parameters": {
-          "allowedCardNetworks": ["VISA", "MASTERCARD"],
-          "allowedAuthMethods": ["PAN_ONLY", "CRYPTOGRAM_3DS"],
-          "billingAddressRequired": true,
-          "billingAddressParameters": {
-            "format": "FULL",
-            "phoneNumberRequired": true
-          }
-        }
-      }
-    ],
-    "merchantInfo": {
-      "merchantId": "01234567890123456789",
-      "merchantName": "Example Merchant Name"
-    },
-    "transactionInfo": {
-      "countryCode": "IN",
-      "currencyCode": "INR"
-    }
-  }
-}''';
-
-    // Create the payment items.
-    final paymentItems = [
-      PaymentItem(
-        label: "My Product",
-        amount: "10.00",
-        status: PaymentItemStatus.final_price,
-        
-      ),
-    ];
-
-    void onGooglePayResult(dynamic paymentResult) {
-      debugPrint(paymentResult.toString());
-  // Send the resulting Google Pay token to your server / PSP
-}
 
   @override
   Widget build(BuildContext context) {
@@ -268,12 +212,12 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                           onPressed: () {
 
                             // Add your pay button's onPressed logic here
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => gpay(),
-                              ),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     // builder: (context) => gpay(),
+                            //   ),
+                            // );
                             setState(() {
                               remainingSlots = remainingSlots-1;
                             });
@@ -284,12 +228,6 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                           ),
                           child: Text('Pay', style: TextStyle(color: CustomColors.myHexColorLight),),
                         ),
-
-
-
-
-
-
                     ),
                   ],
                 ),
@@ -340,41 +278,15 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
     String currentLocation =  '${position.latitude},${position.longitude}'; // Replace with the actual current location
 
     String url = 'https://www.google.com/maps/dir/?api=1&destination=$parkingLocation&origin=$currentLocation&travelmode=driving';
-
-    if (await canLaunch(url)) {
-      await launch(url);
+    Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
     } else {
       throw 'Could not launch $url';
     }
   }
 
-void openGooglePayApp(String recipientVPA, String recipientName, double amount) async {
-    String encodedVPA = Uri.encodeComponent(recipientVPA);
-    String encodedName = Uri.encodeComponent(recipientName);
 
-    final Uri uri = Uri(
-      scheme: "upi",
-      path: "pay",
-      queryParameters: {
-        "pa": encodedVPA,
-        "pn": encodedName, // Recipient's name
-        "mc": "",            // Merchant code (optional)
-        "tr": "txn_${DateTime.now().millisecondsSinceEpoch}", // Unique transaction reference ID
-        "tn": "Sending money", // Transaction note
-        "am": amount.toStringAsFixed(2), // Transaction amount
-        "cu": "INR",         // Currency code
-        "url": "",           // Transaction URL (optional)
-      },
-    );
-
-    if (await canLaunch(uri.toString())) {
-      await launch(uri.toString(), forceSafariVC: false);
-    } else {
-      // Handle if the app is not installed or cannot be opened.
-      // You can show an error message or take appropriate action.
-      print('Google Pay app not installed or cannot be opened.');
-    }
-  }
 }
 
 

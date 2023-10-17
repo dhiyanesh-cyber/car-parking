@@ -34,12 +34,11 @@ dependencies:
   provider: ^6.0.5
     
   google_maps_flutter: ^2.0.10
-  flutter_polyline_points: ^1.0.0
+  easy_upi_payment: ^0.1.6
   google_maps_webservice: ^0.0.19
   intl: ^0.18.0
   geolocator: ^9.0.2
   location: ^5.0.0
-  upi_india: ^3.0.1
   latlong2: ^0.9.0
   google_nav_bar: ^5.0.6
   line_icons: ^2.0.2
@@ -50,8 +49,6 @@ dependencies:
   image_picker: ^1.0.1
   url_launcher: ^6.1.12
   android_intent_plus: ^4.0.2
-  pay: ^1.1.2
-  upi_pay_india: ^1.0.1+3
 
 
 

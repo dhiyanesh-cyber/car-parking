@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
-import 'package:ParkMe/presentation/colors/colors.dart';
+import 'package:ParkMe/colors/colors.dart';
 import '../display_parking_details/display_parking_data_page.dart';
-import '../parking_Details/parking_details_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import '../../Func/parking_data_service.dart';
-import '../../Func/parking_dialog.dart';
+import '../../../Func/parking_data_service.dart';
+import '../../../Func/parking_dialog.dart';
 import 'package:ParkMe/presentation/screens/map_view/map_utils.dart';
 
 class ParkingMapView extends StatefulWidget {
@@ -282,34 +281,4 @@ class _ParkingMapViewState extends State<ParkingMapView> {
     MapUtils.zoomToLocation(_mapController, currentLocation);
   }
 
-  void _onMarkerTapped(MarkerId markerId) async {
-    if (markerId.value == 'user_location') {
-      return;
-    }
-
-    Map<String, dynamic>? selectedParkingData = parkingDataList.firstWhere(
-      (parkingData) => parkingData['parkingName'] == markerId.value,
-      // orElse: () => null,
-    );
-
-    
-
-    double latitude = selectedParkingData['latitude'];
-    double longitude = selectedParkingData['longitude'];
-    LatLng selectedParkingLocation = LatLng(latitude, longitude);
-
-    LocationData locationData = await _location.getLocation();
-    LatLng currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ParkingDetailsPage(
-          parkingName: markerId.value.toString(),
-          parkingLocation: selectedParkingLocation,
-          currentLocation: currentLocation,
-        ),
-      ),
-    );
-  }
 }

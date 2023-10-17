@@ -1,4 +1,4 @@
-import 'package:ParkMe/parking_owners_screen/parking_register_screen.dart';
+import 'package:ParkMe/presentation/parking_owners_screen/parking_register_screen.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPage extends StatelessWidget {
