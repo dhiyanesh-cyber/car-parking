@@ -277,10 +277,10 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
     String parkingLocation = '${widget.location.latitude},${widget.location.longitude}';
     String currentLocation =  '${position.latitude},${position.longitude}'; // Replace with the actual current location
 
-    Uri url = 'https://www.google.com/maps/dir/?api=1&destination=$parkingLocation&origin=$currentLocation&travelmode=driving' as Uri;
-
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
+    String url = 'https://www.google.com/maps/dir/?api=1&destination=$parkingLocation&origin=$currentLocation&travelmode=driving';
+    Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
     } else {
       throw 'Could not launch $url';
     }
