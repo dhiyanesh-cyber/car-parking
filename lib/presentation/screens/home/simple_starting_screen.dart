@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 
-import 'package:ParkMe/presentation/colors/colors.dart';
+import 'package:ParkMe/colors/colors.dart';
 
 
 

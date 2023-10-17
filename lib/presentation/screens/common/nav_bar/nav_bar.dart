@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ParkMe/presentation/colors/colors.dart';
+import 'package:ParkMe/colors/colors.dart';
 import 'package:ParkMe/presentation/screens/map_view/parking_map_view.dart';
 import '../../profile/user_profile.dart';
 import '../../settings/settings_page.dart';
 import '../../search/search.dart';
-import 'package:ParkMe/parking_owners_screen/dashboard.dart';
 
 
 class BottomNavigationBarPage extends StatefulWidget {

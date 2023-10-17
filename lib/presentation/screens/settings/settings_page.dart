@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:ParkMe/presentation/colors/colors.dart';
+import 'package:ParkMe/colors/colors.dart';
 
 
-import '../feedback/feedback_page.dart';
+import 'feedback/feedback_page.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
