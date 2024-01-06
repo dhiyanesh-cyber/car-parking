@@ -87,51 +87,51 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
               SizedBox(
                 height: 25,
               ),
-              Center(
-                child: Text(
-                  "Select What are you going to park",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                height: 50,
-                width: 350,
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      15,
-                    ),
-                    color: Color(0xFFc86868).withOpacity(.8)),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton(
-                    iconEnabledColor: CustomColors.myHexColorLight,
-                    dropdownColor: Color(0xFFc86868),
-                    value: vechicalOption,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 17,
-                        color: CustomColors.myHexColorLight),
-                    items: const [
-                      DropdownMenuItem(
-                        value: 'Bike',
-                        child: Text('Two wheeler'),
-                      ),
-                      DropdownMenuItem(
-                        value: 'Car',
-                        child: Text('Car'),
-                      ),
-                    ],
-                    onChanged: (value) {
-                      setState(() {
-                        vechicalOption = value!;
-                      });
-                    },
-                  ),
-                ),
-              ),
+              // Center(
+              //   child: Text(
+              //     "Select What are you going to park",
+              //     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              //   ),
+              // ),
+              // SizedBox(
+              //   height: 20,
+              // ),
+              // Container(
+              //   height: 50,
+              //   width: 350,
+              //   padding: const EdgeInsets.symmetric(horizontal: 15),
+              //   decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.circular(
+              //         15,
+              //       ),
+              //       color: Color(0xFFc86868).withOpacity(.8)),
+              //   child: DropdownButtonHideUnderline(
+              //     child: DropdownButton(
+              //       iconEnabledColor: CustomColors.myHexColorLight,
+              //       dropdownColor: Color(0xFFc86868),
+              //       value: vechicalOption,
+              //       style: const TextStyle(
+              //           fontWeight: FontWeight.w700,
+              //           fontSize: 17,
+              //           color: CustomColors.myHexColorLight),
+              //       items: const [
+              //         DropdownMenuItem(
+              //           value: 'Bike',
+              //           child: Text('Two wheeler'),
+              //         ),
+              //         DropdownMenuItem(
+              //           value: 'Car',
+              //           child: Text('Car'),
+              //         ),
+              //       ],
+              //       onChanged: (value) {
+              //         setState(() {
+              //           vechicalOption = value!;
+              //         });
+              //       },
+              //     ),
+              //   ),
+              // ),
               const SizedBox(
                 height: 30,
               ),
@@ -202,7 +202,7 @@ class _DisplayParkingDataPageState extends State<DisplayParkingDataPage> {
                   children: [
                   Container(
                         height: 50,
-                        width: 100,
+                        width: 120,
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),

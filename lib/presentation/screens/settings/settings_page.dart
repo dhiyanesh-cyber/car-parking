@@ -137,7 +137,7 @@ class SettingsPage extends StatelessWidget {
               ),
               Container(
                 height: 70.0,
-                width: 130,
+                width: 140,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   gradient: LinearGradient(
