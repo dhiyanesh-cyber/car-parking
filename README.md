@@ -1,4 +1,4 @@
-# mapsss
+# Parkme ~ A solution for seamless parking
 
 A new Flutter project.
 
