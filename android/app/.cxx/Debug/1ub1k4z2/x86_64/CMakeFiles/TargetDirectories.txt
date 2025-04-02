@@ -1,0 +1,2 @@
+C:/Dev/car-parking/android/app/.cxx/Debug/1ub1k4z2/x86_64/CMakeFiles/edit_cache.dir
+C:/Dev/car-parking/android/app/.cxx/Debug/1ub1k4z2/x86_64/CMakeFiles/rebuild_cache.dir

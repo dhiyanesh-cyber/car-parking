@@ -34,7 +34,6 @@ dependencies:
   provider: ^6.0.5
     
   google_maps_flutter: ^2.0.10
-  easy_upi_payment: ^0.1.6
   google_maps_webservice: ^0.0.19
   intl: ^0.18.0
   geolocator: ^9.0.2
